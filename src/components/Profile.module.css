@@ -1,0 +1,8 @@
+.MainContent {
+    grid-area: main;
+    background-color: #ffffff;
+}
+.Poster {
+    width: 100%;
+    height: 200px;
+}

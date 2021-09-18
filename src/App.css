@@ -6,36 +6,5 @@
                         'navbar main';
 }
 
-.App-logo {
-  height: 50px;
-  width: 50px;
-}
 
-.App-header {
-  grid-area: header;
-  background-color: #282c34;
-  /*min-height: 100vh;*/
-  /*display: flex;*/
-  /*flex-direction: column;*/
-  /*align-items: center;*/
-  /*justify-content: center;*/
-  font-size: calc(10px + 2vmin);
-  color: white;
-}
-.Navbar {
-  grid-area: navbar;
-  background-color: #68dafb;
-}
-.MainContent {
-  grid-area: main;
-  background-color: #ffffff;
-}
-.Poster {
-  width: 100%;
-  height: 200px;
-}
-
-.App-link {
-  color: #61dafb;
-}
 

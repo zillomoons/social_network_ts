@@ -1,10 +1,10 @@
 import React from 'react';
-import '../App.css';
+import s from './Navbar.module.css'
 
 export const Navbar = (props: any) => {
     return (
-        <nav className="Navbar">
-            <div>Profile</div>
+        <nav className={s.Navbar}>
+            <div className={s.active}>Profile</div>
             <div>Messages</div>
             <div>News</div>
             <div>Music</div>

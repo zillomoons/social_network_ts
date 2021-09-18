@@ -1,0 +1,8 @@
+.Navbar {
+    grid-area: navbar;
+    background-color: #68dafb;
+    color: white;
+}
+.active {
+    color: gold;
+}
