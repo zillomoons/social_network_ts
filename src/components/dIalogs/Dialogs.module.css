@@ -1,5 +1,9 @@
 .dialogsWrapper {
     background-color: #edf6f9;
+    padding: 15px 35px;
+    display: grid;
+    grid-template-columns: 2fr 10fr;
+    gap: 70px;
 }
 .messageWrapper {
 
@@ -45,4 +49,10 @@
     text-align: right;
     font-size: 14px;
 }
+.dialogsWrapper .contacts{
+   margin-bottom: 10px;
+    color: #282c34;
+}
+
+
 

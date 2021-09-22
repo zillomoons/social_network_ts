@@ -11,16 +11,40 @@ export const Dialogs = () => {
         {id: 3, userImage: ava_1, name: 'Nick', text: 'working', time: '20.35'},
         {id: 4, userImage: ava_2, name: 'Alex', text: 'you better be))', time: '21.00'},
     ]
+    const contacts = [
+        { id: 1, name: 'Nick'},
+        { id: 1, name: 'John'},
+        { id: 1, name: 'Max'},
+        { id: 1, name: 'Ann'},
+        { id: 1, name: 'Kate'},
+        { id: 1, name: 'Rupert'},
+
+    ]
 
     return (
         <div className={styles.dialogsWrapper}>
-            {
-                dialogsItems.map(d => {
-                    return <DialogItem key={d.id} id={d.id}
-                                       userImage={d.userImage}
-                                       name={d.name} text={d.text} time={d.time}/>
-                })
-            }
+            <div>
+                <h3>Contacts</h3>
+                <ul>
+                    {
+                        contacts.map( c => {
+                            return (
+                                <li className={styles.contacts} key={c.id}>{c.name}</li>
+                            )
+                        })
+                    }
+                </ul>
+            </div>
+            <div>
+                {
+                    dialogsItems.map(d => {
+                        return <DialogItem key={d.id} id={d.id}
+                                           userImage={d.userImage}
+                                           name={d.name} text={d.text} time={d.time}/>
+                    })
+                }
+            </div>
+
         </div>
     );
 };
