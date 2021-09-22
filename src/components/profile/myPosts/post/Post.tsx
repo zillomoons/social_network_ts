@@ -1,11 +1,22 @@
 import React from 'react';
 import s from './Post.module.css'
 
-const Post = () => {
+export type PostPropsType = {
+    id: number
+    message: string
+    likesCount: number
+    userImage: string
+}
+const Post = (props: PostPropsType) => {
     return (
         <div>
-            <img className={s.avatar} src="https://skidka02.ru/wp-content/uploads/instagram-avatarka-razmer_31.jpg" alt="avatarka"/> Post
-            <div>like</div>
+            <div className={s.postWrapper}>
+            <img className={s.avatar}
+                 src={props.userImage}
+                 alt="avatarka"/>
+            {props.message}
+            </div>
+            <div className={s.like}>Likes: {props.likesCount}</div>
         </div>
     );
 };

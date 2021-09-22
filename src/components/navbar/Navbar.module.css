@@ -2,6 +2,7 @@
     grid-area: navbar;
     background-color: #68dafb;
     color: white;
+    padding: 15px;
 }
 .active {
     color: gold;
