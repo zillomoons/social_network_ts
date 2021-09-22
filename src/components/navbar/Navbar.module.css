@@ -1,12 +1,13 @@
 .Navbar {
     grid-area: navbar;
     background-color: #68dafb;
+    padding: 15px 35px;
+}
+.item a {
     color: white;
-    padding: 15px;
+    text-decoration: none;
+    margin-bottom: 25px;
 }
-.active {
+.item a.activeLink {
     color: gold;
-}
-a {
-    color: inherit;
 }
