@@ -6,9 +6,9 @@ import DialogItem from "./dialogItem/dialogItem";
 
 export const Dialogs = () => {
     const dialogsItems = [
-        {id: 1, userImage: ava_1, name: 'Artem', text: 'Hey, wassup?', time: '20.00'},
-        {id: 2, userImage: ava_2, name: 'Alex', text: 'everything alright, and you', time: '20.15'},
-        {id: 3, userImage: ava_1, name: 'Artem', text: 'working', time: '20.35'},
+        {id: 1, userImage: ava_1, name: 'Nick', text: 'Hey, wassup?', time: '20.00'},
+        {id: 2, userImage: ava_2, name: 'Alex', text: 'alright, and you', time: '20.15'},
+        {id: 3, userImage: ava_1, name: 'Nick', text: 'working', time: '20.35'},
         {id: 4, userImage: ava_2, name: 'Alex', text: 'you better be))', time: '21.00'},
     ]
 

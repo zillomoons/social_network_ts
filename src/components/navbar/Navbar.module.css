@@ -7,3 +7,6 @@
 .active {
     color: gold;
 }
+a {
+    color: inherit;
+}

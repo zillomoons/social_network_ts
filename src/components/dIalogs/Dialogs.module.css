@@ -7,7 +7,7 @@
     gap: 25px;
     padding: 25px;
 }
-img {
+.dialogsWrapper img {
     width: 50px;
     height: 50px;
     border-radius: 50%;
