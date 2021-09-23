@@ -1,10 +1,10 @@
 .dialogsWrapper {
+    grid-area: main;
     background-color: #edf6f9;
-    padding: 15px 35px;
-    display: grid;
-    grid-template-columns: 2fr 10fr;
+    padding: 15px 70px;
+    display: flex;
+    justify-content: space-evenly;
     gap: 70px;
-    width: 100%;
 }
 .messageWrapper {
     display: flex;
@@ -53,8 +53,9 @@
     margin-bottom: 10px;
     color: #282c34;
 }
-a .contacts {
-    color: inherit;
+
+.contacts a {
+    color: #006d77;
 }
 
 

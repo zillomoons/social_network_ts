@@ -1,8 +1,9 @@
 import React from 'react';
+import styles from './profile/Profile.module.css'
 
 const NewsPage = () => {
     return (
-        <div>
+        <div className={styles.MainContent}>
             News will be here.
         </div>
     );

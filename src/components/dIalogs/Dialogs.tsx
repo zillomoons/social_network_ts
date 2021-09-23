@@ -1,40 +1,32 @@
 import React from 'react';
 import styles from './Dialogs.module.css'
-import DialogItem, {DialogItemPropsType} from "./dialogItem/dialogItem";
+import DialogItem from "./dialogItem/dialogItem";
 import {NavLink} from 'react-router-dom';
+import {DialogsPageType} from "../redux/state";
 
-export type ContactPropsType = {
-    id: number
-    name: string
-    path: string
+type DialogsPagePropsType = {
+    dialogsPage: DialogsPageType
 }
-
-export type DialogsPropsType = {
-    contacts: Array<ContactPropsType>
-    dialogItems: Array<DialogItemPropsType>
-}
-
-export const Dialogs = (props: DialogsPropsType) => {
+export const Dialogs = (props: DialogsPagePropsType) => {
     return (
         <div className={styles.dialogsWrapper}>
             <div>
                 <h3>Contacts</h3>
-                <ul>
-                    {
-                        props.contacts.map(c => {
-                            return (
-                                <div key={c.id} className={styles.contacts}>
-                                    <NavLink to={c.path}>{c.name}</NavLink>
-                                </div>
+                {
+                    props.dialogsPage.contacts.map(c => {
+                        return (
+                            <div key={c.id} className={styles.contacts}>
+                                <NavLink to={c.path}>{c.name}</NavLink>
+                            </div>
 
-                            )
-                        })
-                    }
-                </ul>
+                        )
+                    })
+                }
+
             </div>
             <div>
                 {
-                    props.dialogItems.map(d => {
+                    props.dialogsPage.dialogItems.map(d => {
                         return <DialogItem key={d.id} id={d.id}
                                            userImage={d.userImage}
                                            name={d.name} text={d.text} time={d.time}/>

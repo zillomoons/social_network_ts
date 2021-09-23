@@ -2,7 +2,7 @@ import React from 'react';
 import Post, {PostPropsType} from "./post/Post";
 import s from './MyPosts.module.css'
 
-export type MyPostsPropsType = { posts: Array<PostPropsType> }
+type MyPostsPropsType = { posts: Array<PostPropsType> }
 
 const MyPosts = (props: MyPostsPropsType) => {
     return (

@@ -3,7 +3,7 @@ import styles from './HomePage.module.css';
 
 const HomePage = () => {
     return (
-        <div className={styles.intro}>
+        <div className={styles.MainContent}>
             <h1>Welcome to social network 'SamuraiJS'</h1>
         </div>
     );
