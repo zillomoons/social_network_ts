@@ -3,10 +3,8 @@
     width: 80%;
     max-width: 1200px;
     margin: auto;
-    grid-template-columns: 2fr 8fr;
-    /*grid-template-rows: 60px 100%;*/
     grid-template-areas: 'header header'
-                        'navbar main';
+                        'main main';
 }
 
 

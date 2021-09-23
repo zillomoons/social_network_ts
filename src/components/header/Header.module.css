@@ -1,16 +1,16 @@
 .logo {
     height: 50px;
     width: 50px;
+    cursor: pointer;
 }
 
 .header {
     grid-area: header;
     background-color: #282c34;
-    /*min-height: 100vh;*/
-    /*display: flex;*/
-    /*flex-direction: column;*/
-    /*align-items: center;*/
-    /*justify-content: center;*/
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
     font-size: calc(10px + 2vmin);
     color: white;
+    padding: 15px 20px;
 }

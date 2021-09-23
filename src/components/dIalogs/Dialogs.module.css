@@ -4,9 +4,9 @@
     display: grid;
     grid-template-columns: 2fr 10fr;
     gap: 70px;
+    width: 100%;
 }
 .messageWrapper {
-
     display: flex;
     gap: 25px;
     padding: 25px;

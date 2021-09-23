@@ -1,3 +1,12 @@
 .addNewPost {
     margin-bottom: 50px;
 }
+.addNewPost textarea {
+    margin-bottom: 15px;
+}
+.addNewPost button {
+    display: block;
+}
+.posts {
+    padding: 15px;
+}

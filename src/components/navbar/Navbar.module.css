@@ -1,13 +1,14 @@
-.Navbar {
-    grid-area: navbar;
-    background-color: #68dafb;
-    padding: 15px 35px;
+.navbarMenu {
+    color: white;
+    display: flex;
+    gap: 15px;
+    align-items: center;
 }
-.item a {
+.navbarMenu a {
     color: white;
     text-decoration: none;
-    margin-bottom: 25px;
+
 }
-.item a.activeLink {
-    color: gold;
+.navbarMenu a.activeLink {
+    color: #61dbfb;
 }
