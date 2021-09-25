@@ -15,8 +15,11 @@ export const Dialogs = (props: DialogsPagePropsType) => {
                 {
                     props.dialogsPage.contacts.map(c => {
                         return (
-                            <div key={c.id} className={styles.contacts}>
-                                <NavLink to={c.path}>{c.name}</NavLink>
+                            <div key={c.id} >
+                                <NavLink to={c.path} className={styles.contacts}>
+                                    <img src={c.userImage} alt='avatar'/>
+                                    {c.name}
+                                </NavLink>
                             </div>
 
                         )

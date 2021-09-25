@@ -1,7 +1,7 @@
 .MainContent {
     grid-area: main;
     background-color: #edf6f9;
-    height: 100vh;
+    /*height: 100vh;*/
 }
 img.poster {
     width: 100%;
