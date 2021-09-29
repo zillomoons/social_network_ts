@@ -62,6 +62,22 @@
 a .contacts {
     color: #006d77;
 }
+.addMessageWrapper {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 15px;
+    margin-top: 25px;
+}
+.addMessageWrapper textarea {
+    border-radius: 6px;
+}
+.addMessageWrapper button {
+    background-color: #006d77;
+    color: white;
+    padding: 3px 7px;
+    border-radius: 6px;
+}
 
 
 

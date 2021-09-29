@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {ChangeEvent} from 'react';
 import styles from './Dialogs.module.css'
 import DialogItem from "./dialogItem/dialogItem";
 import {NavLink} from 'react-router-dom';
@@ -8,6 +8,12 @@ type DialogsPagePropsType = {
     dialogsPage: DialogsPageType
 }
 export const Dialogs = (props: DialogsPagePropsType) => {
+    const onSendMessage = () => { alert('New Message')}
+    const onNewMessageChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
+        let newMessage = e.currentTarget.value
+        console.log(newMessage)
+    }
+
     return (
         <div className={styles.dialogsWrapper}>
             <div>
@@ -35,6 +41,11 @@ export const Dialogs = (props: DialogsPagePropsType) => {
                                            name={d.name} text={d.text} time={d.time}/>
                     })
                 }
+                <div className={styles.addMessageWrapper}>
+                    <textarea onChange={onNewMessageChange} placeholder={'Write a message'}></textarea>
+                    <button onClick={onSendMessage}>Send</button>
+                </div>
+
             </div>
 
         </div>

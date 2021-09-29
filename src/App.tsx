@@ -12,6 +12,7 @@ import {RootStateType} from "./components/redux/state";
 
 type AppPropsType = {
     state: RootStateType
+    addPostCallback: (postMessage: string) => void
 }
 const App = (props: AppPropsType) => {
 
@@ -20,7 +21,8 @@ const App = (props: AppPropsType) => {
             <div className="App">
                 <Header/>
                 <Route exact path={'/'}><HomePage /></Route>
-                <Route exact path={'/profile'}><Profile profilePage={props.state.profilePage} /></Route>
+                <Route exact path={'/profile'}><Profile profilePage={props.state.profilePage}
+                                                        addPostCallback={props.addPostCallback} /></Route>
                 <Route exact path={'/dialogs'}><Dialogs dialogsPage={props.state.dialogsPage} /></Route>
                 <Route exact path={'/news'}><NewsPage /></Route>
                 <Route exact path={'/music'}><Music /></Route>

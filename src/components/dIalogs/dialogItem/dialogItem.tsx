@@ -2,7 +2,7 @@ import React from 'react';
 import styles from './../Dialogs.module.css'
 
 export type DialogItemPropsType = {
-    id: number
+    id: string
     userImage: string
     name: string
     text: string
