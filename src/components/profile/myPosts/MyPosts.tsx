@@ -4,25 +4,25 @@ import s from './MyPosts.module.css'
 
 type MyPostsPropsType = {
     posts: Array<PostPropsType>
-    addPostCallback: (postMessage: string) => void
+    newPostText: string
+    addPostCallback: () => void
+    updateNewPostText: (newText: string) => void
 }
 
 const MyPosts = (props: MyPostsPropsType) => {
-    let newPost: string
 
     const onNewPostChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
-        newPost = e.currentTarget.value
+        props.updateNewPostText(e.currentTarget.value)
     }
     const onAddPost = () =>{
-        props.addPostCallback(newPost)
-        newPost = ''
+        props.addPostCallback();
     }
 
     return (
         <div className={s.posts}>
             <h3>My posts</h3>
             <div className={s.addNewPost}>
-                <textarea onChange={onNewPostChange} placeholder={'Add post'}></textarea>
+                <textarea onChange={onNewPostChange} value={props.newPostText} placeholder={'Add post'} />
                 <button onClick={onAddPost}>Add post</button>
             </div>
             {

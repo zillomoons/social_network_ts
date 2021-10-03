@@ -12,7 +12,10 @@ import {RootStateType} from "./components/redux/state";
 
 type AppPropsType = {
     state: RootStateType
-    addPostCallback: (postMessage: string) => void
+    addPostCallback: () => void
+    updateNewPostText: (newText: string) => void
+    updateNewMessageText: (newMessage: string) => void
+    addMessageCallback: () => void
 }
 const App = (props: AppPropsType) => {
 
@@ -20,13 +23,16 @@ const App = (props: AppPropsType) => {
         <BrowserRouter>
             <div className="App">
                 <Header/>
-                <Route exact path={'/'}><HomePage /></Route>
+                <Route exact path={'/'}><HomePage/></Route>
                 <Route exact path={'/profile'}><Profile profilePage={props.state.profilePage}
-                                                        addPostCallback={props.addPostCallback} /></Route>
-                <Route exact path={'/dialogs'}><Dialogs dialogsPage={props.state.dialogsPage} /></Route>
-                <Route exact path={'/news'}><NewsPage /></Route>
-                <Route exact path={'/music'}><Music /></Route>
-                <Route exact path={'/settings'}><Settings /></Route>
+                                                        addPostCallback={props.addPostCallback}
+                                                        updateNewPostText={props.updateNewPostText}/></Route>
+                <Route exact path={'/dialogs'}><Dialogs dialogsPage={props.state.dialogsPage}
+                                                        addMessageCallback={props.addMessageCallback}
+                                                        updateNewMessageText={props.updateNewMessageText}/></Route>
+                <Route exact path={'/news'}><NewsPage/></Route>
+                <Route exact path={'/music'}><Music/></Route>
+                <Route exact path={'/settings'}><Settings/></Route>
             </div>
         </BrowserRouter>
     );

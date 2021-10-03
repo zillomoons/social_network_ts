@@ -3,13 +3,24 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
-import {addPostCallback, RootStateType} from "./components/redux/state";
+import {
+    addMessageCallback,
+    addPostCallback,
+    RootStateType,
+    updateNewMessageText,
+    updateNewPostText
+} from "./components/redux/state";
 
 export const rerenderEntireTree = (state: RootStateType) => {
 
     ReactDOM.render(
         <React.StrictMode>
-            <App state={state} addPostCallback={addPostCallback}/>
+            <App state={state}
+                 updateNewPostText={updateNewPostText}
+                 addPostCallback={addPostCallback}
+                 addMessageCallback={addMessageCallback}
+                 updateNewMessageText={updateNewMessageText}
+            />
         </React.StrictMode>,
         document.getElementById('root')
     );

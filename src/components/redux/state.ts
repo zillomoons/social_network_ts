@@ -25,6 +25,7 @@ export type ContactType = {
 export type DialogsPageType = {
     contacts: Array<ContactType>
     dialogItems: Array<DialogItemType>
+    newMessageText: string
 }
 export type PostType = {
     id: string
@@ -32,7 +33,7 @@ export type PostType = {
     likesCount: number
     userImage: string
 }
-export type ProfilePageType = { posts : Array<PostType> }
+export type ProfilePageType = { posts : Array<PostType>, newPostText: string }
 
 export type RootStateType = {
     profilePage: ProfilePageType
@@ -47,8 +48,8 @@ export const state: RootStateType = {
             {id: v1(), message: 'I am not insane. My mother had me tested', likesCount: 12, userImage: ava_3},
             {id: v1(), message: "Here's only one donut left, so wheelchair", likesCount: 3, userImage: ava_4},
             {id: v1(), message: "Are you still depressed, because you're alone and no one loves you?", likesCount: 0, userImage: ava_5},
-            // {id: 6, message: 'We are the champions!!', likesCount: 100, userImage: ava_6},
-        ]
+        ],
+        newPostText: ''
     },
     dialogsPage: {
         contacts: [
@@ -64,14 +65,31 @@ export const state: RootStateType = {
             {id: v1(), userImage: ava_2, name: 'Alex', text: 'alright, and you', time: '20.15'},
             {id: v1(), userImage: ava_1, name: 'Nick', text: 'working', time: '20.35'},
             {id: v1(), userImage: ava_2, name: 'Alex', text: 'you better be))', time: '21.00'},
-        ]
+        ],
+        newMessageText: ''
     }
 }
 
-export const addPostCallback = (postMessage: string) => {
-
-    let newPost = { id: v1(), message: postMessage, likesCount: 0, userImage: user_ava}
-    state.profilePage.posts.push(newPost)
+export const addPostCallback = () => {
+    let newPost = { id: v1(), message: state.profilePage.newPostText, likesCount: 0, userImage: user_ava}
+    state.profilePage.posts.push(newPost);
+    state.profilePage.newPostText = '';
     rerenderEntireTree(state)
     // state.profilePage.posts = [...state.profilePage.posts, newPost]
+}
+export const updateNewPostText = (newText: string) => {
+    state.profilePage.newPostText = newText;
+    rerenderEntireTree(state);
+}
+
+export const addMessageCallback = () => {
+    let dialogItem = {id: v1(), userImage: user_ava, name: 'Someone', text: state.dialogsPage.newMessageText, time: '15.45'}
+    state.dialogsPage.dialogItems.push(dialogItem);
+    state.dialogsPage.newMessageText = '';
+    rerenderEntireTree(state);
+}
+
+export const updateNewMessageText = (newMessage: string) => {
+    state.dialogsPage.newMessageText = newMessage;
+    rerenderEntireTree(state);
 }

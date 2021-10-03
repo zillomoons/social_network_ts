@@ -6,12 +6,16 @@ import {DialogsPageType} from "../redux/state";
 
 type DialogsPagePropsType = {
     dialogsPage: DialogsPageType
+    updateNewMessageText: (newMessage: string) => void
+    addMessageCallback: () => void
 }
 export const Dialogs = (props: DialogsPagePropsType) => {
-    const onSendMessage = () => { alert('New Message')}
+    const onSendMessage = () => {
+        props.addMessageCallback();
+    }
     const onNewMessageChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
-        let newMessage = e.currentTarget.value
-        console.log(newMessage)
+        props.updateNewMessageText(e.currentTarget.value)
+        console.log(e.currentTarget.value)
     }
 
     return (
@@ -21,7 +25,7 @@ export const Dialogs = (props: DialogsPagePropsType) => {
                 {
                     props.dialogsPage.contacts.map(c => {
                         return (
-                            <div key={c.id} >
+                            <div key={c.id}>
                                 <NavLink to={c.path} className={styles.contacts}>
                                     <img src={c.userImage} alt='avatar'/>
                                     {c.name}
@@ -42,7 +46,7 @@ export const Dialogs = (props: DialogsPagePropsType) => {
                     })
                 }
                 <div className={styles.addMessageWrapper}>
-                    <textarea onChange={onNewMessageChange} placeholder={'Write a message'}></textarea>
+                    <textarea onChange={onNewMessageChange} value={props.dialogsPage.newMessageText} placeholder={'Write a message'}/>
                     <button onClick={onSendMessage}>Send</button>
                 </div>
 
