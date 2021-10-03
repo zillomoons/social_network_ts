@@ -7,7 +7,10 @@ import ava_6 from "../../assets/images/ava_6.jpg";
 import ava_7 from "../../assets/images/logo.jpg";
 import user_ava from "../../assets/images/user_ava.png"
 import {v1} from "uuid";
-import {rerenderEntireTree} from "../../render";
+
+let rerenderEntireTree = (state: RootStateType) => {
+    console.log('state has changed')
+}
 
 export type DialogItemType = {
     id: string
@@ -40,7 +43,7 @@ export type RootStateType = {
     dialogsPage: DialogsPageType
 }
 
-export const state: RootStateType = {
+export let state: RootStateType = {
     profilePage: {
         posts: [
             {id: v1(), message: 'Prepare yourself for what may come', likesCount: 45, userImage: ava_1},
@@ -81,15 +84,17 @@ export const updateNewPostText = (newText: string) => {
     state.profilePage.newPostText = newText;
     rerenderEntireTree(state);
 }
-
 export const addMessageCallback = () => {
     let dialogItem = {id: v1(), userImage: user_ava, name: 'Someone', text: state.dialogsPage.newMessageText, time: '15.45'}
     state.dialogsPage.dialogItems.push(dialogItem);
     state.dialogsPage.newMessageText = '';
     rerenderEntireTree(state);
 }
-
 export const updateNewMessageText = (newMessage: string) => {
     state.dialogsPage.newMessageText = newMessage;
     rerenderEntireTree(state);
+}
+
+export const subscribe = (observer: (state: RootStateType) => void) => {
+    rerenderEntireTree = observer;
 }
