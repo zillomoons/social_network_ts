@@ -7,10 +7,10 @@ import ava_6 from "../../assets/images/ava_6.jpg";
 import ava_7 from "../../assets/images/logo.jpg";
 import user_ava from "../../assets/images/user_ava.png"
 import {v1} from "uuid";
-const ADD_POST = 'ADD-POST';
-const UPDATE_POST = 'UPDATE-POST';
-const SEND_MESSAGE = 'SEND-MESSAGE';
-const UPDATE_MESSAGE = 'UPDATE-MESSAGE';
+// const ADD_POST = 'ADD-POST';
+// const UPDATE_POST = 'UPDATE-POST';
+// const SEND_MESSAGE = 'SEND-MESSAGE';
+// const UPDATE_MESSAGE = 'UPDATE-MESSAGE';
 
 let today = new Date();
 
@@ -38,24 +38,24 @@ export type PostType = {
     likesCount: number
     userImage: string
 }
-export type ProfilePageType = { posts : Array<PostType>, newPostText: string }
+export type ProfilePageType = { posts : PostType[], newPostText: string }
 
 export type RootStateType = {
     profilePage: ProfilePageType
     dialogsPage: DialogsPageType
 }
 
-export type ActionType = {
-    type: string
-    newText?: string
-}
+
+export type ActionTypes = ReturnType<typeof addPostAC> | ReturnType<typeof updatePostAC>
+    | ReturnType<typeof addMessageAC> | ReturnType<typeof updateMessageAC>
+    // {type: string, newText?: string}
 
 export type StoreType = {
     _state: RootStateType
     _callSubscriber: () => void
     subscribe: (observer: () => void) => void
     getState: () => RootStateType
-    dispatch: (action: ActionType) => void
+    dispatch: (action: ActionTypes) => void
 }
 
 export const store: StoreType = {
@@ -100,25 +100,25 @@ export const store: StoreType = {
     },
 
     dispatch(action){
-        if (action.type === ADD_POST){
+        if (action.type === 'ADD-POST'){
             let newPost: PostType = { id: v1(), message: this._state.profilePage.newPostText,
                 likesCount: 0, userImage: user_ava}
             this._state.profilePage.posts.push(newPost);
             this._state.profilePage.newPostText = '';
             this._callSubscriber()
-        } else if (action.type === UPDATE_POST){
+        } else if (action.type === 'UPDATE-POST'){
             if (action.newText != null) {
                 this._state.profilePage.newPostText = action.newText;
             }
             this._callSubscriber();
-        } else if (action.type === SEND_MESSAGE) {
+        } else if (action.type === 'SEND-MESSAGE') {
             let dialogItem = {id: v1(), userImage: user_ava, name: 'Someone',
                 text: this._state.dialogsPage.newMessageText,
                 time: today.getHours()+'.'+ today.getMinutes()}
             this._state.dialogsPage.dialogItems.push(dialogItem);
             this._state.dialogsPage.newMessageText = '';
             this._callSubscriber();
-        } else if (action.type === UPDATE_MESSAGE){
+        } else if (action.type === 'UPDATE-MESSAGE'){
             if (action.newText != null) {
                 this._state.dialogsPage.newMessageText = action.newText;
             }
@@ -126,9 +126,11 @@ export const store: StoreType = {
         }
     }
 }
-export const addPostAC = () => ({type: ADD_POST})
-export const updatePostAC = (text: string) => ({ type: UPDATE_POST, newText: text})
 
-export const addMessageAC = () => ({type: SEND_MESSAGE})
-export const updateMessageAC = (text: string) => ({ type: UPDATE_MESSAGE, newText: text})
+
+export const addPostAC = () => ({type: 'ADD-POST'} as const)
+export const updatePostAC = (text: string) => ({ type: 'UPDATE-POST', newText: text} as const)
+
+export const addMessageAC = () => ({type: 'SEND-MESSAGE'} as const)
+export const updateMessageAC = (text: string) => ({ type: 'UPDATE-MESSAGE', newText: text} as const)
 

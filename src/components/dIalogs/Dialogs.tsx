@@ -2,19 +2,17 @@ import React, {ChangeEvent} from 'react';
 import styles from './Dialogs.module.css'
 import DialogItem from "./dialogItem/dialogItem";
 import {NavLink} from 'react-router-dom';
-import {ActionType, addMessageAC, DialogsPageType, updateMessageAC} from "../redux/state";
+import {ActionTypes, addMessageAC, DialogsPageType, updateMessageAC} from "../redux/state";
 
 type DialogsPagePropsType = {
     dialogsPage: DialogsPageType
-    dispatch: (action: ActionType) => void
+    dispatch: (action: ActionTypes) => void
 }
 export const Dialogs: React.FC<DialogsPagePropsType> = ({dialogsPage, dispatch}) => {
-    const onSendMessage = () => {
-        dispatch(addMessageAC());
-    }
-    const onNewMessageChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
-        dispatch(updateMessageAC(e.currentTarget.value))
-    }
+    const onSendMessage = () => dispatch(addMessageAC());
+
+    const onNewMessageChange = (e: ChangeEvent<HTMLTextAreaElement>) => dispatch(updateMessageAC(e.currentTarget.value))
+
     const mappedContacts = dialogsPage.contacts.map(c => {
         return (
             <div key={c.id}>
