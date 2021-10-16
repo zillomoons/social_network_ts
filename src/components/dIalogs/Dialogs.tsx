@@ -2,7 +2,8 @@ import React, {ChangeEvent} from 'react';
 import styles from './Dialogs.module.css'
 import DialogItem from "./dialogItem/dialogItem";
 import {NavLink} from 'react-router-dom';
-import {ActionTypes, addMessageAC, DialogsPageType, updateMessageAC} from "../redux/state";
+import {ActionTypes, DialogsPageType} from "../../redux/state";
+import {addMessageAC, updateMessageAC} from "../../redux/dialogsReducer";
 
 type DialogsPagePropsType = {
     dialogsPage: DialogsPageType

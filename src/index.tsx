@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import './index.css';
-import {store} from "./components/redux/state";
+import {store} from "./redux/state";
 
 
 const rerenderEntireTree = () => {

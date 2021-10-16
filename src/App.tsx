@@ -8,7 +8,7 @@ import NewsPage from "./components/NewsPage";
 import Music from "./components/Music";
 import Settings from "./components/Settings";
 import HomePage from "./components/HomePage";
-import {StoreType} from "./components/redux/state";
+import {StoreType} from "./redux/state";
 
 type AppPropsType = {
     store: StoreType

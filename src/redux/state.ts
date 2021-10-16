@@ -1,18 +1,14 @@
-import ava_1 from "../../assets/images/ava_1.jpg";
-import ava_2 from "../../assets/images/ava_2.jpg";
-import ava_3 from "../../assets/images/ava_3.jpg";
-import ava_4 from "../../assets/images/ava_4.jpg";
-import ava_5 from "../../assets/images/ava_5.jpg";
-import ava_6 from "../../assets/images/ava_6.jpg";
-import ava_7 from "../../assets/images/logo.jpg";
-import user_ava from "../../assets/images/user_ava.png"
+import ava_1 from "../assets/images/ava_1.jpg";
+import ava_2 from "../assets/images/ava_2.jpg";
+import ava_3 from "../assets/images/ava_3.jpg";
+import ava_4 from "../assets/images/ava_4.jpg";
+import ava_5 from "../assets/images/ava_5.jpg";
+import ava_6 from "../assets/images/ava_6.jpg";
+import ava_7 from "../assets/images/logo.jpg";
 import {v1} from "uuid";
-// const ADD_POST = 'ADD-POST';
-// const UPDATE_POST = 'UPDATE-POST';
-// const SEND_MESSAGE = 'SEND-MESSAGE';
-// const UPDATE_MESSAGE = 'UPDATE-MESSAGE';
+import {addPostAC, profileReducer, updatePostAC} from "./profileReducer";
+import {addMessageAC, dialogsReducer, updateMessageAC} from "./dialogsReducer";
 
-let today = new Date();
 
 export type DialogItemType = {
     id: string
@@ -45,10 +41,8 @@ export type RootStateType = {
     dialogsPage: DialogsPageType
 }
 
-
 export type ActionTypes = ReturnType<typeof addPostAC> | ReturnType<typeof updatePostAC>
     | ReturnType<typeof addMessageAC> | ReturnType<typeof updateMessageAC>
-    // {type: string, newText?: string}
 
 export type StoreType = {
     _state: RootStateType
@@ -91,46 +85,45 @@ export const store: StoreType = {
     _callSubscriber(){
         console.log('state has changed')
     },
-
     subscribe(observer) {
         this._callSubscriber = observer;
     },
     getState(){
         return this._state;
     },
-
     dispatch(action){
-        if (action.type === 'ADD-POST'){
-            let newPost: PostType = { id: v1(), message: this._state.profilePage.newPostText,
-                likesCount: 0, userImage: user_ava}
-            this._state.profilePage.posts.push(newPost);
-            this._state.profilePage.newPostText = '';
-            this._callSubscriber()
-        } else if (action.type === 'UPDATE-POST'){
-            if (action.newText != null) {
-                this._state.profilePage.newPostText = action.newText;
-            }
-            this._callSubscriber();
-        } else if (action.type === 'SEND-MESSAGE') {
-            let dialogItem = {id: v1(), userImage: user_ava, name: 'Someone',
-                text: this._state.dialogsPage.newMessageText,
-                time: today.getHours()+'.'+ today.getMinutes()}
-            this._state.dialogsPage.dialogItems.push(dialogItem);
-            this._state.dialogsPage.newMessageText = '';
-            this._callSubscriber();
-        } else if (action.type === 'UPDATE-MESSAGE'){
-            if (action.newText != null) {
-                this._state.dialogsPage.newMessageText = action.newText;
-            }
-            this._callSubscriber();
-        }
+        this._state.profilePage = profileReducer(this._state.profilePage, action);
+        this._state.dialogsPage = dialogsReducer(this._state.dialogsPage, action);
+        this._callSubscriber();
+        // if (action.type === 'ADD-POST'){
+        //     let newPost: PostType = { id: v1(), message: this._state.profilePage.newPostText,
+        //         likesCount: 0, userImage: user_ava}
+        //     this._state.profilePage.posts.push(newPost);
+        //     this._state.profilePage.newPostText = '';
+        //     this._callSubscriber()
+        // } else if (action.type === 'UPDATE-POST'){
+        //     if (action.newText != null) {
+        //         this._state.profilePage.newPostText = action.newText;
+        //     }
+        //     this._callSubscriber();
+        // } else if (action.type === 'SEND-MESSAGE') {
+        //     let dialogItem = {id: v1(), userImage: user_ava, name: 'Someone',
+        //         text: this._state.dialogsPage.newMessageText,
+        //         time: today.getHours()+'.'+ today.getMinutes()}
+        //     this._state.dialogsPage.dialogItems.push(dialogItem);
+        //     this._state.dialogsPage.newMessageText = '';
+        //     this._callSubscriber();
+        // } else if (action.type === 'UPDATE-MESSAGE'){
+        //     if (action.newText != null) {
+        //         this._state.dialogsPage.newMessageText = action.newText;
+        //     }
+        //     this._callSubscriber();
+        // }
     }
 }
 
 
-export const addPostAC = () => ({type: 'ADD-POST'} as const)
-export const updatePostAC = (text: string) => ({ type: 'UPDATE-POST', newText: text} as const)
 
-export const addMessageAC = () => ({type: 'SEND-MESSAGE'} as const)
-export const updateMessageAC = (text: string) => ({ type: 'UPDATE-MESSAGE', newText: text} as const)
+
+
 

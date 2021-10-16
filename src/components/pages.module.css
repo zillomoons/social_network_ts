@@ -1,6 +1,9 @@
 
 .MainContent {
     grid-area: main;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     background-color: #edf6f9;
     height: 100vh;
     text-align: center;
