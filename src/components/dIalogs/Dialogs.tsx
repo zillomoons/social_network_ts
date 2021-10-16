@@ -1,41 +1,28 @@
 import React, {ChangeEvent} from 'react';
 import styles from './Dialogs.module.css'
 import DialogItem from "./dialogItem/dialogItem";
-import {NavLink} from 'react-router-dom';
-import {ActionTypes, DialogsPageType} from "../../redux/store";
-import {addMessageAC, updateMessageAC} from "../../redux/dialogsReducer";
+import {DialogsPageType} from "../../redux/store";
+import {Contacts} from "./contacts/contacts";
 
 type DialogsPagePropsType = {
     dialogsPage: DialogsPageType
-    dispatch: (action: ActionTypes) => void
+    sendMessage: () => void
+    updateMessage: (newMessage: string) => void
 }
-export const Dialogs: React.FC<DialogsPagePropsType> = ({dialogsPage, dispatch}) => {
-    const onSendMessage = () => dispatch(addMessageAC());
-    const onNewMessageChange = (e: ChangeEvent<HTMLTextAreaElement>) => dispatch(updateMessageAC(e.currentTarget.value))
-    const mappedContacts = dialogsPage.contacts.map(c => {
-        return (
-            <div key={c.id}>
-                <NavLink to={c.path} className={styles.contacts}>
-                    <img src={c.userImage} alt='avatar'/>
-                    {c.name}
-                </NavLink>
-            </div>
-        )
-    })
+export const Dialogs = ({dialogsPage, sendMessage, updateMessage}: DialogsPagePropsType) => {
+    const onSendMessage = () => sendMessage();
+    const onNewMessageChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
+        let newMessage = e.currentTarget.value;
+        updateMessage(newMessage);
+    }
 
     return (
         <div className={styles.dialogsWrapper}>
-            <div>
-                <h3>Contacts</h3>
-                { mappedContacts }
-            </div>
+            <Contacts dialogsPage={dialogsPage}/>
             <div>
                 {
-                    dialogsPage.dialogItems.map(d => {
-                        return <DialogItem key={d.id} id={d.id}
-                                           userImage={d.userImage}
-                                           name={d.name} text={d.text} time={d.time}/>
-                    })
+                    dialogsPage.dialogItems.map(d => <DialogItem key={d.id} id={d.id} userImage={d.userImage}
+                                           name={d.name} text={d.text} time={d.time}/> )
                 }
                 <div className={styles.addMessageWrapper}>
                     <textarea onChange={onNewMessageChange}
