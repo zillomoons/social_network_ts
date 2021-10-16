@@ -1,6 +1,7 @@
 .postWrapper {
     display: flex;
     align-items: center;
+    word-wrap: break-word;
 }
 
 img.avatar  {

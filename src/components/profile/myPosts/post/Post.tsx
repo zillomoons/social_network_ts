@@ -11,10 +11,10 @@ const Post = (props: PostPropsType) => {
     return (
         <div>
             <div className={s.postWrapper}>
-            <img className={s.avatar}
-                 src={props.userImage}
-                 alt="avatarka"/>
-            {props.message}
+                <img className={s.avatar}
+                     src={props.userImage}
+                     alt="avatarka"/>
+                {props.message}
             </div>
             <div className={s.like}>Likes: {props.likesCount}</div>
         </div>
