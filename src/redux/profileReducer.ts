@@ -22,7 +22,7 @@ export type ActionTypes =
     | ReturnType<typeof addMessageAC>
     | ReturnType<typeof updateMessageAC>
 
-let initialState = {
+const initialState = {
     posts: [
         {id: v1(), message: 'Prepare yourself for what may come', likesCount: 45, userImage: ava_1},
         {id: v1(), message: "Bazinga! I don't care", likesCount: 5, userImage: ava_2},

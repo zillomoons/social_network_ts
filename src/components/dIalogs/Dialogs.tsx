@@ -2,7 +2,7 @@ import React, {ChangeEvent} from 'react';
 import styles from './Dialogs.module.css'
 import DialogItem from "./dialogItem/dialogItem";
 import {Contacts} from "./contacts/contacts";
-import { DialogsPageType } from '../../redux/dialogsReducer';
+import {DialogsPageType} from '../../redux/dialogsReducer';
 
 type DialogsPagePropsType = {
     dialogsPage: DialogsPageType
@@ -15,15 +15,13 @@ export const Dialogs = ({dialogsPage, sendMessage, updateMessage}: DialogsPagePr
         let newMessage = e.currentTarget.value;
         updateMessage(newMessage);
     }
-
+    const mappedContacts = dialogsPage.dialogItems.map(d => <DialogItem key={d.id} id={d.id} userImage={d.userImage}
+                                                                        name={d.name} text={d.text} time={d.time}/>)
     return (
         <div className={styles.dialogsWrapper}>
             <Contacts dialogsPage={dialogsPage}/>
             <div>
-                {
-                    dialogsPage.dialogItems.map(d => <DialogItem key={d.id} id={d.id} userImage={d.userImage}
-                                           name={d.name} text={d.text} time={d.time}/> )
-                }
+                {mappedContacts}
                 <div className={styles.addMessageWrapper}>
                     <textarea onChange={onNewMessageChange}
                               value={dialogsPage.newMessageText}

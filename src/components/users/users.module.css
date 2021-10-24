@@ -1,0 +1,50 @@
+.usersWrapper{
+    display: flex;
+    flex-direction: column;
+}
+.usersWrapper h2{
+    margin-bottom: 40px;
+    align-self: center;
+}
+.usersWrapper button{
+    width: 200px;
+    align-self: center;
+    padding: 5px 8px;
+}
+
+.userStyle {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 25px;
+}
+
+.userStyle img {
+    width: 70px;
+    height: 70px;
+    border-radius: 50%;
+}
+
+.follow {
+    background-color: #83c5be;
+}
+.userPhoto{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-left: 15px;
+    gap: 8px;
+    margin-bottom: 15px;
+}
+.userPhoto button {
+    width: 150px;
+    padding: 3px 5px;
+}
+.userInfo{
+    display: flex;
+    border: 2px solid #83c5be;
+    border-radius: 8px;
+    width: 600px;
+    justify-content: space-between;
+    padding: 15px;
+}
