@@ -1,4 +1,3 @@
-import {ActionTypes, PostType, ProfilePageType} from "./store";
 import {v1} from "uuid";
 import user_ava from "../assets/images/user_ava.png";
 import ava_1 from "../assets/images/ava_1.jpg";
@@ -6,6 +5,22 @@ import ava_2 from "../assets/images/ava_2.jpg";
 import ava_3 from "../assets/images/ava_3.jpg";
 import ava_4 from "../assets/images/ava_4.jpg";
 import ava_5 from "../assets/images/ava_5.jpg";
+import {addMessageAC, updateMessageAC} from "./dialogsReducer";
+
+
+export type PostType = {
+    id: string
+    message: string
+    likesCount: number
+    userImage: string
+}
+export type ProfilePageType = { posts: PostType[], newPostText: string }
+
+export type ActionTypes =
+    ReturnType<typeof addPostAC>
+    | ReturnType<typeof updatePostAC>
+    | ReturnType<typeof addMessageAC>
+    | ReturnType<typeof updateMessageAC>
 
 let initialState = {
     posts: [
@@ -30,12 +45,10 @@ export const profileReducer = (state: ProfilePageType = initialState, action: Ac
                 id: v1(), message: state.newPostText,
                 likesCount: 0, userImage: user_ava
             }
-            state.posts.push(newPost);
-            state.newPostText = '';
-            return state;
+            return {...state, posts: [...state.posts, newPost], newPostText: ''}
         case "UPDATE-POST":
             if (action.newText != null) {
-                state.newPostText = action.newText;
+                return {...state, newPostText: action.newText}
             }
             return state;
         default:

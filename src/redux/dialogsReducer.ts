@@ -1,4 +1,3 @@
-import {ActionTypes, DialogsPageType} from "./store";
 import {v1} from "uuid";
 import user_ava from "../assets/images/user_ava.png";
 import ava_1 from "../assets/images/ava_1.jpg";
@@ -8,8 +7,30 @@ import ava_4 from "../assets/images/ava_4.jpg";
 import ava_5 from "../assets/images/ava_5.jpg";
 import ava_6 from "../assets/images/ava_6.jpg";
 import ava_2 from "../assets/images/ava_2.jpg";
+import {addPostAC, updatePostAC} from "./profileReducer";
 
 let today = new Date();
+
+export type DialogItemType = {
+    id: string
+    userImage: string
+    name: string
+    text: string
+    time: string
+}
+export type ContactType = {
+    id: string
+    name: string
+    path: string
+    userImage: string
+}
+export type DialogsPageType = {
+    contacts: Array<ContactType>
+    dialogItems: Array<DialogItemType>
+    newMessageText: string
+}
+
+export type ActionTypes = ReturnType<typeof addPostAC> | ReturnType<typeof updatePostAC> | ReturnType<typeof addMessageAC> | ReturnType<typeof updateMessageAC>
 
 let initialState = {
     contacts: [
@@ -32,17 +53,15 @@ let initialState = {
 export const dialogsReducer = (state: DialogsPageType = initialState, action: ActionTypes) => {
     switch (action.type) {
         case "SEND-MESSAGE":
-            let dialogItem = {
+            let newDialogItem = {
                 id: v1(), userImage: user_ava, name: 'Someone',
                 text: state.newMessageText,
                 time: today.getHours() + '.' + today.getMinutes()
             }
-            state.dialogItems.push(dialogItem);
-            state.newMessageText = '';
-            return state;
+            return {...state, dialogItems: [...state.dialogItems, newDialogItem], newMessageText: ''}
         case "UPDATE-MESSAGE":
             if (action.newText != null) {
-                state.newMessageText = action.newText;
+                return {...state, newMessageText: action.newText};
             }
             return state;
         default:

@@ -6,45 +6,44 @@ import ava_5 from "../assets/images/ava_5.jpg";
 import ava_6 from "../assets/images/ava_6.jpg";
 import ava_7 from "../assets/images/logo.jpg";
 import {v1} from "uuid";
-import {addPostAC, profileReducer, updatePostAC} from "./profileReducer";
-import {addMessageAC, dialogsReducer, updateMessageAC} from "./dialogsReducer";
+import { addPostAC, profileReducer, updatePostAC} from "./profileReducer";
+import { addMessageAC, dialogsReducer, updateMessageAC} from "./dialogsReducer";
 
 
-export type DialogItemType = {
+type DialogItemType = {
     id: string
     userImage: string
     name: string
     text: string
     time: string
 }
-export type ContactType = {
+type ContactType = {
     id: string
     name: string
     path: string
     userImage: string
 }
-export type DialogsPageType = {
+type DialogsPageType = {
     contacts: Array<ContactType>
     dialogItems: Array<DialogItemType>
     newMessageText: string
 }
-export type PostType = {
+type PostType = {
     id: string
     message: string
     likesCount: number
     userImage: string
 }
-export type ProfilePageType = { posts : PostType[], newPostText: string }
+type ProfilePageType = { posts : PostType[], newPostText: string }
 
-export type RootStateType = {
+type RootStateType = {
     profilePage: ProfilePageType
     dialogsPage: DialogsPageType
 }
 
-export type ActionTypes = ReturnType<typeof addPostAC> | ReturnType<typeof updatePostAC>
-    | ReturnType<typeof addMessageAC> | ReturnType<typeof updateMessageAC>
+type ActionTypes = ReturnType<typeof addPostAC> | ReturnType<typeof updatePostAC> | ReturnType<typeof addMessageAC> | ReturnType<typeof updateMessageAC>
 
-export type StoreType = {
+type StoreType = {
     _state: RootStateType
     _callSubscriber: () => void
     subscribe: (observer: () => void) => void
@@ -52,7 +51,7 @@ export type StoreType = {
     dispatch: (action: ActionTypes) => void
 }
 
-export const store: StoreType = {
+export const self_made_store: StoreType = {
     _state: {
         profilePage: {
             posts: [
@@ -95,30 +94,7 @@ export const store: StoreType = {
         this._state.profilePage = profileReducer(this._state.profilePage, action);
         this._state.dialogsPage = dialogsReducer(this._state.dialogsPage, action);
         this._callSubscriber();
-        // if (action.type === 'ADD-POST'){
-        //     let newPost: PostType = { id: v1(), message: this._state.profilePage.newPostText,
-        //         likesCount: 0, userImage: user_ava}
-        //     this._state.profilePage.posts.push(newPost);
-        //     this._state.profilePage.newPostText = '';
-        //     this._callSubscriber()
-        // } else if (action.type === 'UPDATE-POST'){
-        //     if (action.newText != null) {
-        //         this._state.profilePage.newPostText = action.newText;
-        //     }
-        //     this._callSubscriber();
-        // } else if (action.type === 'SEND-MESSAGE') {
-        //     let dialogItem = {id: v1(), userImage: user_ava, name: 'Someone',
-        //         text: this._state.dialogsPage.newMessageText,
-        //         time: today.getHours()+'.'+ today.getMinutes()}
-        //     this._state.dialogsPage.dialogItems.push(dialogItem);
-        //     this._state.dialogsPage.newMessageText = '';
-        //     this._callSubscriber();
-        // } else if (action.type === 'UPDATE-MESSAGE'){
-        //     if (action.newText != null) {
-        //         this._state.dialogsPage.newMessageText = action.newText;
-        //     }
-        //     this._callSubscriber();
-        // }
+
     }
 }
 
