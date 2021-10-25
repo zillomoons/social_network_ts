@@ -11,15 +11,13 @@ type DataType = {
 }
 
 export class UsersC extends React.Component<UsersPropsType, any> {
-    getUsers = () => {
-        if (this.props.users.length === 0) {
 
-            axios.get<DataType>('https://social-network.samuraijs.com/api/1.0/users')
-                .then(response => {
-                    const {data} = response
-                    this.props.setUsers(data.items)
-                })
-        }
+    componentDidMount() {
+        axios.get<DataType>('https://social-network.samuraijs.com/api/1.0/users')
+            .then(response => {
+                const {data} = response
+                this.props.setUsers(data.items)
+            })
     }
     render() {
         const mappedUsers = this.props.users.map(u => {
@@ -32,7 +30,6 @@ export class UsersC extends React.Component<UsersPropsType, any> {
         })
         return <div className={s.usersWrapper}>
             <h2>Users</h2>
-            <button onClick={this.getUsers}>Get Users</button>
             {mappedUsers}
             <button>Show More</button>
         </div>
