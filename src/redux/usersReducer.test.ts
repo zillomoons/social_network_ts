@@ -1,4 +1,4 @@
-
+import ava_1 from "../assets/images/ava_1.jpg";
 import {usersReducer, UsersType} from "./usersReducer";
 
 let state: UsersType;
@@ -6,6 +6,12 @@ let state: UsersType;
 beforeEach(()=>{
     state = {
         users : [
+            {id: 1, name: 'Nick', followed: true, status: "I'm frontdev", photos: {small: ava_1, large: null}},
+            {id: 2, name: 'John', followed: true, status: "I'm frontdev", photos: {small: ava_1, large: null}},
+            {id: 3, name: 'Max', followed: false, status: "I'm frontdev", photos: {small: ava_1, large: null}},
+            {id: 4, name: 'Ann', followed: true, status: "I'm frontdev", photos: {small: ava_1, large: null}},
+            {id: 5, name: 'Kate', followed: false, status: "I'm frontdev", photos: {small: ava_1, large: null}},
+            {id: 6, name: 'Rupert', followed: true, status: "I'm frontdev", photos: {small: ava_1, large: null}},
         ]
     }
 

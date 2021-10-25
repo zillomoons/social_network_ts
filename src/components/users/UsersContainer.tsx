@@ -3,6 +3,7 @@ import {connect} from "react-redux";
 import { Users } from "./Users";
 import {AppDispatch, RootState} from "../../redux/redux_store";
 import {changeFollowAC, setUsersAC, UsersType, UserType} from "../../redux/usersReducer";
+import { UsersC } from "./UsersClass";
 
 type MapDispatch = {
     changeFollow: (userID: number) => void
@@ -19,4 +20,4 @@ const mapDispatch = (dispatch: AppDispatch): MapDispatch => ({
     setUsers: (users: UserType[]) => dispatch(setUsersAC(users)),
 })
 
-export const UsersContainer = connect(mapState, mapDispatch)(Users);
+export const UsersContainer = connect(mapState, mapDispatch)(UsersC);
