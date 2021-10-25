@@ -16,7 +16,7 @@ const MyPosts = ({posts, updatePostText, newPostText, addNewPost}: MyPostsPropsT
         updatePostText(newText);
     }
     const onAddPost = () => addNewPost();
-
+    console.log('MyPosts')
     return (
         <div className={s.posts}>
             <h3>My posts</h3>

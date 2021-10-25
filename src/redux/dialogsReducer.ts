@@ -7,7 +7,6 @@ import ava_4 from "../assets/images/ava_4.jpg";
 import ava_5 from "../assets/images/ava_5.jpg";
 import ava_6 from "../assets/images/ava_6.jpg";
 import ava_2 from "../assets/images/ava_2.jpg";
-import {addPostAC, updatePostAC} from "./profileReducer";
 
 let today = new Date();
 
@@ -30,7 +29,10 @@ export type DialogsPageType = {
     newMessageText: string
 }
 
-export type ActionTypes = ReturnType<typeof addPostAC> | ReturnType<typeof updatePostAC> | ReturnType<typeof addMessageAC> | ReturnType<typeof updateMessageAC>
+export type ActionTypes = ReturnType<typeof addMessageAC> | ReturnType<typeof updateMessageAC>
+    // |ReturnType<typeof addPostAC>
+    // | ReturnType<typeof updatePostAC>
+
 
 let initialState = {
     contacts: [

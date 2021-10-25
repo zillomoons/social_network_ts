@@ -9,7 +9,8 @@ export type DialogItemPropsType = {
     time: string
 }
 
-const DialogItem = (props: DialogItemPropsType) => {
+const DialogItem_Private = (props: DialogItemPropsType) => {
+    console.log('CONTACTS')
     return (
         <div>
             <div className={styles.messageWrapper}>
@@ -23,5 +24,7 @@ const DialogItem = (props: DialogItemPropsType) => {
         </div>
     );
 };
+
+const DialogItem = React.memo(DialogItem_Private)
 
 export default DialogItem;

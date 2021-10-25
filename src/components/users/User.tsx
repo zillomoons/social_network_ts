@@ -4,12 +4,12 @@ import s from './users.module.css'
 type UserPropsType = {
     userImage: string
     name: string
-    city: string
+    status: string
     followed: boolean
     callback: () => void
 }
 
-export const User = ({userImage, name, city, followed, callback}: UserPropsType) => {
+export const User = ({userImage, name, status, followed, callback}: UserPropsType) => {
     return <div className={s.userStyle}>
         <div className={s.userPhoto}>
             <img src={userImage} alt="ava"/>
@@ -24,9 +24,9 @@ export const User = ({userImage, name, city, followed, callback}: UserPropsType)
         <div className={s.userInfo}>
             <div>
                 <div>{name}</div>
-                <div>Status: I'm looking for a job...</div>
+                <div>{status !== null ? status : "I'm frontend developer, looking for a job."}</div>
             </div>
-            <div>{city}</div>
+            <div>city: Unknown</div>
         </div>
     </div>
 }

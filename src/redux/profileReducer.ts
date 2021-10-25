@@ -5,7 +5,6 @@ import ava_2 from "../assets/images/ava_2.jpg";
 import ava_3 from "../assets/images/ava_3.jpg";
 import ava_4 from "../assets/images/ava_4.jpg";
 import ava_5 from "../assets/images/ava_5.jpg";
-import {addMessageAC, updateMessageAC} from "./dialogsReducer";
 
 
 export type PostType = {
@@ -19,8 +18,8 @@ export type ProfilePageType = { posts: PostType[], newPostText: string }
 export type ActionTypes =
     ReturnType<typeof addPostAC>
     | ReturnType<typeof updatePostAC>
-    | ReturnType<typeof addMessageAC>
-    | ReturnType<typeof updateMessageAC>
+    // | ReturnType<typeof addMessageAC>
+    // | ReturnType<typeof updateMessageAC>
 
 const initialState = {
     posts: [

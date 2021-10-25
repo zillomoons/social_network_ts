@@ -1,39 +1,35 @@
 import React from "react";
-import {UserType} from "../../redux/usersReducer";
 import {User} from "./User";
 import s from './users.module.css'
 import ava_1 from "../../assets/images/ava_1.jpg";
-import ava_7 from "../../assets/images/logo.jpg";
-import ava_3 from "../../assets/images/ava_3.jpg";
-import ava_4 from "../../assets/images/ava_4.jpg";
-import ava_5 from "../../assets/images/ava_5.jpg";
-import ava_6 from "../../assets/images/ava_6.jpg";
+import {UsersPropsType} from "./UsersContainer";
+import axios from "axios";
+import {UserType} from "../../redux/usersReducer";
 
-
-type PropsType = {
-    users: UserType[]
-    changeFollow: (userID: string) => void
-    setUsers: (users: UserType[])=>void
+// type PropsType = {
+//     users: UserType[]
+//     changeFollow: (userID: string) => void
+//     setUsers: (users: UserType[])=>void
+// }
+type DataType = {
+    items: UserType[]
 }
 
-export const Users = ({users, changeFollow, setUsers}: PropsType) => {
+export const Users = ({users, changeFollow, setUsers}: UsersPropsType) => {
     if (users.length === 0){
-        setUsers([
-                {id: "1", name: 'Nick', followed: true, city: 'Moscow', userImage: ava_1},
-                {id: '2', name: 'John', followed: true, city: 'New York', userImage: ava_7},
-                {id: '3', name: 'Max', followed: false, city: 'Kiev', userImage: ava_3},
-                {id: '4', name: 'Ann', followed: true, city: 'Tallinn', userImage: ava_4},
-                {id: '5', name: 'Kate', followed: false, city: 'London', userImage: ava_5},
-                {id: '6', name: 'Rupert', followed: false, city: 'Edinburgh', userImage: ava_6},
-            ]
-        )
+
+        axios.get<DataType>('https://social-network.samuraijs.com/api/1.0/users')
+            .then(response => {
+                const { data } = response
+                setUsers(data.items)
+            })
     }
 
     const mappedUsers = users.map(u => {
             return <User key={u.id}
-                         userImage={u.userImage}
+                         userImage={u.photos.small === null ? ava_1 : u.photos.small}
                          name={u.name}
-                         city={u.city}
+                         status={u.status}
                          callback={() => changeFollow(u.id)}
                          followed={u.followed}/>
         })
