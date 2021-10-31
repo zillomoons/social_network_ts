@@ -15,13 +15,13 @@ export const Dialogs = ({dialogsPage, sendMessage, updateMessage}: DialogsPagePr
         let newMessage = e.currentTarget.value;
         updateMessage(newMessage);
     }
-    const mappedContacts = dialogsPage.dialogItems.map(d => <DialogItem key={d.id} id={d.id} userImage={d.userImage}
+    const mappedDialogItems = dialogsPage.dialogItems.map(d => <DialogItem key={d.id} id={d.id} userImage={d.userImage}
                                                                         name={d.name} text={d.text} time={d.time}/>)
     return (
         <div className={styles.dialogsWrapper}>
             <Contacts dialogsPage={dialogsPage}/>
             <div>
-                {mappedContacts}
+                {mappedDialogItems}
                 <div className={styles.addMessageWrapper}>
                     <textarea onChange={onNewMessageChange}
                               value={dialogsPage.newMessageText}

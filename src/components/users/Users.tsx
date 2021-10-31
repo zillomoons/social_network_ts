@@ -2,26 +2,21 @@ import React from "react";
 import {User} from "./User";
 import s from './users.module.css'
 import ava_1 from "../../assets/images/ava_1.jpg";
-import {UsersPropsType} from "./UsersContainer";
-import axios from "axios";
+import Pagination from "../pagination/Pagination";
 import {UserType} from "../../redux/usersReducer";
 
-type DataType = {
-    items: UserType[]
+type PropsType={
+    users: UserType[]
+    changeFollow: (userID: number) => void
+    onPageChanged: (p: number) => void
+    pageSize: number
+    totalUsersCount: number
+    currentPage: number
 }
 
-export const Users = ({users, changeFollow, setUsers}: UsersPropsType) => {
-
-    const getUsers = () => {
-        if (users.length === 0) {
-
-            axios.get<DataType>('https://social-network.samuraijs.com/api/1.0/users')
-                .then(response => {
-                    const {data} = response
-                    setUsers(data.items)
-                })
-        }
-    }
+export const Users = ({users, changeFollow, totalUsersCount,
+                          pageSize, onPageChanged, currentPage
+                      }: PropsType) => {
 
     const mappedUsers = users.map(u => {
         return <User key={u.id}
@@ -31,12 +26,21 @@ export const Users = ({users, changeFollow, setUsers}: UsersPropsType) => {
                      callback={() => changeFollow(u.id)}
                      followed={u.followed}/>
     })
+    let pagesCount = Math.ceil(totalUsersCount / pageSize);
+    let pages = [];
+    for (let i = 1; i <= pagesCount; i++) {
+        pages.push(i);
+    }
     return (
         <div className={s.usersWrapper}>
             <h2>Users</h2>
-            <button onClick={getUsers}>Get Users</button>
             {mappedUsers}
-            <button>Show More</button>
+            <Pagination onPageChanged={onPageChanged}
+                        totalCount={totalUsersCount}
+                        pageSize={pageSize}
+                        siblingCount={1}
+                        currentPage={currentPage}
+                        className={s.paginationBar} />
         </div>
     )
 }
