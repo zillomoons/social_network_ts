@@ -29,10 +29,7 @@ export type DialogsPageType = {
     newMessageText: string
 }
 
-export type ActionTypes = ReturnType<typeof addMessageAC> | ReturnType<typeof updateMessageAC>
-    // |ReturnType<typeof addPostAC>
-    // | ReturnType<typeof updatePostAC>
-
+export type ActionTypes = ReturnType<typeof sendMessage> | ReturnType<typeof updateMessage>
 
 let initialState = {
     contacts: [
@@ -70,5 +67,5 @@ export const dialogsReducer = (state: DialogsPageType = initialState, action: Ac
             return state;
     }
 }
-export const addMessageAC = () => ({type: 'SEND-MESSAGE'} as const)
-export const updateMessageAC = (text: string) => ({ type: 'UPDATE-MESSAGE', newText: text} as const)
+export const sendMessage = () => ({type: 'SEND-MESSAGE'} as const)
+export const updateMessage = (text: string) => ({ type: 'UPDATE-MESSAGE', newText: text} as const)

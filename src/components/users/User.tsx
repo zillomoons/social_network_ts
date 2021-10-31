@@ -1,7 +1,9 @@
 import React from "react";
+import { NavLink } from "react-router-dom";
 import s from './users.module.css'
 
 type UserPropsType = {
+    id: number
     userImage: string
     name: string
     status: string
@@ -9,10 +11,12 @@ type UserPropsType = {
     callback: () => void
 }
 
-export const User = ({userImage, name, status, followed, callback}: UserPropsType) => {
+export const User = ({id, userImage, name, status, followed, callback}: UserPropsType) => {
     return <div className={s.userStyle}>
         <div className={s.userPhoto}>
-            <img src={userImage} alt="ava"/>
+            <NavLink to={'/profile/' + id}>
+                <img src={userImage} alt="ava"/>
+            </NavLink>
             <div>
                 {
                     followed

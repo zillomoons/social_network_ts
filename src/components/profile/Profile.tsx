@@ -2,18 +2,14 @@ import React from 'react';
 import style from './Profile.module.css'
 import {ProfileInfo} from "./profileInfo/ProfileInfo";
 import {MyPostsContainer} from "./myPosts/MyPostsContainer";
+import {ProfileInfoType} from "../../redux/profileReducer";
 
-// type ProfilePagePropsType = {
-//     profilePage: ProfilePageType
-//     dispatch: (action: ActionTypes) => void
-// }
-export const Profile= () => {
 
+export const Profile = (props: { profile: ProfileInfoType }) => {
     return (
         <div className={style.MainContent}>
-            <ProfileInfo/>
-            <MyPostsContainer />
-            {/*<MyPostsContainer profilePage={profilePage} dispatch={dispatch}/>*/}
+            <ProfileInfo {...props} />
+            <MyPostsContainer/>
         </div>
     );
 };

@@ -1,47 +1,48 @@
-import { addPostAC, updatePostAC} from "./profileReducer";
-import { addMessageAC, updateMessageAC} from "./dialogsReducer";
-
-
-type DialogItemType = {
-    id: string
-    userImage: string
-    name: string
-    text: string
-    time: string
-}
-type ContactType = {
-    id: string
-    name: string
-    path: string
-    userImage: string
-}
-type DialogsPageType = {
-    contacts: Array<ContactType>
-    dialogItems: Array<DialogItemType>
-    newMessageText: string
-}
-type PostType = {
-    id: string
-    message: string
-    likesCount: number
-    userImage: string
-}
-type ProfilePageType = { posts : PostType[], newPostText: string }
-
-type RootStateType = {
-    profilePage: ProfilePageType
-    dialogsPage: DialogsPageType
-}
-
-type ActionTypes = ReturnType<typeof addPostAC> | ReturnType<typeof updatePostAC> | ReturnType<typeof addMessageAC> | ReturnType<typeof updateMessageAC>
-
-type StoreType = {
-    _state: RootStateType
-    _callSubscriber: () => void
-    subscribe: (observer: () => void) => void
-    getState: () => RootStateType
-    dispatch: (action: ActionTypes) => void
-}
+import {sendMessage} from "./dialogsReducer";
+// import { sendMessage, updateMessage } from "./dialogsReducer";
+// import { addPostAC, updatePostAC} from "./profileReducer";
+//
+//
+// type DialogItemType = {
+//     id: string
+//     userImage: string
+//     name: string
+//     text: string
+//     time: string
+// }
+// type ContactType = {
+//     id: string
+//     name: string
+//     path: string
+//     userImage: string
+// }
+// type DialogsPageType = {
+//     contacts: Array<ContactType>
+//     dialogItems: Array<DialogItemType>
+//     newMessageText: string
+// }
+// type PostType = {
+//     id: string
+//     message: string
+//     likesCount: number
+//     userImage: string
+// }
+// type ProfilePageType = { posts : PostType[], newPostText: string }
+//
+// type RootStateType = {
+//     profilePage: ProfilePageType
+//     dialogsPage: DialogsPageType
+// }
+//
+// type ActionTypes = ReturnType<typeof addPostAC> | ReturnType<typeof updatePostAC> | ReturnType<typeof sendMessage> | ReturnType<typeof updateMessage>
+//
+// type StoreType = {
+//     _state: RootStateType
+//     _callSubscriber: () => void
+//     subscribe: (observer: () => void) => void
+//     getState: () => RootStateType
+//     dispatch: (action: ActionTypes) => void
+// }
 
 // export const self_made_store: StoreType = {
 //     _state: {

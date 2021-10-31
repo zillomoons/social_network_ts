@@ -5,6 +5,7 @@ import ava_2 from "../assets/images/ava_2.jpg";
 import ava_3 from "../assets/images/ava_3.jpg";
 import ava_4 from "../assets/images/ava_4.jpg";
 import ava_5 from "../assets/images/ava_5.jpg";
+import ava from "../assets/images/ava.jpg"
 
 
 export type PostType = {
@@ -13,15 +14,36 @@ export type PostType = {
     likesCount: number
     userImage: string
 }
-export type ProfilePageType = { posts: PostType[], newPostText: string }
+export type ProfileInfoType = {
+    userId: number
+    lookingForAJob: boolean
+    lookingForAJobDescription: string
+    fullName: string
+    contacts: {
+        github: string | null
+        vk: string | null
+        facebook: string | null
+        instagram: string | null
+        twitter: string | null
+        website: string | null
+        youtube: string | null
+        mainLink: string | null
+    }
+    photos: {
+        small: string
+        large: string
+    }
+}
+export type ProfilePageType = {
+    posts: PostType[]
+    newPostText: string
+    profile: ProfileInfoType
+}
 
-export type ActionTypes =
-    ReturnType<typeof addPostAC>
-    | ReturnType<typeof updatePostAC>
-    // | ReturnType<typeof addMessageAC>
-    // | ReturnType<typeof updateMessageAC>
+export type ActionTypes = ReturnType<typeof addPost> | ReturnType<typeof updatePost>
+    | ReturnType<typeof setProfile>
 
-const initialState = {
+const initialState: ProfilePageType = {
     posts: [
         {id: v1(), message: 'Prepare yourself for what may come', likesCount: 45, userImage: ava_1},
         {id: v1(), message: "Bazinga! I don't care", likesCount: 5, userImage: ava_2},
@@ -34,7 +56,28 @@ const initialState = {
             userImage: ava_5
         },
     ],
-    newPostText: ''
+    newPostText: '',
+    profile : {
+        userId: 20446,
+        lookingForAJob: true,
+        lookingForAJobDescription: 'Frontdev',
+        fullName: 'Zillowmoon',
+        contacts: {
+            github: 'https://github.com/zillomoons',
+            vk: null,
+            facebook: null,
+            instagram: null,
+            twitter: null,
+            website: null,
+            youtube: null,
+            mainLink: null
+        },
+        photos: {
+            small: ava,
+            large: ''
+        }
+    }
+
 }
 
 export const profileReducer = (state: ProfilePageType = initialState, action: ActionTypes) => {
@@ -50,9 +93,12 @@ export const profileReducer = (state: ProfilePageType = initialState, action: Ac
                 return {...state, newPostText: action.newText}
             }
             return state;
+        case "SET-PROFILE":
+            return {...state, profile: action.profile}
         default:
             return state;
     }
 }
-export const addPostAC = () => ({type: 'ADD-POST'} as const)
-export const updatePostAC = (text: string) => ({type: 'UPDATE-POST', newText: text} as const)
+export const addPost = () => ({type: 'ADD-POST'} as const);
+export const updatePost = (text: string) => ({type: 'UPDATE-POST', newText: text} as const);
+export const setProfile = (profile: ProfileInfoType) => ({type: 'SET-PROFILE', profile} as const);

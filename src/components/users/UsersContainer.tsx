@@ -1,12 +1,8 @@
 import {connect} from "react-redux";
-import {AppDispatch, RootState} from "../../redux/redux_store";
+import {RootState} from "../../redux/redux_store";
 import {
-    changeFollowAC,
-    setCurrentPageAC,
-    setTotalUsersCountAC,
-    setUsersAC, toggleFetchingAC,
-    UsersType,
-    UserType
+    changeFollow, setCurrentPage, setTotalUsersCount,
+    setUsers, toggleIsFetching, UsersType, UserType
 } from "../../redux/usersReducer";
 import React from "react";
 import axios from "axios";
@@ -73,13 +69,7 @@ const mapState = (state: RootState): UsersType => ({
     currentPage: state.usersPage.currentPage,
     isFetching: state.usersPage.isFetching,
 })
-const mapDispatch = (dispatch: AppDispatch): MapDispatch => ({
-    changeFollow: (userID: number) => dispatch(changeFollowAC(userID)),
-    setUsers: (users: UserType[]) => dispatch(setUsersAC(users)),
-    setCurrentPage: (currentPage: number) => dispatch(setCurrentPageAC(currentPage)),
-    setTotalUsersCount: (totalCount: number)=> dispatch(setTotalUsersCountAC(totalCount)),
-    toggleIsFetching: (isFetching: boolean) => dispatch(toggleFetchingAC(isFetching)),
-})
 
-export const UsersContainer = connect(mapState, mapDispatch)(UsersAPI);
+export const UsersContainer = connect(mapState,
+    {changeFollow, setUsers, setCurrentPage, setTotalUsersCount, toggleIsFetching,})(UsersAPI);
 

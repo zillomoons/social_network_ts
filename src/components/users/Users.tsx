@@ -19,7 +19,7 @@ export const Users = ({users, changeFollow, totalUsersCount,
                       }: PropsType) => {
 
     const mappedUsers = users.map(u => {
-        return <User key={u.id}
+        return <User key={u.id} id={u.id}
                      userImage={u.photos.small === null ? ava_1 : u.photos.small}
                      name={u.name}
                      status={u.status}

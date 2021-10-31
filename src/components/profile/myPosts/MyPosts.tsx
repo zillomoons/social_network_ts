@@ -5,17 +5,17 @@ import s from './MyPosts.module.css';
 type MyPostsPropsType = {
     posts: PostPropsType[]
     newPostText: string
-    addNewPost: () => void
-    updatePostText: (newText: string) => void
+    addPost: () => void
+    updatePost: (newText: string) => void
 }
 
-const MyPosts = ({posts, updatePostText, newPostText, addNewPost}: MyPostsPropsType) => {
+const MyPosts = ({posts, updatePost, newPostText, addPost}: MyPostsPropsType) => {
 
     const onNewPostChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
         let newText = e.currentTarget.value;
-        updatePostText(newText);
+        updatePost(newText);
     }
-    const onAddPost = () => addNewPost();
+    const onAddPost = () => addPost();
     console.log('MyPosts')
     return (
         <div className={s.posts}>
