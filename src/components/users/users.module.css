@@ -62,3 +62,6 @@
     display: flex;
     justify-content: center;
 }
+.preloader{
+    margin: 0 auto;
+}
