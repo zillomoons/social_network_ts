@@ -5,7 +5,7 @@ import NewsPage from "./components/NewsPage";
 import Settings from "./components/Settings";
 import HomePage from "./components/HomePage";
 import {DialogsContainer} from "./components/dIalogs/DialogsContainer";
-import {UsersContainer} from "./components/users/UsersContainer";
+import UsersContainer from "./components/users/UsersContainer";
 import ProfileContainer from "./components/profile/ProfileContainer";
 import HeaderContainer from "./components/header/HeaderContainer";
 

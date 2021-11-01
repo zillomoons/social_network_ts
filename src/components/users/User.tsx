@@ -1,7 +1,7 @@
 import React from "react";
 import {NavLink} from "react-router-dom";
-import s from './users.module.css'
-import axios from "axios";
+import s from './users.module.css';
+import {followUserAPI, unfollowUserAPI} from "../../api/api";
 
 type UserPropsType = {
     id: number
@@ -11,35 +11,18 @@ type UserPropsType = {
     followed: boolean
     callback: (follow: boolean) => void
 }
-type DataType = {
-    resultCode: number
-}
 
 export const User = ({id, userImage, name, status, followed, callback}: UserPropsType) => {
 
     const followUser = () => {
-        axios.post<DataType>(`https://social-network.samuraijs.com/api/1.0/follow/${id}`,
-            {}, {
-                withCredentials: true,
-                headers: {
-                    'API-KEY': 'fcb32a2d-632d-4015-bf04-3cd982002469'
-                }
-            }).then(response => {
-            const {data} = response;
+        followUserAPI(id).then(data => {
             if (data.resultCode === 0) {
                 callback(true);
             }
         });
     }
     const unfollowUser = () => {
-        axios.delete<DataType>(`https://social-network.samuraijs.com/api/1.0/follow/${id}`,
-            {
-                withCredentials: true,
-                headers: {
-                    'API-KEY': 'fcb32a2d-632d-4015-bf04-3cd982002469'
-                }
-            }).then(response => {
-            const {data} = response;
+        unfollowUserAPI(id).then(data => {
             if (data.resultCode === 0) {
                 callback(false);
             }

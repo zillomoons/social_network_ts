@@ -5,14 +5,10 @@ import {
     setUsers, toggleIsFetching, UsersType, UserType
 } from "../../redux/usersReducer";
 import React from "react";
-import axios from "axios";
 import {Users} from "./Users";
 import {Preloader} from "../../common/preloader";
+import {usersAPI} from "../../api/api";
 
-type DataType = {
-    items: UserType[]
-    totalCount: number
-}
 type MapDispatch = {
     changeFollow: (userID: number, follow: boolean) => void
     setUsers: (users: UserType[]) => void
@@ -22,13 +18,10 @@ type MapDispatch = {
 }
 type UsersPropsType = UsersType & MapDispatch;
 
-class UsersAPI extends React.Component<UsersPropsType, any> {
+class UsersContainer extends React.Component<UsersPropsType, any> {
     componentDidMount() {
         this.props.toggleIsFetching(true)
-        axios.get<DataType>(
-            `https://social-network.samuraijs.com/api/1.0/users?page=${this.props.currentPage}&count=${this.props.pageSize}`, {withCredentials: true})
-            .then(response => {
-                const {data} = response
+        usersAPI.getUsers(this.props.currentPage, this.props.pageSize).then(data => {
                 this.props.toggleIsFetching(false)
                 this.props.setUsers(data.items)
                 this.props.setTotalUsersCount(data.totalCount)
@@ -37,11 +30,7 @@ class UsersAPI extends React.Component<UsersPropsType, any> {
     onPageChanged = (p: number) => {
         this.props.setCurrentPage(p);
         this.props.toggleIsFetching(true)
-        axios.get<DataType>(
-            `https://social-network.samuraijs.com/api/1.0/users?page=${p}&count=${this.props.pageSize}`,
-            {withCredentials: true})
-            .then(response => {
-                const {data} = response
+        usersAPI.getUsers(p, this.props.pageSize).then(data => {
                 this.props.toggleIsFetching(false)
                 this.props.setUsers(data.items)
             })
@@ -71,6 +60,6 @@ const mapState = (state: RootState): UsersType => ({
     isFetching: state.usersPage.isFetching,
 })
 
-export const UsersContainer = connect(mapState,
-    {changeFollow, setUsers, setCurrentPage, setTotalUsersCount, toggleIsFetching,})(UsersAPI);
+export default connect(mapState,
+    {changeFollow, setUsers, setCurrentPage, setTotalUsersCount, toggleIsFetching,})(UsersContainer);
 
