@@ -37,7 +37,7 @@ export type ProfileInfoType = {
 export type ProfilePageType = {
     posts: PostType[]
     newPostText: string
-    profile: ProfileInfoType
+    profile: ProfileInfoType | null
 }
 
 export type ActionTypes = ReturnType<typeof addPost> | ReturnType<typeof updatePost>
@@ -57,27 +57,7 @@ const initialState: ProfilePageType = {
         },
     ],
     newPostText: '',
-    profile : {
-        userId: 20446,
-        lookingForAJob: true,
-        lookingForAJobDescription: 'Frontdev',
-        fullName: 'Zillowmoon',
-        contacts: {
-            github: 'https://github.com/zillomoons',
-            vk: null,
-            facebook: null,
-            instagram: null,
-            twitter: null,
-            website: null,
-            youtube: null,
-            mainLink: null
-        },
-        photos: {
-            small: ava,
-            large: ''
-        }
-    }
-
+    profile : null,
 }
 
 export const profileReducer = (state: ProfilePageType = initialState, action: ActionTypes) => {
