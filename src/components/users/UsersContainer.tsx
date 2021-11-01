@@ -14,7 +14,7 @@ type DataType = {
     totalCount: number
 }
 type MapDispatch = {
-    changeFollow: (userID: number) => void
+    changeFollow: (userID: number, follow: boolean) => void
     setUsers: (users: UserType[]) => void
     setCurrentPage: (currentPage: number) => void
     setTotalUsersCount: (totalCount: number)=> void
@@ -26,7 +26,7 @@ class UsersAPI extends React.Component<UsersPropsType, any> {
     componentDidMount() {
         this.props.toggleIsFetching(true)
         axios.get<DataType>(
-            `https://social-network.samuraijs.com/api/1.0/users?page=${this.props.currentPage}&count=${this.props.pageSize}`)
+            `https://social-network.samuraijs.com/api/1.0/users?page=${this.props.currentPage}&count=${this.props.pageSize}`, {withCredentials: true})
             .then(response => {
                 const {data} = response
                 this.props.toggleIsFetching(false)
@@ -38,7 +38,8 @@ class UsersAPI extends React.Component<UsersPropsType, any> {
         this.props.setCurrentPage(p);
         this.props.toggleIsFetching(true)
         axios.get<DataType>(
-            `https://social-network.samuraijs.com/api/1.0/users?page=${p}&count=${this.props.pageSize}`)
+            `https://social-network.samuraijs.com/api/1.0/users?page=${p}&count=${this.props.pageSize}`,
+            {withCredentials: true})
             .then(response => {
                 const {data} = response
                 this.props.toggleIsFetching(false)

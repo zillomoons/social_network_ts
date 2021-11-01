@@ -7,7 +7,7 @@ import {UserType} from "../../redux/usersReducer";
 
 type PropsType={
     users: UserType[]
-    changeFollow: (userID: number) => void
+    changeFollow: (userID: number, follow: boolean) => void
     onPageChanged: (p: number) => void
     pageSize: number
     totalUsersCount: number
@@ -23,7 +23,7 @@ export const Users = ({users, changeFollow, totalUsersCount,
                      userImage={u.photos.small === null ? ava_1 : u.photos.small}
                      name={u.name}
                      status={u.status}
-                     callback={() => changeFollow(u.id)}
+                     callback={(follow: boolean) => changeFollow(u.id, follow)}
                      followed={u.followed}/>
     })
     let pagesCount = Math.ceil(totalUsersCount / pageSize);

@@ -5,7 +5,6 @@ import ava_2 from "../assets/images/ava_2.jpg";
 import ava_3 from "../assets/images/ava_3.jpg";
 import ava_4 from "../assets/images/ava_4.jpg";
 import ava_5 from "../assets/images/ava_5.jpg";
-import ava from "../assets/images/ava.jpg"
 
 
 export type PostType = {

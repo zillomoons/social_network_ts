@@ -28,7 +28,7 @@ export const usersReducer = (state: UsersType = initialState, action: ActionType
         case 'CHANGE-FOLLOW':
             return {
                 ...state, users: state.users.map(u => u.id === action.userID
-                    ? {...u, followed: !u.followed} : u)
+                    ? {...u, followed: action.follow} : u)
             }
         case "SET-USERS":
             return {...state, users: action.users}
@@ -42,8 +42,8 @@ export const usersReducer = (state: UsersType = initialState, action: ActionType
             return state;
     }
 }
-export const changeFollow = (userID: number) => {
-    return {type: 'CHANGE-FOLLOW', userID} as const;
+export const changeFollow = (userID: number, follow: boolean) => {
+    return {type: 'CHANGE-FOLLOW', userID, follow} as const;
 }
 export const setUsers = (users: UserType[]) => {
     return {type: 'SET-USERS', users} as const;

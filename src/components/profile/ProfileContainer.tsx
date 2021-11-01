@@ -4,12 +4,11 @@ import axios from "axios";
 import {ProfileInfoType, setProfile} from "../../redux/profileReducer";
 import {connect} from "react-redux";
 import {RootState} from "../../redux/redux_store";
-import { withRouter, RouteComponentProps } from 'react-router-dom';
+import {withRouter, RouteComponentProps} from 'react-router-dom';
 
-type MapDispatch = { setProfile: (profile: ProfileInfoType)=> void }
+type MapDispatch = { setProfile: (profile: ProfileInfoType) => void }
 type PathParamsType = { userId: string }
-type ProfileAPIProps = MapDispatch & {profile: ProfileInfoType | null} & RouteComponentProps<PathParamsType>
-
+type ProfileAPIProps = MapDispatch & { profile: ProfileInfoType | null } & RouteComponentProps<PathParamsType>
 
 class ProfileAPI extends React.Component<ProfileAPIProps> {
     componentDidMount() {
