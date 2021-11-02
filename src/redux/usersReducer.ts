@@ -1,3 +1,6 @@
+import {AppDispatch} from "./redux_store";
+import { usersAPI} from "../api/api";
+
 export type UserType = {
     id: number
     name: string
@@ -52,6 +55,8 @@ export const usersReducer = (state: UsersType = initialState, action: ActionType
             return state;
     }
 }
+
+// ActionCreators
 export const changeFollow = (userID: number, follow: boolean) => {
     return {type: 'CHANGE-FOLLOW', userID, follow} as const;
 }
@@ -69,4 +74,31 @@ export const toggleIsFetching = (isFetching: boolean) => {
 }
 export const toggleFollowInProgress = (isFetching: boolean, id: number) => {
     return {type: 'TOGGLE-FOLLOW-PROGRESS', isFetching, id} as const;
+}
+// ThunkCreators
+export const getUsers = (currentPage: number, pageSize: number) => (dispatch: AppDispatch) => {
+    dispatch(toggleIsFetching(true));
+    usersAPI.getUsers(currentPage, pageSize).then(data => {
+        dispatch(toggleIsFetching(false));
+        dispatch(setUsers(data.items));
+        dispatch(setTotalUsersCount(data.totalCount));
+    })
+}
+export const followUser = (id: number) => (dispatch: AppDispatch) => {
+    dispatch(toggleFollowInProgress(true, id));
+    usersAPI.followUser(id).then(data => {
+        if (data.resultCode === 0) {
+            dispatch(changeFollow(id, true));
+        }
+        dispatch(toggleFollowInProgress(false, id))
+    })
+}
+export const unfollowUser = (id: number) => (dispatch: AppDispatch) => {
+    dispatch(toggleFollowInProgress(true, id));
+    usersAPI.unfollowUser(id).then(data=>{
+        if (data.resultCode === 0){
+            dispatch(changeFollow(id, false));
+        }
+        dispatch(toggleFollowInProgress(false, id));
+    })
 }

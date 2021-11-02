@@ -1,30 +1,18 @@
 import React from 'react';
 import {Header} from "./Header";
-import axios from "axios";
 import {connect} from "react-redux";
 import {RootState} from "../../redux/redux_store";
-import {AuthDataType, setUserAuthData} from "../../redux/authReducer";
-import {ProfileInfoType, setProfile} from "../../redux/profileReducer";
-import {authAPI, profileAPI} from "../../api/api";
+import {AuthDataType, getAuthData} from "../../redux/authReducer";
 
 // type for mapDispatch
 type MapDispatchType = {
-    setUserAuthData: (data: AuthDataType) => void
-    setProfile: (profile: ProfileInfoType) => void
+    getAuthData: () => void
 }
 type HeaderContainerType = AuthDataType & MapDispatchType
 
 class HeaderContainer extends React.Component<HeaderContainerType> {
     componentDidMount() {
-        authAPI.authMe().then(data => {
-            if (data.resultCode === 0) {
-                let {id} = data.data;
-                this.props.setUserAuthData(data.data);
-                id && profileAPI.getProfile(id.toString()).then(data => {
-                    this.props.setProfile(data);
-                })
-            }
-        })
+        this.props.getAuthData()
     }
 
     render() {
@@ -39,6 +27,6 @@ const mapState = (state: RootState) => ({
     isAuth: state.auth.isAuth,
 })
 
-export default connect(mapState, {setUserAuthData, setProfile})(HeaderContainer)
+export default connect(mapState, { getAuthData })(HeaderContainer)
 
 

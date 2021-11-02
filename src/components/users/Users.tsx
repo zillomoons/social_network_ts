@@ -7,30 +7,28 @@ import {UserType} from "../../redux/usersReducer";
 
 type PropsType = {
     users: UserType[]
-    changeFollow: (userID: number, follow: boolean) => void
     onPageChanged: (p: number) => void
     pageSize: number
     totalUsersCount: number
     currentPage: number
-    toggleFollowInProgress: (isFetching: boolean, id: number) => void
     followInProgress: number[]
+    followUser: (id: number) => void
+    unfollowUser: (id: number) => void
 }
 
 export const Users = ({
-                          users, changeFollow, totalUsersCount,
-                          pageSize, onPageChanged, currentPage, ...props
+                          users, totalUsersCount, followInProgress,
+                          pageSize, onPageChanged, currentPage, unfollowUser, followUser
                       }: PropsType) => {
 
     const mappedUsers = users.map(u => {
         return <User key={u.id} id={u.id}
                      userImage={u.photos.small === null ? ava_1 : u.photos.small}
-                     name={u.name}
-                     status={u.status}
-                     callback={(follow: boolean) => changeFollow(u.id, follow)}
+                     name={u.name} status={u.status}
                      followed={u.followed}
-                     toggleFollowInProgress={props.toggleFollowInProgress}
-                     followInProgress={props.followInProgress}
-
+                     followInProgress={followInProgress}
+                     followUser={() => followUser(u.id)}
+                     unfollowUser={() => unfollowUser(u.id)}
         />
     })
     let pagesCount = Math.ceil(totalUsersCount / pageSize);

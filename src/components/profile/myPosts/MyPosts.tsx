@@ -15,14 +15,13 @@ const MyPosts = ({posts, updatePost, newPostText, addPost}: MyPostsPropsType) =>
         let newText = e.currentTarget.value;
         updatePost(newText);
     }
-    const onAddPost = () => addPost();
-    console.log('MyPosts')
+
     return (
         <div className={s.posts}>
             <h3>My posts</h3>
             <div className={s.addNewPost}>
                 <textarea onChange={onNewPostChange} value={newPostText} placeholder={'Add post'}/>
-                <button onClick={onAddPost}>Add post</button>
+                <button onClick={addPost}>Add post</button>
             </div>
             {
                 posts.map(p => {

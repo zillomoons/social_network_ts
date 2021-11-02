@@ -5,6 +5,8 @@ import ava_2 from "../assets/images/ava_2.jpg";
 import ava_3 from "../assets/images/ava_3.jpg";
 import ava_4 from "../assets/images/ava_4.jpg";
 import ava_5 from "../assets/images/ava_5.jpg";
+import {AppDispatch} from "./redux_store";
+import {profileAPI} from "../api/api";
 
 
 export type PostType = {
@@ -78,6 +80,14 @@ export const profileReducer = (state: ProfilePageType = initialState, action: Ac
             return state;
     }
 }
+// ActionCreators
 export const addPost = () => ({type: 'ADD-POST'} as const);
 export const updatePost = (text: string) => ({type: 'UPDATE-POST', newText: text} as const);
 export const setProfile = (profile: ProfileInfoType) => ({type: 'SET-PROFILE', profile} as const);
+
+// ThunkCreators
+export const getProfile = (userId: string) => (dispatch: AppDispatch) => {
+    profileAPI.getProfile(userId).then(data => {
+       dispatch(setProfile(data));
+    })
+}

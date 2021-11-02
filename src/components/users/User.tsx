@@ -1,7 +1,6 @@
 import React from "react";
 import {NavLink} from "react-router-dom";
 import s from './users.module.css';
-import {followAPI} from "../../api/api";
 
 type UserPropsType = {
     id: number
@@ -9,34 +8,14 @@ type UserPropsType = {
     name: string
     status: string
     followed: boolean
-    callback: (follow: boolean) => void
-    toggleFollowInProgress: (isFetching: boolean, id: number) => void
     followInProgress: number[]
+    followUser: () => void
+    unfollowUser: () => void
 }
 
-export const User = ({
-                         id, userImage, name, status, followed, callback,
-                         toggleFollowInProgress, followInProgress
-                     }: UserPropsType) => {
+export const User = ({id, userImage, name, status, followed, followInProgress,
+                         followUser, unfollowUser}: UserPropsType) => {
 
-    const followUser = () => {
-        toggleFollowInProgress(true, id);
-        followAPI.followUser(id).then(data => {
-            if (data.resultCode === 0) {
-                callback(true);
-            }
-            toggleFollowInProgress(false, id);
-        });
-    }
-    const unfollowUser = () => {
-        toggleFollowInProgress(true, id);
-        followAPI.unfollowUser(id).then(data => {
-            if (data.resultCode === 0) {
-                callback(false);
-            }
-            toggleFollowInProgress(false, id);
-        })
-    }
     const disabledBtn = followInProgress.some(num => num === id);
 
     return <div className={s.userStyle}>

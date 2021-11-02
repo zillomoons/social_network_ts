@@ -1,3 +1,6 @@
+import {AppDispatch} from "./redux_store";
+import {authAPI, profileAPI} from "../api/api";
+import { setProfile } from "./profileReducer";
 
 export type AuthDataType = {
     id: number | null
@@ -22,7 +25,19 @@ export const authReducer = (state: AuthDataType = initialState, action: ActionsT
             return state;
     }
 }
-
+// ActionCreator
 export const setUserAuthData = (data: AuthDataType) => {
     return {type: 'SET-USER-DATA', data} as const;
+}
+//ThunkCreator
+export const getAuthData = () => (dispatch: AppDispatch) =>{
+    authAPI.authMe().then(data => {
+        if (data.resultCode === 0) {
+            let {id} = data.data;
+            dispatch(setUserAuthData(data.data));
+            id && profileAPI.getProfile(id.toString()).then(data => {
+                dispatch(setProfile(data));
+            })
+        }
+    })
 }
