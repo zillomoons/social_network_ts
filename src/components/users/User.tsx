@@ -1,7 +1,7 @@
 import React from "react";
 import {NavLink} from "react-router-dom";
 import s from './users.module.css';
-import {followUserAPI, unfollowUserAPI} from "../../api/api";
+import {followAPI} from "../../api/api";
 
 type UserPropsType = {
     id: number
@@ -10,24 +10,34 @@ type UserPropsType = {
     status: string
     followed: boolean
     callback: (follow: boolean) => void
+    toggleFollowInProgress: (isFetching: boolean, id: number) => void
+    followInProgress: number[]
 }
 
-export const User = ({id, userImage, name, status, followed, callback}: UserPropsType) => {
+export const User = ({
+                         id, userImage, name, status, followed, callback,
+                         toggleFollowInProgress, followInProgress
+                     }: UserPropsType) => {
 
     const followUser = () => {
-        followUserAPI(id).then(data => {
+        toggleFollowInProgress(true, id);
+        followAPI.followUser(id).then(data => {
             if (data.resultCode === 0) {
                 callback(true);
             }
+            toggleFollowInProgress(false, id);
         });
     }
     const unfollowUser = () => {
-        unfollowUserAPI(id).then(data => {
+        toggleFollowInProgress(true, id);
+        followAPI.unfollowUser(id).then(data => {
             if (data.resultCode === 0) {
                 callback(false);
             }
+            toggleFollowInProgress(false, id);
         })
     }
+    const disabledBtn = followInProgress.some(num => num === id);
 
     return <div className={s.userStyle}>
         <div className={s.userPhoto}>
@@ -37,8 +47,8 @@ export const User = ({id, userImage, name, status, followed, callback}: UserProp
             <div>
                 {
                     followed
-                        ? <button onClick={unfollowUser}>UNFOLLOW</button>
-                        : <button className={s.follow} onClick={followUser}>FOLLOW</button>
+                        ? <button disabled={disabledBtn} onClick={unfollowUser}>UNFOLLOW</button>
+                        : <button disabled={disabledBtn} className={s.follow} onClick={followUser}>FOLLOW</button>
                 }
             </div>
         </div>

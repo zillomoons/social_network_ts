@@ -5,17 +5,20 @@ import ava_1 from "../../assets/images/ava_1.jpg";
 import Pagination from "../pagination/Pagination";
 import {UserType} from "../../redux/usersReducer";
 
-type PropsType={
+type PropsType = {
     users: UserType[]
     changeFollow: (userID: number, follow: boolean) => void
     onPageChanged: (p: number) => void
     pageSize: number
     totalUsersCount: number
     currentPage: number
+    toggleFollowInProgress: (isFetching: boolean, id: number) => void
+    followInProgress: number[]
 }
 
-export const Users = ({users, changeFollow, totalUsersCount,
-                          pageSize, onPageChanged, currentPage
+export const Users = ({
+                          users, changeFollow, totalUsersCount,
+                          pageSize, onPageChanged, currentPage, ...props
                       }: PropsType) => {
 
     const mappedUsers = users.map(u => {
@@ -24,7 +27,11 @@ export const Users = ({users, changeFollow, totalUsersCount,
                      name={u.name}
                      status={u.status}
                      callback={(follow: boolean) => changeFollow(u.id, follow)}
-                     followed={u.followed}/>
+                     followed={u.followed}
+                     toggleFollowInProgress={props.toggleFollowInProgress}
+                     followInProgress={props.followInProgress}
+
+        />
     })
     let pagesCount = Math.ceil(totalUsersCount / pageSize);
     let pages = [];
@@ -40,7 +47,7 @@ export const Users = ({users, changeFollow, totalUsersCount,
                         pageSize={pageSize}
                         siblingCount={1}
                         currentPage={currentPage}
-                        className={s.paginationBar} />
+                        className={s.paginationBar}/>
         </div>
     )
 }
