@@ -16,7 +16,7 @@ export const Header = ({login, isAuth}: PropsType) => {
             <Navbar/>
             <div className={s.login}>
                 {
-                    isAuth ? login : <NavLink to='/profile'>Login</NavLink>
+                    isAuth ? login : <NavLink to='/login'>Login</NavLink>
                 }
 
             </div>
