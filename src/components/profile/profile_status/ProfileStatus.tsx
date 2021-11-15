@@ -10,7 +10,7 @@ export class ProfileStatus extends React.Component<PropsType, any> {
         editMode: false,
         status: this.props.status
     }
-    setStatus = (e: ChangeEvent<HTMLInputElement>) => {
+    onChangeStatus = (e: ChangeEvent<HTMLInputElement>) => {
         this.setState( {status: e.currentTarget.value});
     }
     deactivateEditMode = () => {
@@ -20,9 +20,16 @@ export class ProfileStatus extends React.Component<PropsType, any> {
     activateEditMode = () => {
         this.setState( {editMode: true} );
     }
+    componentDidUpdate(prevProps: Readonly<PropsType>, prevState: Readonly<any>, snapshot?: any) {
+        if (prevProps.status !== this.props.status){
+            this.setState( {status: this.props.status} )
+        }
+        console.log('componentDidUpdate')
+    }
+
     render() {
         return this.state.editMode
-            ? <input onChange={this.setStatus} onBlur={this.deactivateEditMode} value={this.state.status} autoFocus/>
+            ? <input onChange={this.onChangeStatus} onBlur={this.deactivateEditMode} value={this.state.status} autoFocus/>
             : <span onDoubleClick={this.activateEditMode}>{this.props.status ? this.props.status : 'Sorry, no status :('}</span>
     }
 
