@@ -1,17 +1,26 @@
-.dialogsWrapper {
-    grid-area: main;
-    background-color: #edf6f9;
-    padding: 15px 70px;
-    display: flex;
-    justify-content: space-evenly;
-    gap: 70px;
-}
+/*.dialogsWrapper {*/
+/*    grid-area: main;*/
+/*    background-color: #edf6f9;*/
+/*    padding: 15px 70px;*/
+/*    display: flex;*/
+/*    justify-content: space-evenly;*/
+/*    gap: 70px;*/
+/*}*/
 .messageWrapper {
     display: flex;
     gap: 25px;
     padding: 25px;
 }
-.dialogsWrapper img {
+.messageWrapper img{
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+}
+.contacts {
+    display: flex;
+    flex-direction: column;
+}
+.contacts img {
     width: 50px;
     height: 50px;
     border-radius: 50%;

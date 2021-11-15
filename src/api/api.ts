@@ -14,6 +14,12 @@ type DataType = {
     data: AuthDataType
     resultCode: number
 }
+type StatusResType={
+    resultCode: number
+    messages: string[]
+    data: {}
+}
+
 const instance = axios.create({
     baseURL: 'https://social-network.samuraijs.com/api/1.0/',
     withCredentials: true,
@@ -26,21 +32,27 @@ export const usersAPI = {
         return instance.get<UsersDataType>(`users?page=${currentPage}&count=${pageSize}`).then(res => res.data)
     },
     followUser(id: number){
-        return instance.post<FollowDataType>(`follow/${id}`).then(res => res.data)
+        return instance.post<FollowDataType>(`follow/${id}`).then(res => res.data);
     },
     unfollowUser(id: number){
-        return instance.delete<FollowDataType>(`follow/${id}`).then(res=> res.data)
-    }
+        return instance.delete<FollowDataType>(`follow/${id}`).then(res=> res.data);
+    },
 }
 
 export const authAPI = {
     authMe(){
-        return instance.get<DataType>(`auth/me`).then(res=> res.data)
-    }
+        return instance.get<DataType>(`auth/me`).then(res=> res.data);
+    },
 }
 export const profileAPI = {
     getProfile(userId: string){
-        return instance.get<ProfileInfoType>(`profile/${userId}`).then(res=>res.data)
+        return instance.get<ProfileInfoType>(`profile/${userId}`).then(res=>res.data);
+    },
+    getStatus(userId: string){
+        return instance.get<string>(`profile/status/${userId}`).then(res => res.data);
+    },
+    updateStatus(status: string){
+        return instance.put<StatusResType>(`profile/status`, {status}).then(res => res.data);
     }
 }
 

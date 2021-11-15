@@ -1,10 +1,10 @@
 import React from 'react';
-import styles from './pages.module.css';
+import styles from '../common/styles/Container.module.css';
 
 
 const Music = () => {
     return (
-        <div className={styles.MainContent}>
+        <div className={styles.container}>
             Music will be here.
         </div>
     );

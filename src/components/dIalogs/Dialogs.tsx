@@ -1,5 +1,6 @@
 import React, {ChangeEvent} from 'react';
-import styles from './Dialogs.module.css'
+import styles from './Dialogs.module.css';
+import styleContainer from '../../common/styles/Container.module.css';
 import DialogItem from "./dialogItem/dialogItem";
 import {Contacts} from "./contacts/contacts";
 import {DialogsPageType} from '../../redux/dialogsReducer';
@@ -10,7 +11,6 @@ type DialogsPagePropsType = {
     updateMessage: (newMessage: string) => void
 }
 export const Dialogs = ({dialogsPage, sendMessage, updateMessage}: DialogsPagePropsType) => {
-    const onSendMessage = () => sendMessage();
     const onNewMessageChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
         let newMessage = e.currentTarget.value;
         updateMessage(newMessage);
@@ -21,7 +21,7 @@ export const Dialogs = ({dialogsPage, sendMessage, updateMessage}: DialogsPagePr
                                                                            time={d.time}/>);
 
     return (
-        <div className={styles.dialogsWrapper}>
+        <div className={styleContainer.container}>
             <Contacts dialogsPage={dialogsPage}/>
             <div>
                 {mappedDialogItems}
@@ -29,7 +29,7 @@ export const Dialogs = ({dialogsPage, sendMessage, updateMessage}: DialogsPagePr
                     <textarea onChange={onNewMessageChange}
                               value={dialogsPage.newMessageText}
                               placeholder={'Write a message'}/>
-                    <button onClick={onSendMessage}>Send</button>
+                    <button onClick={sendMessage}>Send</button>
                 </div>
             </div>
         </div>

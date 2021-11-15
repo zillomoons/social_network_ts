@@ -1,12 +1,18 @@
-.MainContent {
-    grid-area: main;
-    background-color: #edf6f9;
-    /*height: 100vh;*/
+.profileContainer{
+    flex-direction: column;
+    /*align-items: flex-start;*/
 }
-img.poster {
+.profileInfo {
     width: 100%;
-    height: 200px;
+    display: flex;
+    justify-content: space-evenly;
 }
-.description {
-    padding: 35px;
+.profileInfo img {
+    width: 100px;
+    height: 100px;
+}
+.profileImage{
+
+}
+.description{
 }

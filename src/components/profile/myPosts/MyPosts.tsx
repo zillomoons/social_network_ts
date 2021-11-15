@@ -17,17 +17,15 @@ const MyPosts = ({posts, updatePost, newPostText, addPost}: MyPostsPropsType) =>
     }
 
     return (
-        <div className={s.posts}>
+        <div>
             <h3>My posts</h3>
             <div className={s.addNewPost}>
                 <textarea onChange={onNewPostChange} value={newPostText} placeholder={'Add post'}/>
                 <button onClick={addPost}>Add post</button>
             </div>
             {
-                posts.map(p => {
-                    return <Post key={p.id} id={p.id} userImage={p.userImage} message={p.message}
-                                 likesCount={p.likesCount}/>
-                })
+                posts.map(p => <Post key={p.id} id={p.id} userImage={p.userImage} message={p.message}
+                                     likesCount={p.likesCount}/>)
             }
         </div>
     );

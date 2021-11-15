@@ -16,7 +16,7 @@ type MapDispatch = {
 }
 type UsersPropsType = UsersType & MapDispatch;
 
-class UsersContainer extends React.Component<UsersPropsType, any> {
+class UsersContainer extends React.Component<UsersPropsType> {
     componentDidMount() {
         this.props.getUsers(this.props.currentPage, this.props.pageSize)
     }
@@ -40,7 +40,6 @@ class UsersContainer extends React.Component<UsersPropsType, any> {
                          unfollowUser={this.props.unfollowUser}
                 />
             }
-
         </>
     }
 }

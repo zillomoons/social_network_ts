@@ -1,6 +1,7 @@
 import React from "react";
 import {User} from "./User";
-import s from './users.module.css'
+import s from './Users.module.css'
+import styleContainer from '../../common/styles/Container.module.css';
 import ava_1 from "../../assets/images/ava_1.jpg";
 import Pagination from "../pagination/Pagination";
 import {UserType} from "../../redux/usersReducer";
@@ -37,7 +38,7 @@ export const Users = ({
         pages.push(i);
     }
     return (
-        <div className={s.usersWrapper}>
+        <div className={`${styleContainer.container} ${s.usersWrapper}`}>
             <h2>Users</h2>
             {mappedUsers}
             <Pagination onPageChanged={onPageChanged}

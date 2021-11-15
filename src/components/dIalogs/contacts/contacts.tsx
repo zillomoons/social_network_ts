@@ -19,7 +19,7 @@ export const Contacts = ({dialogsPage}: PropsType) => {
         )
     })
     return (
-        <div>
+        <div className={styles.contacts}>
             <h3>Contacts</h3>
             { mappedContacts }
         </div>

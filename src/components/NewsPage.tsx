@@ -1,10 +1,10 @@
 import React from 'react';
-import styles from './pages.module.css';
+import styles from '../common/styles/Container.module.css';
 
 
 const NewsPage = () => {
     return (
-        <div className={styles.MainContent}>
+        <div className={styles.container}>
             News will be here.
         </div>
     );

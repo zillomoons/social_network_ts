@@ -1,31 +1,50 @@
 import React from 'react';
 import {Profile} from "./Profile";
-import {getProfile, ProfileInfoType} from "../../redux/profileReducer";
+import {getProfile, getStatus, ProfileInfoType, updateStatus} from "../../redux/profileReducer";
 import {connect} from "react-redux";
 import {RootState} from "../../redux/redux_store";
 import {withRouter, RouteComponentProps} from 'react-router-dom';
 import {RedirectHOC} from "../../hoc/redirectHOC";
+import {compose} from "redux";
 
-type MapDispatch = { getProfile: (userId: string) => void }
+type MapDispatch = {
+    getProfile: (userId: string) => void
+    getStatus: (userId: string) => void
+    updateStatus: (status: string) => void
+}
 type PathParamsType = { userId: string }
 type ProfileProps = {
     profile: ProfileInfoType | null,
+    status: string
 }
 
-class ProfileC extends React.Component<ProfileProps & MapDispatch & RouteComponentProps<PathParamsType>> {
+class ProfileContainer extends React.Component<ProfileProps & MapDispatch & RouteComponentProps<PathParamsType>> {
     componentDidMount() {
-        let userId = this.props.match.params.userId;
+        let userId = this.props.match.params.userId
+        if (!userId){
+            userId = '20446';
+        }
         this.props.getProfile(userId);
+        this.props.getStatus(userId);
     }
     render() {
-        return <Profile {...this.props}/>
+        return <Profile {...this.props} updateStatus={this.props.updateStatus}/>
     }
 }
+
 const mapState = (state: RootState) => ({
     profile: state.profilePage.profile,
+    status: state.profilePage.status,
 })
 
-const AuthRedirect = RedirectHOC(ProfileC);
-const ProfileContainer = withRouter(AuthRedirect);
+// const AuthRedirect = RedirectHOC(ProfileC);
+// const ProfileContainer = withRouter(AuthRedirect);
+// export default connect(mapState, {getProfile})(ProfileContainer)
 
-export default connect(mapState, {getProfile})(ProfileContainer)
+export default compose<React.ComponentType>(
+    connect(mapState, {getProfile, getStatus, updateStatus}),
+    withRouter,
+    RedirectHOC
+)(ProfileContainer);
+
+

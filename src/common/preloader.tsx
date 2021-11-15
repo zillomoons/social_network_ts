@@ -1,5 +1,5 @@
 import preloader from "../assets/images/preloader2.svg";
-import s from "../components/users/users.module.css";
+import s from "../components/users/Users.module.css";
 import React from "react";
 
 export const Preloader = () => {
