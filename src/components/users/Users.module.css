@@ -7,11 +7,6 @@
     align-self: center;
 }
 
-.usersWrapper button {
-    width: 200px;
-    align-self: center;
-    padding: 5px 8px;
-}
 
 .userStyle {
     display: flex;

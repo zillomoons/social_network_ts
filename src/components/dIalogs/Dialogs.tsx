@@ -1,38 +1,34 @@
-import React, {ChangeEvent} from 'react';
+import React from 'react';
 import styles from './Dialogs.module.css';
 import styleContainer from '../../common/styles/Container.module.css';
 import DialogItem from "./dialogItem/dialogItem";
 import {Contacts} from "./contacts/contacts";
 import {DialogsPageType} from '../../redux/dialogsReducer';
+import {AddMessageForm} from './addMessageForm/AddMessageForm';
 
 type DialogsPagePropsType = {
     dialogsPage: DialogsPageType
     sendMessage: () => void
     updateMessage: (newMessage: string) => void
 }
-export const Dialogs = ({dialogsPage, sendMessage, updateMessage}: DialogsPagePropsType) => {
-    const onNewMessageChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
-        let newMessage = e.currentTarget.value;
-        updateMessage(newMessage);
-    }
-    const mappedDialogItems = dialogsPage.dialogItems.map(d => <DialogItem key={d.id} id={d.id}
-                                                                           userImage={d.userImage}
-                                                                           name={d.name} text={d.text}
-                                                                           time={d.time}/>);
+export const Dialogs = React.memo(({dialogsPage, sendMessage, updateMessage}: DialogsPagePropsType) => {
+
+    const {dialogItems, contacts} = dialogsPage;
+    const mappedDialogItems = dialogItems.map(d => <DialogItem key={d.id} id={d.id}
+                              userImage={d.userImage}
+                              name={d.name} text={d.text}
+                              time={d.time}/>);
 
     return (
         <div className={styleContainer.container}>
-            <Contacts dialogsPage={dialogsPage}/>
+            <Contacts contacts={contacts}/>
             <div>
                 {mappedDialogItems}
-                <div className={styles.addMessageWrapper}>
-                    <textarea onChange={onNewMessageChange}
-                              value={dialogsPage.newMessageText}
-                              placeholder={'Write a message'}/>
-                    <button onClick={sendMessage}>Send</button>
-                </div>
+                <AddMessageForm sendMessage={sendMessage}
+                                updateMessage={updateMessage}/>
             </div>
         </div>
     );
-};
+});
+
 

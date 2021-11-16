@@ -28,8 +28,11 @@ const instance = axios.create({
     }
 })
 export const usersAPI = {
-    getUsers(currentPage: number = 1, pageSize: number = 10) {
-        return instance.get<UsersDataType>(`users?page=${currentPage}&count=${pageSize}`).then(res => res.data)
+    getUsers(currentPage = 1, pageSize = 10, term = "", friend: null | boolean = null) {
+        return instance
+            .get<UsersDataType>(`users?page=${currentPage}&count=${pageSize}&term=${term}` + (friend === null
+                ? '' : `&friend=${friend}` ))
+            .then(res => res.data)
     },
     followUser(id: number){
         return instance.post<FollowDataType>(`follow/${id}`).then(res => res.data);
@@ -43,6 +46,12 @@ export const authAPI = {
     authMe(){
         return instance.get<DataType>(`auth/me`).then(res=> res.data);
     },
+    login(){
+        return instance.post(`auth/login`).then(res => res.data)
+    },
+    logout(){
+        return instance.delete(`auth/login`).then(res => res.data)
+    }
 }
 export const profileAPI = {
     getProfile(userId: string){

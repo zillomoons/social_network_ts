@@ -1,14 +1,14 @@
 import React from "react";
 import {NavLink} from "react-router-dom";
 import styles from "../Dialogs.module.css";
-import {DialogsPageType} from "../../../redux/dialogsReducer";
+import {ContactType} from "../../../redux/dialogsReducer";
 
 type PropsType = {
-    dialogsPage: DialogsPageType
+    contacts: ContactType[]
 }
 
-export const Contacts = ({dialogsPage}: PropsType) => {
-    const mappedContacts = dialogsPage.contacts.map(c => {
+export const Contacts = React.memo(({contacts}: PropsType) => {
+    const mappedContacts = contacts.map(c => {
         return (
             <div key={c.id}>
                 <NavLink to={c.path} className={styles.contacts}>
@@ -24,4 +24,4 @@ export const Contacts = ({dialogsPage}: PropsType) => {
             { mappedContacts }
         </div>
     )
-}
+})
