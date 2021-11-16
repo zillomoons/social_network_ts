@@ -4,7 +4,7 @@ import styleContainer from '../../common/styles/Container.module.css';
 import DialogItem from "./dialogItem/dialogItem";
 import {Contacts} from "./contacts/contacts";
 import {DialogsPageType} from '../../redux/dialogsReducer';
-import {AddMessageForm} from './addMessageForm/AddMessageForm';
+import {TextareaForm} from "../../common/forms_formik/textarea_form";
 
 type DialogsPagePropsType = {
     dialogsPage: DialogsPageType
@@ -24,8 +24,10 @@ export const Dialogs = React.memo(({dialogsPage, sendMessage, updateMessage}: Di
             <Contacts contacts={contacts}/>
             <div>
                 {mappedDialogItems}
-                <AddMessageForm sendMessage={sendMessage}
-                                updateMessage={updateMessage}/>
+                <TextareaForm addCallback={sendMessage}
+                              updateCallback={updateMessage}
+                              styleObject={styles.addMessageWrapper}
+                              buttonName='Send'/>
             </div>
         </div>
     );
