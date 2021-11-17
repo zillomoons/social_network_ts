@@ -6,6 +6,7 @@ import {FaLock} from 'react-icons/fa';
 interface FormValues {
     email: string;
     password: string;
+    rememberMe: boolean
 }
 
 interface OtherProps {
@@ -46,6 +47,7 @@ const InnerForm = (props: OtherProps & FormikProps<FormValues>) => {
 interface MyFormProps {
     initialEmail?: string;
     message: string;
+    login: (email: string, password: string, rememberMe: boolean) => void
 }
 
 export const LoginForm = withFormik<MyFormProps, FormValues>({
@@ -53,6 +55,7 @@ export const LoginForm = withFormik<MyFormProps, FormValues>({
         return {
             email: props.initialEmail || '',
             password: '',
+            rememberMe: false,
         };
     },
     validate: (values: FormValues) => {
@@ -64,8 +67,8 @@ export const LoginForm = withFormik<MyFormProps, FormValues>({
         }
         return errors;
     },
-    handleSubmit: values => {
-        alert(values.email );
-        //do submitting things
+    handleSubmit: (values, {props: {login}}) => {
+        const {email, password, rememberMe} = values;
+        login(email, password, rememberMe);
     },
 })(InnerForm);

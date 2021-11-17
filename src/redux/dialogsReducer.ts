@@ -26,10 +26,9 @@ export type ContactType = {
 export type DialogsPageType = {
     contacts: Array<ContactType>
     dialogItems: Array<DialogItemType>
-    newMessageText: string
 }
 
-export type ActionTypes = ReturnType<typeof sendMessage> | ReturnType<typeof updateMessage>
+export type ActionTypes = ReturnType<typeof sendMessage>
 
 let initialState = {
     contacts: [
@@ -46,7 +45,6 @@ let initialState = {
         {id: v1(), userImage: ava_1, name: 'Nick', text: 'working', time: '23.45'},
         {id: v1(), userImage: ava_2, name: 'Alex', text: 'you better be))', time: '01.45'},
     ],
-    newMessageText: ''
 }
 
 export const dialogsReducer = (state: DialogsPageType = initialState, action: ActionTypes) => {
@@ -54,18 +52,12 @@ export const dialogsReducer = (state: DialogsPageType = initialState, action: Ac
         case "SEND-MESSAGE":
             let newDialogItem = {
                 id: v1(), userImage: user_ava, name: 'Someone',
-                text: state.newMessageText,
+                text: action.text,
                 time: today.getHours() + '.' + today.getMinutes()
             }
-            return {...state, dialogItems: [...state.dialogItems, newDialogItem], newMessageText: ''}
-        case "UPDATE-MESSAGE":
-            if (action.newText != null) {
-                return {...state, newMessageText: action.newText};
-            }
-            return state;
+            return {...state, dialogItems: [...state.dialogItems, newDialogItem], newMessageText: ''};
         default:
             return state;
     }
 }
-export const sendMessage = () => ({type: 'SEND-MESSAGE'} as const)
-export const updateMessage = (text: string) => ({ type: 'UPDATE-MESSAGE', newText: text} as const)
+export const sendMessage = (text: string) => ({type: 'SEND-MESSAGE', text} as const);

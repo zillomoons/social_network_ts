@@ -44,7 +44,7 @@ const mapState = (state: RootState) => ({
 export default compose<React.ComponentType>(
     connect(mapState, {getProfile, getStatus, updateStatus}),
     withRouter,
-    // RedirectHOC
+    RedirectHOC
 )(ProfileContainer);
 
 

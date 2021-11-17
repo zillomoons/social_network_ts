@@ -1,0 +1,7 @@
+.errorTextarea{
+    border: 1px solid red;
+    outline: none;
+}
+.errorMessage{
+    color: red;
+}

@@ -5,19 +5,16 @@ import s from "./MyPosts.module.css";
 
 type MyPostsPropsType = {
     posts: PostPropsType[]
-    addPost: () => void
-    updatePost: (newText: string) => void
+    addPost: (newText: string) => void
 }
 
-const MyPosts = React.memo(({posts, updatePost, addPost}: MyPostsPropsType) => {
+const MyPosts = React.memo(({posts, addPost}: MyPostsPropsType) => {
     const mappedPosts = posts.map(p => <Post key={p.id} id={p.id} userImage={p.userImage} message={p.message}
                                              likesCount={p.likesCount}/>)
     return (
         <div>
             <h3>My posts</h3>
-            <TextareaForm addCallback={addPost}
-                          updateCallback={updatePost}
-                          styleObject={s.addNewPost} buttonName='Add post'/>
+            <TextareaForm addCallback={addPost} styleObject={s.addNewPost} buttonName='Add post'/>
             {mappedPosts}
         </div>
     );

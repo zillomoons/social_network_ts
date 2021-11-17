@@ -74,10 +74,14 @@ a .contacts {
 }
 .addMessageWrapper {
     display: flex;
+    flex-direction: column;
     align-items: center;
     justify-content: flex-end;
     gap: 15px;
     margin-top: 25px;
+}
+.addMessageWrapper div{
+    color: red;
 }
 .addMessageWrapper textarea {
     border-radius: 6px;

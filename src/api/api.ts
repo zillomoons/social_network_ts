@@ -19,6 +19,12 @@ type StatusResType={
     messages: string[]
     data: {}
 }
+type LoginData = {
+    email: string
+    password: string
+    rememberMe: boolean
+    resultCode: number
+}
 
 const instance = axios.create({
     baseURL: 'https://social-network.samuraijs.com/api/1.0/',
@@ -46,11 +52,12 @@ export const authAPI = {
     authMe(){
         return instance.get<DataType>(`auth/me`).then(res=> res.data);
     },
-    login(){
-        return instance.post(`auth/login`).then(res => res.data)
+    login(email: string, password: string, rememberMe: boolean){
+        return instance.post<LoginData>(`auth/login`, {email, password, rememberMe})
+            .then(res => res.data);
     },
     logout(){
-        return instance.delete(`auth/login`).then(res => res.data)
+        return instance.delete<LoginData>(`auth/login`).then(res => res.data)
     }
 }
 export const profileAPI = {

@@ -8,10 +8,9 @@ import {TextareaForm} from "../../common/forms_formik/textarea_form";
 
 type DialogsPagePropsType = {
     dialogsPage: DialogsPageType
-    sendMessage: () => void
-    updateMessage: (newMessage: string) => void
+    sendMessage: (newMessage: string) => void
 }
-export const Dialogs = React.memo(({dialogsPage, sendMessage, updateMessage}: DialogsPagePropsType) => {
+export const Dialogs = React.memo(({dialogsPage, sendMessage }: DialogsPagePropsType) => {
 
     const {dialogItems, contacts} = dialogsPage;
     const mappedDialogItems = dialogItems.map(d => <DialogItem key={d.id} id={d.id}
@@ -25,7 +24,6 @@ export const Dialogs = React.memo(({dialogsPage, sendMessage, updateMessage}: Di
             <div>
                 {mappedDialogItems}
                 <TextareaForm addCallback={sendMessage}
-                              updateCallback={updateMessage}
                               styleObject={styles.addMessageWrapper}
                               buttonName='Send'/>
             </div>

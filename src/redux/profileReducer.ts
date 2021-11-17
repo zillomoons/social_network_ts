@@ -37,13 +37,11 @@ export type ProfileInfoType = {
 }
 export type ProfilePageType = {
     posts: PostType[]
-    newPostText: string
     status: string
     profile: ProfileInfoType | null
 }
 
-export type ActionTypes = ReturnType<typeof addPost> | ReturnType<typeof updatePost>
-    | ReturnType<typeof setProfile> | ReturnType<typeof setStatus>
+export type ActionTypes = ReturnType<typeof addPost> | ReturnType<typeof setProfile> | ReturnType<typeof setStatus>
 
 const initialState: ProfilePageType = {
     posts: [
@@ -58,7 +56,6 @@ const initialState: ProfilePageType = {
             userImage: ava_5
         },
     ],
-    newPostText: '',
     profile : null,
     status: '',
 }
@@ -66,16 +63,8 @@ const initialState: ProfilePageType = {
 export const profileReducer = (state: ProfilePageType = initialState, action: ActionTypes) => {
     switch (action.type) {
         case "ADD-POST":
-            let newPost: PostType = {
-                id: v1(), message: state.newPostText,
-                likesCount: 0, userImage: user_ava
-            }
+            let newPost: PostType = {id: v1(), message: action.text, likesCount: 0, userImage: user_ava}
             return {...state, posts: [...state.posts, newPost], newPostText: ''};
-        case "UPDATE-POST":
-            if (action.newText != null) {
-                return {...state, newPostText: action.newText};
-            }
-            return state;
         case "SET-PROFILE":
             return {...state, profile: action.profile};
         case "SET_STATUS":
@@ -85,8 +74,7 @@ export const profileReducer = (state: ProfilePageType = initialState, action: Ac
     }
 }
 // ActionCreators
-export const addPost = () => ({type: 'ADD-POST'} as const);
-export const updatePost = (text: string) => ({type: 'UPDATE-POST', newText: text} as const);
+export const addPost = (text: string) => ({type: 'ADD-POST', text} as const);
 export const setProfile = (profile: ProfileInfoType) => ({type: 'SET-PROFILE', profile} as const);
 export const setStatus = (status: string) => ({type: 'SET_STATUS', status} as const);
 

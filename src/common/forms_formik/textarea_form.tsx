@@ -1,9 +1,10 @@
 import {Field, Form, Formik, FormikHelpers} from "formik";
 import React from "react";
+import * as Yup from 'yup';
+import style from './textarea_form.module.css';
 
 type PropsType = {
-    addCallback: () => void
-    updateCallback: (text: string) => void
+    addCallback: (text: string) => void
     styleObject: string // style.addForm
     buttonName: string
 }
@@ -11,13 +12,13 @@ type FormValues = {
     text: string
 }
 
-export const TextareaForm = React.memo(({
-                                           addCallback, updateCallback,
-                                           buttonName, styleObject
-                                       }: PropsType) => {
+const AddTextSchema = Yup.object().shape({
+    text: Yup.string().max(50, 'Too Long!')
+})
+
+export const TextareaForm = React.memo(({ addCallback, buttonName, styleObject }: PropsType) => {
     const submit = (values: FormValues, actions: FormikHelpers<{ text: string; }>) => {
-        updateCallback(values.text);
-        addCallback();
+        addCallback(values.text);
         actions.resetForm({
             values: {
                 text: ''
@@ -27,13 +28,19 @@ export const TextareaForm = React.memo(({
     return (
         <Formik
             initialValues={{text: ''}}
-            onSubmit={submit}>
-            <Form className={styleObject}>
-                <Field name='text'
-                       placeholder={'Write here...'}
-                       component='textarea'/>
-                <button>{buttonName}</button>
-            </Form>
+            onSubmit={submit}
+            validationSchema={AddTextSchema}
+        >
+            {({errors}) => (
+                <Form className={styleObject}>
+                    <Field name='text' placeholder={'Write here...'}
+                           component='textarea'
+                           className={errors.text && style.errorTextarea}
+                    />
+                    {errors.text ? <div className={style.errorMessage}>{errors.text}</div> : null}
+                    <button type='submit'>{buttonName}</button>
+                </Form>
+            )}
         </Formik>
     )
 })

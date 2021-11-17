@@ -1,6 +1,10 @@
 .addNewPost {
     margin-bottom: 50px;
 }
+
+.addNewPost textarea{
+
+}
 .addNewPost textarea {
     margin-bottom: 15px;
 }
