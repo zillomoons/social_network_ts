@@ -93,7 +93,7 @@ export const toggleFollowInProgress = (isFetching: boolean, id: number) => {
     return {type: 'TOGGLE-FOLLOW-PROGRESS', isFetching, id} as const;
 }
 // ThunkCreators
-export const getUsers = (currentPage: number, pageSize: number, filter: FilterType) => (dispatch: AppDispatch) => {
+export const requestUsers = (currentPage: number, pageSize: number, filter: FilterType) => (dispatch: AppDispatch) => {
     dispatch(toggleIsFetching(true));
     dispatch(setFilter(filter));
 
@@ -123,4 +123,3 @@ export const unfollowUser = (id: number) => (dispatch: AppDispatch) => {
 }
 
 export type FilterType = typeof initialState.filter
-export type InitialState = typeof initialState
