@@ -11,7 +11,7 @@ const Login = (props: ReduxProps) =>{
     }
     return (
         <div className={s.loginContainer}>
-            <LoginForm message='Log in' login={props.login} />
+            <LoginForm login={props.login} />
         </div>
     )
 }

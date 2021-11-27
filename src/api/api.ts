@@ -24,6 +24,7 @@ type LoginData = {
     password: string
     rememberMe: boolean
     resultCode: number
+    messages: string
 }
 
 const instance = axios.create({

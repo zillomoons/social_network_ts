@@ -22,7 +22,7 @@ type ActionsType = ReturnType<typeof setUserAuthData>
 export const authReducer = (state: AuthDataType = initialState, action: ActionsType): AuthDataType => {
     switch (action.type){
         case "SET-USER-DATA":
-            return {...state, ...action.payload}
+            return {...state, ...action.payload};
         default:
             return state;
     }
@@ -44,12 +44,15 @@ export const getAuthData = () => (dispatch: AppDispatch) =>{
     })
 };
 
-export const login = (email: string, password: string, rememberMe: boolean) =>
+export const login = (email: string, password: string, rememberMe: boolean, setFieldError: (field: string, message: string | undefined) => void) =>
     (dispatch: ThunkDispatch<RootState, unknown, AnyAction>) => {
     authAPI.login(email, password, rememberMe)
         .then(data => {
             if (data.resultCode === 0){
                  dispatch(getAuthData());
+            } else {
+                let message = data.messages.length > 0 ? data.messages[0] : 'Some error';
+                setFieldError('general', message);
             }
         })
 };

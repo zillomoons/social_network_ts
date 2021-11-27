@@ -16,13 +16,15 @@ type PathParamsType = { userId: string }
 type ProfileProps = {
     profile: ProfileInfoType | null,
     status: string
+    authUserID: string
+    isAuth: boolean
 }
 
 class ProfileContainer extends React.Component<ProfileProps & MapDispatch & RouteComponentProps<PathParamsType>> {
     componentDidMount() {
         let userId = this.props.match.params.userId
         if (!userId){
-            userId = '20446';
+            userId = this.props.authUserID
         }
         this.props.getProfile(userId);
         this.props.getStatus(userId);
@@ -35,6 +37,8 @@ class ProfileContainer extends React.Component<ProfileProps & MapDispatch & Rout
 const mapState = (state: RootState) => ({
     profile: state.profilePage.profile,
     status: state.profilePage.status,
+    authUserID: state.auth.id,
+    isAuth: state.auth.isAuth,
 })
 
 // const AuthRedirect = RedirectHOC(ProfileC);
