@@ -1,4 +1,4 @@
-import React, {ChangeEvent, useState} from "react";
+import React, {ChangeEvent, useEffect, useState} from "react";
 
 type PropsType = {
     status: string
@@ -8,6 +8,11 @@ type PropsType = {
 export const ProfileStatus = React.memo(({status, updateStatus}: PropsType) => {
     const [editMode, setEditMode] = useState(false);
     const [lStatus, setStatus] = useState('');
+
+    useEffect(()=>{
+        setStatus(status);
+    }, [status]);
+
     const onChangeStatus = (e: ChangeEvent<HTMLInputElement>) => {
         setStatus(e.currentTarget.value);
     }
