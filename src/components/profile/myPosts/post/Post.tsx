@@ -7,7 +7,7 @@ export type PostPropsType = {
     likesCount: number
     userImage: string
 }
-const Post_Private = (props: PostPropsType) => {
+const Post = React.memo((props: PostPropsType) => {
     console.log('OLD POSTS')
     return (
         <div>
@@ -20,8 +20,7 @@ const Post_Private = (props: PostPropsType) => {
             <div className={s.like}>Likes: {props.likesCount}</div>
         </div>
     );
-};
+}) ;
 
-const Post = React.memo(Post_Private)
 
 export default Post;

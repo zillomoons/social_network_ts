@@ -9,6 +9,7 @@ type MyPostsPropsType = {
 }
 
 const MyPosts = React.memo(({posts, addPost}: MyPostsPropsType) => {
+    console.log('My Posts')
     const mappedPosts = posts.map(p => <Post key={p.id} id={p.id} userImage={p.userImage} message={p.message}
                                              likesCount={p.likesCount}/>)
     return (
