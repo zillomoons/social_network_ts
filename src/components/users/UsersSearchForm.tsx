@@ -1,8 +1,7 @@
-import {Field, Form, Formik, FormikHelpers} from "formik";
+import {Field, Form, Formik, FormikHelpers, useFormik} from "formik";
 import React from "react";
 import {FilterType} from "../../redux/usersReducer";
-
-
+import {TextField, Select, MenuItem, Button} from "@mui/material";
 
 type PropsType = {
     onFilterChanged: (filter: FilterType) => void
@@ -16,6 +15,48 @@ type FormType = {
     friend: 'true' | 'false' | 'null'
 }
 
+export const SearchForm = React.memo(({onFilterChanged}: PropsType) => {
+    const formik = useFormik({
+        initialValues: {
+            term: '',
+            friend: "null"
+        },
+        onSubmit: (values, actions) => {
+            const filter: FilterType = {
+                term: values.term,
+                friend: values.friend === 'null' ? null : values.friend === 'true' ? true : false
+            }
+            onFilterChanged(filter);
+            actions.setSubmitting(false);
+        }
+    })
+    return (
+        <form onSubmit={formik.handleSubmit}>
+            <TextField
+                name='term'
+                size='small'
+                value={formik.values.term}
+                onChange={formik.handleChange}
+            />
+            <TextField name='friend'
+                       size='small'
+                       value={formik.values.friend}
+                       onChange={formik.handleChange}
+                       select
+            >
+                <MenuItem value='null'>All</MenuItem>
+                <MenuItem value='true'>Only followed</MenuItem>
+                <MenuItem value='false'>Only unfollowed</MenuItem>
+            </TextField>
+            <Button color='primary'
+                    variant='contained'
+                    type='submit'
+            >
+                Submit
+            </Button>
+        </form>
+    )
+})
 export const UsersSearchForm = React.memo((props: PropsType) => {
     const initialValues: FormType = {term: '', friend: "null"};
     const submit = (values: FormType, actions: FormikHelpers<FormType>) => {

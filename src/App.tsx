@@ -13,6 +13,7 @@ import {compose} from 'redux';
 import { initialize } from './redux/appReducer';
 import {RootState} from "./redux/redux_store";
 import {Preloader} from "./common/preloader";
+import HomePage from "./components/HomePage";
 
 type MapDispatchType = {
     initialize: () => void
@@ -32,10 +33,11 @@ class App extends React.Component<MapDispatchType & MapStateType> {
         return (
             <div className="App">
                 <HeaderContainer/>
+                <Route exact path='/'><HomePage/></Route>
                 <Route exact path='/profile/:userId?'><ProfileContainer/></Route>
                 <Route exact path='/dialogs'><DialogsContainer/></Route>
                 <Route exact path='/users'><UsersContainer/></Route>
-                <Route exact path='/news'><NewsPage/></Route>
+                <Route exact path='/news'><NewsPage /></Route>
                 <Route exact path='/settings'><Settings/></Route>
                 <Route exact path='/login'><Login/></Route>
             </div>

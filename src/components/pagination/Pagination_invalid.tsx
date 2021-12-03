@@ -1,7 +1,7 @@
 import classnames from 'classnames';
 import React from 'react';
 import {DOTS, usePagination} from "./usePagination";
-import './pagination.css';
+import './pagination.module.css';
 
 type PropsType = {
     onPageChanged: (page: number) => void
@@ -12,7 +12,7 @@ type PropsType = {
     className: string
 }
 
-const Pagination = ({onPageChanged, totalCount, pageSize, siblingCount = 1, currentPage, className}: PropsType) => {
+const Pagination_invalid = ({onPageChanged, totalCount, pageSize, siblingCount = 1, currentPage, className}: PropsType) => {
     const paginationRange = usePagination({
         totalCount, pageSize, siblingCount, currentPage
     });
@@ -52,4 +52,4 @@ const Pagination = ({onPageChanged, totalCount, pageSize, siblingCount = 1, curr
         </ul>
     )
 }
-export default Pagination;
+export default Pagination_invalid;

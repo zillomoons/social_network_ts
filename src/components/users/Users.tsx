@@ -3,9 +3,9 @@ import {User} from "./User";
 import s from './Users.module.css'
 import styleContainer from '../../common/styles/Container.module.css';
 import ava_1 from "../../assets/images/ava_1.jpg";
-import Pagination from "../pagination/Pagination";
 import {FilterType, UserType} from "../../redux/usersReducer";
-import {UsersSearchForm} from "./UsersSearchForm";
+import {SearchForm} from "./UsersSearchForm";
+import Paginator from "../pagination/Paginator";
 
 type PropsType = {
     users: UserType[]
@@ -16,7 +16,7 @@ type PropsType = {
     followInProgress: number[]
     followUser: (id: number) => void
     unfollowUser: (id: number) => void
-    onFilterChanged: (filter: FilterType)=>void
+    onFilterChanged: (filter: FilterType) => void
 }
 
 export const Users = React.memo(({
@@ -34,23 +34,19 @@ export const Users = React.memo(({
                      unfollowUser={() => unfollowUser(u.id)}
         />
     })
-    let pagesCount = Math.ceil(totalUsersCount / pageSize);
-    let pages = [];
-    for (let i = 1; i <= pagesCount; i++) {
-        pages.push(i);
-    }
+
     return (
         <div className={`${styleContainer.container} ${s.usersWrapper}`}>
             <h2>Users</h2>
-            <UsersSearchForm onFilterChanged={onFilterChanged} />
+            <SearchForm onFilterChanged={onFilterChanged}/>
+            {/*<UsersSearchForm onFilterChanged={onFilterChanged} />*/}
+            <Paginator onPageChanged={onPageChanged}
+                       pageSize={pageSize}
+                       totalItemsCount={totalUsersCount}
+                       currentPage={currentPage}/>
             {mappedUsers}
-            <Pagination onPageChanged={onPageChanged}
-                        totalCount={totalUsersCount}
-                        pageSize={pageSize}
-                        siblingCount={1}
-                        currentPage={currentPage}
-                        className={s.paginationBar}/>
+
         </div>
     )
-}) ;
+});
 
