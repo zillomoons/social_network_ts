@@ -4,7 +4,7 @@ import s from './Users.module.css'
 import styleContainer from '../../common/styles/Container.module.css';
 import ava_1 from "../../assets/images/ava_1.jpg";
 import {FilterType, UserType} from "../../redux/usersReducer";
-import {SearchForm} from "./UsersSearchForm";
+import {SearchForm} from "./SearchForm";
 import Paginator from "../pagination/Paginator";
 
 type PropsType = {
@@ -39,7 +39,6 @@ export const Users = React.memo(({
         <div className={`${styleContainer.container} ${s.usersWrapper}`}>
             <h2>Users</h2>
             <SearchForm onFilterChanged={onFilterChanged}/>
-            {/*<UsersSearchForm onFilterChanged={onFilterChanged} />*/}
             <Paginator onPageChanged={onPageChanged}
                        pageSize={pageSize}
                        totalItemsCount={totalUsersCount}

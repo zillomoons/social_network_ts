@@ -1,5 +1,5 @@
 import ava_1 from "../assets/images/ava_1.jpg";
-import {toggleFollowInProgress, usersReducer, UsersType} from "./usersReducer";
+import {changeFollow, toggleFollowInProgress, usersReducer, UsersType} from "./usersReducer";
 
 let state: UsersType;
 
@@ -15,14 +15,18 @@ beforeEach(()=>{
         totalUsersCount: 0,
         currentPage: 1,
         isFetching: false,
-        followInProgress: []
+        followInProgress: [],
+        filter: {
+            term: '',
+            friend: null,
+        }
     }
 
 })
 test('user reducer should change to correct followed value', ()=>{
 
-    const newState: UsersType  = usersReducer(state, {type: 'CHANGE-FOLLOW', userID: 5, follow: true})
-    const newState2: UsersType = usersReducer(state, {type: "CHANGE-FOLLOW", userID: 2, follow: false})
+    const newState: UsersType  = usersReducer(state, changeFollow(5, true))
+    const newState2: UsersType = usersReducer(state, changeFollow(2, false))
 
     expect(newState.users[4].followed).toBe(true)
     expect(newState.users[0].followed).toBe(true)

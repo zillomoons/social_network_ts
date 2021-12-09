@@ -1,4 +1,4 @@
-import {sendMessage} from "../../redux/dialogsReducer";
+import {removeMessage, sendMessage} from "../../redux/dialogs-reducer/dialogsReducer";
 import {Dialogs} from "./Dialogs";
 import {connect} from "react-redux";
 import {RootState} from "../../redux/redux_store";
@@ -10,7 +10,7 @@ const mapState = (state: RootState) => ({
 })
 
 export default compose<React.ComponentType>(
-    connect(mapState, {sendMessage}),
+    connect(mapState, {sendMessage, removeMessage}),
     RedirectHOC,
     )(Dialogs);
 

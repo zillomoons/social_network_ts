@@ -1,4 +1,4 @@
-import {sendMessage} from "./dialogsReducer";
+import {sendMessage} from "./dialogs-reducer/dialogsReducer";
 // import { sendMessage, updateMessage } from "./dialogsReducer";
 // import { addPostAC, updatePostAC} from "./profileReducer";
 //

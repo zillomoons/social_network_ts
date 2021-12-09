@@ -6,21 +6,25 @@ export type PostPropsType = {
     message: string
     likesCount: number
     userImage: string
+    removePost: (id: string) => void
 }
-const Post = React.memo((props: PostPropsType) => {
-    console.log('OLD POSTS')
+
+const Post = React.memo(({id, removePost, message, likesCount, userImage}: PostPropsType) => {
+    const deletePost = () => {
+        removePost(id)
+    }
     return (
-        <div>
+        <>
             <div className={s.postWrapper}>
                 <img className={s.avatar}
-                     src={props.userImage}
+                     src={userImage}
                      alt="avatarka"/>
-                {props.message}
+                {message}
+                <button onClick={deletePost} className={s.deleteBtn}>x</button>
             </div>
-            <div className={s.like}>Likes: {props.likesCount}</div>
-        </div>
+            <div className={s.like}>Likes: {likesCount}</div>
+        </>
     );
-}) ;
-
+});
 
 export default Post;

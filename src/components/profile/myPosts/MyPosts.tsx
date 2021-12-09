@@ -1,16 +1,20 @@
 import React from 'react';
-import Post, {PostPropsType} from "./post/Post";
+import Post from "./post/Post";
 import {TextareaForm} from "../../../common/forms_formik/textarea_form";
 import s from "./MyPosts.module.css";
+import {PostType} from "../../../redux/profile-reducer/profileReducer";
 
 type MyPostsPropsType = {
-    posts: PostPropsType[]
+    posts: PostType[]
     addPost: (newText: string) => void
+    removePost: (id: string) => void
 }
 
-const MyPosts = React.memo(({posts, addPost}: MyPostsPropsType) => {
-    console.log('My Posts')
-    const mappedPosts = posts.map(p => <Post key={p.id} id={p.id} userImage={p.userImage} message={p.message}
+const MyPosts = React.memo(({posts, addPost, removePost}: MyPostsPropsType) => {
+    const mappedPosts = posts.map(p => <Post key={p.id} id={p.id}
+                                             removePost={removePost}
+                                             userImage={p.userImage}
+                                             message={p.message}
                                              likesCount={p.likesCount}/>)
     return (
         <div>

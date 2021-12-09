@@ -1,7 +1,7 @@
 import React from "react";
 import {NavLink} from "react-router-dom";
 import styles from "../Dialogs.module.css";
-import {ContactType} from "../../../redux/dialogsReducer";
+import {ContactType} from "../../../redux/dialogs-reducer/dialogsReducer";
 
 type PropsType = {
     contacts: ContactType[]

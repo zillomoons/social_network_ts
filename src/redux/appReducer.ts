@@ -2,6 +2,11 @@ import {ThunkDispatch} from "redux-thunk";
 import {RootState} from "./redux_store";
 import {AnyAction} from "redux";
 import {getAuthData} from "./authReducer";
+import {profileAPI} from "../api/api";
+
+enum ACTION_TYPES {
+    APP_INITIALIZED_SUCCESS = 'social_network/app/INITIALIZED_SUCCESS',
+}
 
 type AppType = {
     initialized: boolean
@@ -14,7 +19,7 @@ const initialState: AppType = {
 
 export const appReducer = (state = initialState, action: ActionType): AppType => {
     switch (action.type) {
-        case "INITIALIZED-SUCCESS":
+        case ACTION_TYPES.APP_INITIALIZED_SUCCESS:
             return {...state, ...action.payload}
         default:
             return state;
@@ -22,12 +27,10 @@ export const appReducer = (state = initialState, action: ActionType): AppType =>
 }
 //actionCreators
 export const initializedSuccess = () => {
-    return {type: 'INITIALIZED-SUCCESS', payload: {initialized: true}} as const;
+    return {type: ACTION_TYPES.APP_INITIALIZED_SUCCESS, payload: {initialized: true}} as const;
 }
 //thunkCreators
-export const initialize = () => (dispatch: ThunkDispatch<RootState, unknown, AnyAction>) => {
-    let promise = dispatch(getAuthData());
-    promise.then(()=>{
-        dispatch(initializedSuccess());
-    });
+export const initialize = () => async (dispatch: ThunkDispatch<RootState, unknown, AnyAction>) => {
+    await dispatch(getAuthData());
+    dispatch(initializedSuccess());
 }

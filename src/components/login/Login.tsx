@@ -5,13 +5,13 @@ import { login } from "../../redux/authReducer";
 import {RootState} from "../../redux/redux_store";
 import {Redirect} from "react-router-dom";
 
-const Login = (props: ReduxProps) =>{
-    if (props.isAuth){
+const Login = ({isAuth, login}: ReduxProps) =>{
+    if (isAuth){
         return <Redirect to='/profile/:userId?' />
     }
     return (
         <div className={s.loginContainer}>
-            <LoginForm login={props.login} />
+            <LoginForm login={login} />
         </div>
     )
 }

@@ -26,33 +26,43 @@ type UsersPropsType = UsersType & MapDispatch;
 
 class UsersContainer extends React.Component<UsersPropsType> {
     componentDidMount() {
-        const {currentPage, pageSize, filter} = this.props;
-        this.props.requestUsers(currentPage, pageSize, filter)
+        const {currentPage, pageSize, filter, requestUsers} = this.props;
+        requestUsers(currentPage, pageSize, filter)
     }
-
     onPageChanged = (p: number) => {
-        const {pageSize, filter} = this.props;
-        this.props.setCurrentPage(p);
-        this.props.requestUsers(p, pageSize, filter)
+        const {pageSize, filter, setCurrentPage, requestUsers} = this.props;
+        setCurrentPage(p);
+        requestUsers(p, pageSize, filter)
     }
-    onFilterChanged = (filter: FilterType) =>{
-        const { pageSize} = this.props;
-        this.props.requestUsers(1, pageSize, filter);
+    onFilterChanged = (filter: FilterType) => {
+        const {pageSize, requestUsers} = this.props;
+        requestUsers(1, pageSize, filter);
     }
     render() {
+        const {
+            isFetching,
+            users,
+            pageSize,
+            totalUsersCount,
+            currentPage,
+            followInProgress,
+            followUser,
+            unfollowUser,
+        } = this.props;
         return <>
-            {this.props.isFetching
-                ? <Preloader/>
-                : <Users users={this.props.users}
-                         pageSize={this.props.pageSize}
-                         totalUsersCount={this.props.totalUsersCount}
-                         currentPage={this.props.currentPage}
-                         onPageChanged={this.onPageChanged}
-                         followInProgress={this.props.followInProgress}
-                         followUser={this.props.followUser}
-                         unfollowUser={this.props.unfollowUser}
-                         onFilterChanged={this.onFilterChanged}
-                />
+            {
+                isFetching
+                    ? <Preloader/>
+                    : <Users users={users}
+                             pageSize={pageSize}
+                             totalUsersCount={totalUsersCount}
+                             currentPage={currentPage}
+                             onPageChanged={this.onPageChanged}
+                             followInProgress={followInProgress}
+                             followUser={followUser}
+                             unfollowUser={unfollowUser}
+                             onFilterChanged={this.onFilterChanged}
+                    />
             }
         </>
     }
@@ -69,5 +79,5 @@ const mapState = (state: RootState): UsersType => ({
 })
 
 export default connect(mapState,
-    { setCurrentPage, requestUsers, followUser, unfollowUser})(UsersContainer);
+    {setCurrentPage, requestUsers, followUser, unfollowUser})(UsersContainer);
 

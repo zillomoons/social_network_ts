@@ -33,13 +33,13 @@ class App extends React.Component<MapDispatchType & MapStateType> {
         return (
             <div className="App">
                 <HeaderContainer/>
-                <Route exact path='/'><HomePage/></Route>
-                <Route exact path='/profile/:userId?'><ProfileContainer/></Route>
-                <Route exact path='/dialogs'><DialogsContainer/></Route>
-                <Route exact path='/users'><UsersContainer/></Route>
-                <Route exact path='/news'><NewsPage /></Route>
-                <Route exact path='/settings'><Settings/></Route>
-                <Route exact path='/login'><Login/></Route>
+                <Route exact path='/' render={()=><HomePage/> } />
+                <Route exact path='/profile/:userId?' render={()=><ProfileContainer/>} />
+                <Route exact path='/dialogs' render={ ()=><DialogsContainer/> } />
+                <Route exact path='/users' render={ ()=><UsersContainer/> } />
+                <Route exact path='/news' render={()=><NewsPage /> } />
+                <Route exact path='/settings' render={()=><Settings/> } />
+                <Route exact path='/login' render={()=><Login/> } />
             </div>
         );
     }

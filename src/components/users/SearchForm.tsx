@@ -1,7 +1,7 @@
 import {Field, Form, Formik, FormikHelpers, useFormik} from "formik";
 import React from "react";
 import {FilterType} from "../../redux/usersReducer";
-import {TextField, Select, MenuItem, Button} from "@mui/material";
+import {TextField, MenuItem, Button} from "@mui/material";
 
 type PropsType = {
     onFilterChanged: (filter: FilterType) => void
@@ -52,7 +52,7 @@ export const SearchForm = React.memo(({onFilterChanged}: PropsType) => {
                     variant='contained'
                     type='submit'
             >
-                Submit
+                Search
             </Button>
         </form>
     )

@@ -1,15 +1,9 @@
-/*.dialogsWrapper {*/
-/*    grid-area: main;*/
-/*    background-color: #edf6f9;*/
-/*    padding: 15px 70px;*/
-/*    display: flex;*/
-/*    justify-content: space-evenly;*/
-/*    gap: 70px;*/
-/*}*/
+
 .messageWrapper {
     display: flex;
     gap: 25px;
     padding: 25px;
+    align-items: flex-start;
 }
 .messageWrapper img{
     width: 50px;
@@ -91,6 +85,14 @@ a .contacts {
     color: white;
     padding: 3px 7px;
     border-radius: 6px;
+}
+.deleteBtn{
+    border:none;
+    color: lightgray;
+    background: none;
+}
+.deleteBtn:hover{
+    color: #87959a;
 }
 
 

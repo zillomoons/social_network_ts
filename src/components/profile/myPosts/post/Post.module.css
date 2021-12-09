@@ -14,3 +14,12 @@ img.avatar  {
     color: #4c5b6c;
     font-size: 12px;
 }
+.deleteBtn{
+    border: none;
+    background: none;
+    color: lightgray;
+    margin-left: 5px;
+}
+.deleteBtn:hover{
+    color: darkgrey;
+}

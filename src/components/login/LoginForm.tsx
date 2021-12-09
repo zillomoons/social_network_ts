@@ -106,7 +106,7 @@ export const LoginForm = ({login}: FormProps) => {
                 <div>
                     <Field type='password' name='password'/>
                     <div className={s.errorMessage}>
-                        <ErrorMessage name='password' />
+                        <ErrorMessage name='password'/>
                     </div>
                 </div>
                 <Field type='checkbox' name='rememberMe' id='rememberMe'/>

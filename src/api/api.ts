@@ -1,13 +1,13 @@
 import axios from "axios";
 import {UserType} from "../redux/usersReducer";
 import {AuthDataType} from "../redux/authReducer";
-import {ProfileInfoType} from "../redux/profileReducer";
+import {ProfileInfoType} from "../redux/profile-reducer/profileReducer";
 
 type UsersDataType = {
     items: UserType[]
     totalCount: number
 }
-type FollowDataType = {
+export type FollowDataType = {
     resultCode: number
 }
 type DataType = {
