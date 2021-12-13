@@ -3,10 +3,10 @@ import style from '../../common/styles/Container.module.css';
 import s from './Profile.module.css';
 import {ProfileInfo} from "./profileInfo/ProfileInfo";
 import {MyPostsContainer} from "./myPosts/MyPostsContainer";
-import {ProfileInfoType} from "../../redux/profile-reducer/profileReducer";
+import {ProfileType} from "../../redux/profile-reducer/profileReducer";
 
 type PropsType = {
-    profile: ProfileInfoType | null,
+    profile: ProfileType | null,
     status: string
     updateStatus: (status: string) => void
     isOwner: boolean

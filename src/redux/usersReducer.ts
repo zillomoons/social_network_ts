@@ -18,20 +18,20 @@ export type UserType = {
     photos: { small: string | null, large: string | null }
     followed: boolean
 }
-export type UsersType = {
-    users: UserType[]
-    pageSize: number
-    totalUsersCount: number
-    currentPage: number
-    isFetching: boolean
-    followInProgress: number[]
-    filter: {
-        term: string
-        friend: null | boolean
-    }
-}
+// export type UsersType = {
+//     users: UserType[]
+//     pageSize: number
+//     totalUsersCount: number
+//     currentPage: number
+//     isFetching: boolean
+//     followInProgress: number[]
+//     filter: {
+//         term: string
+//         friend: null | boolean
+//     }
+// }
 
-const initialState: UsersType = {
+const initialState = {
     users: [] as Array<UserType>,
     pageSize: 20,
     totalUsersCount: 0,
@@ -42,14 +42,15 @@ const initialState: UsersType = {
         term: '',
         friend: null as null | boolean
     }
-
 }
+export type UsersInitState = typeof initialState;
+
 type ActionType = ReturnType<typeof changeFollow> | ReturnType<typeof setUsers>
     | ReturnType<typeof setCurrentPage> | ReturnType<typeof setTotalUsersCount>
     | ReturnType<typeof toggleIsFetching> | ReturnType<typeof toggleFollowInProgress>
     | ReturnType<typeof setFilter>
 
-export const usersReducer = (state = initialState, action: ActionType): UsersType => {
+export const usersReducer = (state = initialState, action: ActionType): UsersInitState => {
     switch (action.type) {
         case ACTIONS_TYPE.USERS_CHANGE_FOLLOW:
             return {

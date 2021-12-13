@@ -1,6 +1,6 @@
 import React, {ChangeEvent} from 'react';
 import s from "../Profile.module.css";
-import {ProfileInfoType} from "../../../redux/profile-reducer/profileReducer";
+import {ProfileType} from "../../../redux/profile-reducer/profileReducer";
 import {Preloader} from "../../../common/preloader/preloader";
 import ava from "../../../assets/images/user_ava.png"
 import {ProfileStatus} from "../profile_status/ProfileStatus";
@@ -8,7 +8,7 @@ import AddAPhotoOutlinedIcon from '@mui/icons-material/AddAPhotoOutlined';
 import {IconButton} from "@mui/material";
 
 type PropsType = {
-    profile: ProfileInfoType | null,
+    profile: ProfileType | null,
     status: string
     updateStatus: (status: string) => void
     isOwner: boolean

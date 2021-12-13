@@ -1,7 +1,7 @@
 import axios from "axios";
 import {UserType} from "../redux/usersReducer";
 import {AuthDataType} from "../redux/authReducer";
-import {ProfileInfoType} from "../redux/profile-reducer/profileReducer";
+import {ProfileType} from "../redux/profile-reducer/profileReducer";
 
 type UsersDataType = {
     items: UserType[]
@@ -77,7 +77,7 @@ export const authAPI = {
 }
 export const profileAPI = {
     getProfile(userId: string){
-        return instance.get<ProfileInfoType>(`profile/${userId}`).then(res=>res.data);
+        return instance.get<ProfileType>(`profile/${userId}`).then(res=>res.data);
     },
     getStatus(userId: string){
         return instance.get<string>(`profile/status/${userId}`).then(res => res.data);

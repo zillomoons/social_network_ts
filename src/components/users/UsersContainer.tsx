@@ -3,7 +3,7 @@ import {RootState} from "../../redux/redux_store";
 import {
     FilterType,
     followUser, requestUsers, setCurrentPage,
-    unfollowUser, UsersType,
+    unfollowUser, UsersInitState,
 } from "../../redux/usersReducer";
 import React from "react";
 import {Users} from "./Users";
@@ -22,7 +22,7 @@ type MapDispatch = {
     followUser: (id: number) => void
     unfollowUser: (id: number) => void
 }
-type UsersPropsType = UsersType & MapDispatch;
+type UsersPropsType = UsersInitState & MapDispatch;
 
 class UsersContainer extends React.Component<UsersPropsType> {
     componentDidMount() {
@@ -68,7 +68,7 @@ class UsersContainer extends React.Component<UsersPropsType> {
     }
 }
 
-const mapState = (state: RootState): UsersType => ({
+const mapState = (state: RootState): UsersInitState => ({
     users: getUsers(state),
     pageSize: getPageSize(state),
     totalUsersCount: getTotalUsersCount(state),

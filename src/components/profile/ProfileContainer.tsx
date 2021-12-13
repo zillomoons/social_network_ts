@@ -3,7 +3,7 @@ import {Profile} from "./Profile";
 import {
     getProfile,
     getStatus,
-    ProfileInfoType,
+    ProfileType,
     savePhoto,
     updateStatus
 } from "../../redux/profile-reducer/profileReducer";
@@ -21,7 +21,7 @@ type MapDispatch = {
 }
 type PathParamsType = { userId: string }
 type ProfileProps = MapDispatch & RouteComponentProps<PathParamsType> & {
-    profile: ProfileInfoType,
+    profile: ProfileType,
     status: string
     authUserID: string
     isAuth: boolean

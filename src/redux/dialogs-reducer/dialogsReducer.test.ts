@@ -1,5 +1,4 @@
-import {addContact, DialogsPageType, dialogsReducer, editMessage, removeMessage, sendMessage} from "./dialogsReducer";
-import {v1} from "uuid";
+import {addContact, DialogsInitStateType, dialogsReducer, editMessage, removeMessage, sendMessage} from "./dialogsReducer";
 import ava_1 from "../../assets/images/ava_1.jpg";
 import ava_7 from "../../assets/images/logo.jpg";
 import ava_3 from "../../assets/images/ava_3.jpg";
@@ -8,7 +7,7 @@ import ava_5 from "../../assets/images/ava_5.jpg";
 import ava_6 from "../../assets/images/ava_6.jpg";
 import ava_2 from "../../assets/images/ava_2.jpg";
 
-let initState: DialogsPageType;
+let initState: DialogsInitStateType;
 
 beforeEach(()=>{
     initState={
@@ -26,6 +25,7 @@ beforeEach(()=>{
             {id: '3', userImage: ava_1, name: 'Nick', text: 'working', time: '23.45'},
             {id: '4', userImage: ava_2, name: 'Alex', text: 'you better be))', time: '01.45'},
         ],
+        newMessageText: ''
     }
 
 })
@@ -52,7 +52,6 @@ test('dialogs-reducer should edit correct message', ()=>{
     expect(resultState.dialogItems[1].text).toBe(text);
 })
 test('dialogs-reducer should add new contact', ()=>{
-    let contact = {id: '7', name: "Alice", userImage: '', path: ''}
     const resultState = dialogsReducer(initState, addContact('7', "Alice", '',''));
 
     expect(resultState.contacts.length).toBe(7)

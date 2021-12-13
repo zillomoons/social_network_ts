@@ -3,11 +3,11 @@ import styles from './Dialogs.module.css';
 import styleContainer from '../../common/styles/Container.module.css';
 import DialogItem from "./dialogItem/dialogItem";
 import {Contacts} from "./contacts/contacts";
-import {DialogsPageType} from '../../redux/dialogs-reducer/dialogsReducer';
+import {DialogsInitStateType} from '../../redux/dialogs-reducer/dialogsReducer';
 import {TextareaForm} from "../../common/forms_formik/textarea_form";
 
 type DialogsPagePropsType = {
-    dialogsPage: DialogsPageType
+    dialogsPage: DialogsInitStateType
     sendMessage: (newMessage: string) => void
     removeMessage: (id: string) => void
 }

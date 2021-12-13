@@ -15,7 +15,7 @@ export type AuthDataType = {
     isAuth: boolean
 }
 
-const initialState = {
+const initialState: AuthDataType = {
     id: null,
     email: null,
     login: null,
@@ -23,7 +23,7 @@ const initialState = {
 }
 type ActionsType = ReturnType<typeof setUserAuthData>
 
-export const authReducer = (state: AuthDataType = initialState, action: ActionsType): AuthDataType => {
+export const authReducer = (state = initialState, action: ActionsType): AuthDataType => {
     switch (action.type) {
         case ACTIONS_TYPE.AUTH_SET_USER_DATA:
             return {...state, ...action.payload};

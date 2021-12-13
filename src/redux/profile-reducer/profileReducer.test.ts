@@ -1,20 +1,19 @@
 import {
     addPost,
-    ProfileInfoType,
-    ProfilePageType,
+    ProfileType,
+    ProfileInitStateType,
     profileReducer,
     removePost,
     setProfile,
     setStatus
 } from "./profileReducer";
-import {v1} from "uuid";
 import ava_1 from "../../assets/images/ava_1.jpg";
 import ava_2 from "../../assets/images/ava_2.jpg";
 import ava_3 from "../../assets/images/ava_3.jpg";
 import ava_4 from "../../assets/images/ava_4.jpg";
 import ava_5 from "../../assets/images/ava_5.jpg";
 
-let initState: ProfilePageType;
+let initState: ProfileInitStateType;
 
 beforeEach(()=>{
     initState = {
@@ -32,6 +31,7 @@ beforeEach(()=>{
         ],
         profile : null,
         status: '',
+        newPostText: '',
     }
 })
 
@@ -45,7 +45,7 @@ test('profile-reducer should add post', ()=> {
 })
 
 test('profile-reducer should set new profile', ()=>{
-    let profileEx: ProfileInfoType = {
+    let profileEx: ProfileType = {
         userId : 154,
         lookingForAJob : true,
         lookingForAJobDescription : 'frontend dev',
