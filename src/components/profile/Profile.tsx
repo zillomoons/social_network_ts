@@ -9,6 +9,8 @@ type PropsType = {
     profile: ProfileInfoType | null,
     status: string
     updateStatus: (status: string) => void
+    isOwner: boolean
+    savePhoto: (photo: File)=> void
 }
 
 export const Profile = React.memo((props: PropsType) => {

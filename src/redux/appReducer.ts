@@ -2,7 +2,6 @@ import {ThunkDispatch} from "redux-thunk";
 import {RootState} from "./redux_store";
 import {AnyAction} from "redux";
 import {getAuthData} from "./authReducer";
-import {profileAPI} from "../api/api";
 
 enum ACTION_TYPES {
     APP_INITIALIZED_SUCCESS = 'social_network/app/INITIALIZED_SUCCESS',

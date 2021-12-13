@@ -13,6 +13,7 @@ enum ACTIONS_TYPE {
     PROFILE_SET_PROFILE = 'social_network/profile/SET_PROFILE',
     PROFILE_SET_STATUS = 'social_network/profile/SET_STATUS',
     PROFILE_REMOVE_POST = 'social_network/profile/REMOVE_POST',
+    PROFILE_SET_PHOTO = 'social_network/profile/SET_PHOTO',
 }
 
 export type PostType = {
@@ -44,12 +45,13 @@ export type ProfileInfoType = {
 export type ProfilePageType = {
     posts: PostType[]
     status: string
-    profile: ProfileInfoType | null
+    profile: ProfileInfoType
 }
 
 export type ActionTypes = ReturnType<typeof addPost> | ReturnType<typeof setProfile>
     | ReturnType<typeof setStatus>
     | ReturnType<typeof removePost>
+    | ReturnType<typeof setPhoto>
 
 const initialState: ProfilePageType = {
     posts: [
@@ -64,7 +66,7 @@ const initialState: ProfilePageType = {
             userImage: ava_5
         },
     ],
-    profile: null,
+    profile: {} as ProfileInfoType,
     status: '',
 }
 
@@ -79,6 +81,8 @@ export const profileReducer = (state: ProfilePageType = initialState, action: Ac
             return {...state, status: action.status};
         case ACTIONS_TYPE.PROFILE_REMOVE_POST:
             return {...state, posts: [...state.posts.filter(p => p.id !== action.id)]};
+        // case ACTIONS_TYPE.PROFILE_SET_PHOTO:
+        //     return {...state, profile: {...state.profile, photos: action.photos}}
         default:
             return state;
     }
@@ -88,6 +92,7 @@ export const addPost = (text: string) => ({type: ACTIONS_TYPE.PROFILE_ADD_POST, 
 export const setProfile = (profile: ProfileInfoType) => ({type: ACTIONS_TYPE.PROFILE_SET_PROFILE, profile} as const);
 export const setStatus = (status: string) => ({type: ACTIONS_TYPE.PROFILE_SET_STATUS, status} as const);
 export const removePost = (id: string) => ({type: ACTIONS_TYPE.PROFILE_REMOVE_POST, id} as const);
+export const setPhoto = (photos: Object) => ({type: ACTIONS_TYPE.PROFILE_SET_PHOTO, photos} as const);
 
 // ThunkCreators
 export const getProfile = (userId: string) => async (dispatch: AppDispatch) => {
@@ -103,4 +108,12 @@ export const updateStatus = (status: string) => async (dispatch: AppDispatch) =>
     if (data.resultCode === 0) {
         dispatch(setStatus(status));
     }
+}
+export const savePhoto = (photo: File) => async (dispatch: AppDispatch) => {
+    const data = await profileAPI.uploadUserPhoto(photo);
+    if (data.resultCode === 0) {
+        debugger
+        dispatch(setPhoto(data.data.photos))
+    }
+
 }

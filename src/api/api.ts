@@ -7,13 +7,18 @@ type UsersDataType = {
     items: UserType[]
     totalCount: number
 }
+type ResponseType<D = {}> = {
+    resultCode: number
+    messages: string[]
+    data: D
+}
 export type FollowDataType = {
     resultCode: number
 }
-type DataType = {
-    data: AuthDataType
-    resultCode: number
-}
+// type DataType = {
+//     data: AuthDataType
+//     resultCode: number
+// }
 type StatusResType={
     resultCode: number
     messages: string[]
@@ -26,7 +31,16 @@ type LoginData = {
     resultCode: number
     messages: string
 }
+type ResPhotoType = {
+    resultCode: number
+    data: {
+        photos: {
+            small: string
+            large: string
+        }
+    }
 
+}
 const instance = axios.create({
     baseURL: 'https://social-network.samuraijs.com/api/1.0/',
     withCredentials: true,
@@ -51,7 +65,7 @@ export const usersAPI = {
 
 export const authAPI = {
     authMe(){
-        return instance.get<DataType>(`auth/me`).then(res=> res.data);
+        return instance.get<ResponseType<AuthDataType>>(`auth/me`).then(res=> res.data);
     },
     login(email: string, password: string, rememberMe: boolean){
         return instance.post<LoginData>(`auth/login`, {email, password, rememberMe})
@@ -70,6 +84,15 @@ export const profileAPI = {
     },
     updateStatus(status: string){
         return instance.put<StatusResType>(`profile/status`, {status}).then(res => res.data);
+    },
+    uploadUserPhoto(photo: File){
+        const formData = new FormData();
+        formData.append('image', photo);
+        return instance.put<ResPhotoType>('profile/photo', formData, {
+            headers: {
+                'Content-Type': 'multipart/form-data'
+            }
+        }).then(res => res.data)
     }
 }
 

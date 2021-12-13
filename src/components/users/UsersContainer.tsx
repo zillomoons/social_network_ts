@@ -7,7 +7,7 @@ import {
 } from "../../redux/usersReducer";
 import React from "react";
 import {Users} from "./Users";
-import {Preloader} from "../../common/preloader";
+import {Preloader} from "../../common/preloader/preloader";
 import {
     getCurrentPage, getFilter, getFollowInProgress,
     getIsFetching,

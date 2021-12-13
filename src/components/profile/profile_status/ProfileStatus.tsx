@@ -9,7 +9,7 @@ export const ProfileStatus = React.memo(({status, updateStatus}: PropsType) => {
     const [editMode, setEditMode] = useState(false);
     const [lStatus, setStatus] = useState('');
 
-    useEffect(()=>{
+    useEffect(() => {
         setStatus(status);
     }, [status]);
 
@@ -27,6 +27,7 @@ export const ProfileStatus = React.memo(({status, updateStatus}: PropsType) => {
     return editMode
         ? <input onChange={onChangeStatus} onBlur={deactivateEditMode} value={lStatus} autoFocus/>
         : <span onDoubleClick={activateEditMode}>{status ? status : 'Sorry, no status :('}</span>
+
 });
 
 // export class ProfileStatus2 extends React.Component<PropsType, any> {
