@@ -1,53 +1,41 @@
-import React, {ChangeEvent} from 'react';
-import s from "../Profile.module.css";
-import {ProfileType} from "../../../redux/profile-reducer/profileReducer";
+import React, {useCallback, useState} from 'react';
+import {ProfileType, UpdateProfileType} from "../../../redux/profile-reducer/profileReducer";
 import {Preloader} from "../../../common/preloader/preloader";
-import ava from "../../../assets/images/user_ava.png"
-import {ProfileStatus} from "../profile_status/ProfileStatus";
-import AddAPhotoOutlinedIcon from '@mui/icons-material/AddAPhotoOutlined';
-import {IconButton} from "@mui/material";
+import {ProfileMain} from "./ProfileMain";
+import {ProfileDescription} from "./ProfileDescription";
+import {ProfileForm} from "./ProfileForm";
+import s from "../Profile.module.css";
+import {MdEdit} from "react-icons/all";
 
 type PropsType = {
-    profile: ProfileType | null,
+    profile: ProfileType | null
     status: string
     updateStatus: (status: string) => void
     isOwner: boolean
     savePhoto: (photo: File) => void
+    updateProfileData: (model: UpdateProfileType, setFieldError: (field: string, message: (string | undefined)) => void) => Promise<any>
 }
 
-export const ProfileInfo = ({profile, status, updateStatus, isOwner, savePhoto}: PropsType) => {
-    const uploadPhoto = (e: ChangeEvent<HTMLInputElement>) =>{
-        // @ts-ignore: Object is possibly 'null'.
-        if (e.target.files.length){
-            // @ts-ignore: Object is possibly 'null'.
-            savePhoto(e.target.files[0]);
-        }
-    }
+export const ProfileInfo = React.memo(({profile, status, updateStatus, isOwner, savePhoto, updateProfileData}: PropsType) => {
+    const [editMode, setEditMode] = useState(false);
+    const activateEditMode = () => setEditMode(true);
+    const deactivateEditMode = useCallback(() => setEditMode(false), [])
     if (!profile) {
         return <Preloader/>
     }
-    return (
-            <div className={s.profileInfo}>
-                <div className={s.profileImage}>
-                    <img src={profile.photos.large || ava } alt='avatar'/>
-                    {
-                        isOwner && <input type='file' onChange={uploadPhoto}/>
-                    }
-                    <IconButton aria-label='add photo'><AddAPhotoOutlinedIcon/></IconButton>
-                </div>
-                <div className={s.description}>
-                    Status: <ProfileStatus status={status} updateStatus={updateStatus} />
-                    <div>Name: {profile.fullName}</div>
-                    <div>looking for a job: {profile.lookingForAJob ? 'yes' : 'no'}</div>
-                    <div>Skills: {profile.lookingForAJobDescription}</div>
-                    <ul>
-                        <li>github: {profile.contacts.github}</li>
-                        <li>facebook: {profile.contacts.facebook}</li>
-                        <li>twitter: {profile.contacts.twitter}</li>
-                    </ul>
-                </div>
 
-            </div>
+    return (
+        <>
+            <ProfileMain profile={profile} savePhoto={savePhoto} isOwner={isOwner} status={status}
+                         updateStatus={updateStatus}/>
+            {editMode
+                ? <ProfileForm profile={profile} deactivateEditMode={deactivateEditMode} updateProfileData={updateProfileData}/>
+                : <div>
+                    {isOwner && <button className={s.statusEditBtn} onClick={activateEditMode}>Profile<MdEdit/></button>}
+                    <ProfileDescription profile={profile} />
+                </div>
+            }
+        </>
     );
-};
+});
 

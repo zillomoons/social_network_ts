@@ -1,9 +1,9 @@
-import {createStore, combineReducers, applyMiddleware, AnyAction, compose} from 'redux'
+import {createStore, combineReducers, applyMiddleware, compose} from 'redux'
 import {profileReducer} from "./profile-reducer/profileReducer";
 import {dialogsReducer} from "./dialogs-reducer/dialogsReducer";
 import {usersReducer} from "./usersReducer";
 import {authReducer} from "./authReducer";
-import thunkMiddleware, {ThunkAction} from "redux-thunk";
+import thunkMiddleware from "redux-thunk";
 import {appReducer} from "./appReducer";
 
 const rootReducer = combineReducers({
@@ -21,10 +21,3 @@ export const store = createStore(rootReducer, composeEnhancers(applyMiddleware(t
 
 export type RootState = ReturnType<typeof rootReducer>
 export type AppDispatch = typeof store.dispatch
-
-export type AppThunk<ReturnType = void> = ThunkAction<
-    ReturnType,
-    RootState,
-    unknown,
-    AnyAction
-    >

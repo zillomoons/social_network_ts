@@ -1,11 +1,14 @@
-import React, {ChangeEvent, useEffect, useState} from "react";
+import React, {ChangeEvent, useEffect, useState, KeyboardEvent} from "react";
+import s from '../Profile.module.css'
+import {MdEdit} from "react-icons/all";
 
 type PropsType = {
     status: string
     updateStatus: (status: string) => void
+    isOwner: boolean
 }
 
-export const ProfileStatus = React.memo(({status, updateStatus}: PropsType) => {
+export const ProfileStatus = React.memo(({status, updateStatus, isOwner}: PropsType) => {
     const [editMode, setEditMode] = useState(false);
     const [lStatus, setStatus] = useState('');
 
@@ -16,6 +19,11 @@ export const ProfileStatus = React.memo(({status, updateStatus}: PropsType) => {
     const onChangeStatus = (e: ChangeEvent<HTMLInputElement>) => {
         setStatus(e.currentTarget.value);
     }
+    const onKeyPressHandler = (e: KeyboardEvent<HTMLInputElement>) =>{
+        if (e.key === 'Enter'){
+            deactivateEditMode();
+        }
+    }
     const deactivateEditMode = () => {
         setEditMode(false);
         updateStatus(lStatus);
@@ -25,8 +33,11 @@ export const ProfileStatus = React.memo(({status, updateStatus}: PropsType) => {
         setStatus(status);
     }
     return editMode
-        ? <input onChange={onChangeStatus} onBlur={deactivateEditMode} value={lStatus} autoFocus/>
-        : <span onDoubleClick={activateEditMode}>{status ? status : 'Sorry, no status :('}</span>
+        ? <input onChange={onChangeStatus} onKeyPress={onKeyPressHandler} onBlur={deactivateEditMode} value={lStatus} autoFocus/>
+        : <>
+            <span>{status || 'Sorry, no status :('}</span>
+            {isOwner && <button className={s.statusEditBtn} onClick={activateEditMode}><MdEdit /></button>}
+        </>
 
 });
 

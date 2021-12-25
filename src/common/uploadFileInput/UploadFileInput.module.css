@@ -1,0 +1,12 @@
+.customFileUpload{
+    margin-left: -30px;
+    color: #848790b7;
+    cursor: pointer;
+    transition: all 0.2s ease-in-out;
+}
+.customFileUpload:hover{
+    color:#848790;
+}
+.customFileUpload input[type='file']{
+    display: none;
+}

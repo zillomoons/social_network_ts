@@ -3,8 +3,10 @@ import user_ava from "../../assets/images/user_ava.png";
 import ava_1 from "../../assets/images/ava_1.jpg";
 import ava_3 from "../../assets/images/ava_3.jpg";
 import ava_4 from "../../assets/images/ava_4.jpg";
-import {AppDispatch} from "../redux_store";
+import {AppDispatch, RootState} from "../redux_store";
 import {profileAPI} from "../../api/api";
+import {ThunkDispatch} from "redux-thunk";
+import {AnyAction} from "redux";
 
 enum ACTIONS_TYPE {
     PROFILE_ADD_POST = 'social_network/profile/ADD_POST',
@@ -13,46 +15,6 @@ enum ACTIONS_TYPE {
     PROFILE_REMOVE_POST = 'social_network/profile/REMOVE_POST',
     PROFILE_SET_PHOTO = 'social_network/profile/SET_PHOTO',
 }
-
-export type PostType = {
-    id: string
-    message: string
-    likesCount: number
-    userImage: string
-}
-export type ContactsType = {
-    github: string | null
-    vk: string | null
-    facebook: string | null
-    instagram: string | null
-    twitter: string | null
-    website: string | null
-    youtube: string | null
-    mainLink: string | null
-}
-type PhotosType = {
-    small: string
-    large: string
-}
-export type ProfileType = {
-    userId: number
-    lookingForAJob: boolean
-    lookingForAJobDescription: string
-    fullName: string
-    contacts: ContactsType
-    photos: PhotosType
-}
-// export type ProfilePageType = {
-//     posts: PostType[]
-//     status: string
-//     profile: ProfileInfoType
-//     newPostText: string
-// }
-
-export type ActionTypes = ReturnType<typeof addPost> | ReturnType<typeof setProfile>
-    | ReturnType<typeof setStatus>
-    | ReturnType<typeof removePost>
-    | ReturnType<typeof setPhoto>
 
 const initialState = {
     posts: [
@@ -110,4 +72,64 @@ export const savePhoto = (photo: File) => async (dispatch: AppDispatch) => {
     if (data.resultCode === 0) {
         dispatch(setPhoto(data.data.photos));
     }
+}
+export const updateProfileData = (model: UpdateProfileType, setFieldError: (field: string, message: string | undefined) => void) =>
+    async (dispatch: ThunkDispatch<RootState, unknown, AnyAction>, getState: ()=> RootState ) => {
+    const userId = getState().auth.id
+    if (userId){
+        const data = await profileAPI.updateProfileData(model)
+        if (data.resultCode === 0) {
+            dispatch(getProfile(userId.toString()));
+        } else {
+            const message = data.messages.length > 0 ? data.messages[0] : 'Some error';
+            setFieldError('general', message);
+            return Promise.reject(message);
+        }
+    }
+}
+
+// Types
+
+export type PostType = {
+    id: string
+    message: string
+    likesCount: number
+    userImage: string
+}
+export type ContactsType = {
+    github: string | null
+    vk: string | null
+    facebook: string | null
+    instagram: string | null
+    twitter: string | null
+    website: string | null
+    youtube: string | null
+    mainLink: string | null
+}
+type PhotosType = {
+    small: string
+    large: string
+}
+export type ProfileType = {
+    userId: number
+    aboutMe: string
+    lookingForAJob: boolean
+    lookingForAJobDescription: string
+    fullName: string
+    contacts: ContactsType
+    photos: PhotosType
+}
+
+export type ActionTypes = ReturnType<typeof addPost> | ReturnType<typeof setProfile>
+    | ReturnType<typeof setStatus>
+    | ReturnType<typeof removePost>
+    | ReturnType<typeof setPhoto>
+
+export type UpdateProfileType = {
+    userId: number
+    aboutMe: string
+    lookingForAJob: boolean
+    lookingForAJobDescription: string
+    fullName: string
+    contacts: ContactsType
 }

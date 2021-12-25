@@ -50,6 +50,7 @@ test('profile-reducer should set new profile', ()=>{
         lookingForAJob : true,
         lookingForAJobDescription : 'frontend dev',
         fullName: 'Anna Key',
+        aboutMe: '',
         contacts: {
             github : null,
             vk : null,

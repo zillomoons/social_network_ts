@@ -1,16 +1,43 @@
 .profileContainer{
     flex-direction: column;
-    /*align-items: flex-start;*/
-}
-.profileInfo {
-    width: 100%;
-    display: flex;
-    justify-content: space-evenly;
-}
-.profileInfo img {
-    width: 180px;
-    height: 180px;
+    align-items: flex-start;
 }
 
-.description{
+.profilePhoto{
+    width: 170px;
+    height: 170px;
+    object-fit: cover;
+    border-radius: 50%;
+    border: solid 2px #848790;
+}
+.statusEditBtn{
+    color: #4c5b6c;
+    border: none;
+    background: transparent;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: all 0.2s ease-in-out;
+}
+.statusEditBtn:hover{
+    transform: translateY(-2px)
+}
+.descriptionItem{
+    margin: 1rem 0;
+}
+.contactsStyle{
+    margin: 0.5rem 30px 0;
+}
+.profileForm input, textarea {
+    display: block;
+}
+.profileForm input, textarea, button {
+    margin-top: 1rem;
+}
+.profileForm input[type='checkbox']{
+    display: inline;
+    margin-right: 5px;
+}
+.errorMessage{
+    color: red;
+    font-size: 12px;
 }

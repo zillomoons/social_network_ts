@@ -1,7 +1,7 @@
 import axios from "axios";
 import {UserType} from "../redux/usersReducer";
 import {AuthDataType} from "../redux/authReducer";
-import {ProfileType} from "../redux/profile-reducer/profileReducer";
+import {ProfileType, UpdateProfileType} from "../redux/profile-reducer/profileReducer";
 
 type UsersDataType = {
     items: UserType[]
@@ -93,6 +93,8 @@ export const profileAPI = {
                 'Content-Type': 'multipart/form-data'
             }
         }).then(res => res.data)
+    },
+    updateProfileData(model: UpdateProfileType){
+        return instance.put<ResponseType>('profile', model).then(res => res.data)
     }
 }
-
