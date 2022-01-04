@@ -11,6 +11,7 @@ const instance = axios.create({
         'API-KEY': process.env.REACT_APP_API_KEY as string
     }
 })
+
 export const usersAPI = {
     getUsers(currentPage = 1, pageSize = 10, term = "", friend: null | boolean = null) {
         return instance
@@ -39,13 +40,13 @@ export const authAPI = {
 
 export const profileAPI = {
     getProfile(userId: string) {
-        return instance.get<ProfileType>(`profile/${userId}`).then(res => res.data);
+        return instance.get<ProfileType>(`profile/${userId}`);
     },
     getStatus(userId: string) {
-        return instance.get<string>(`profile/status/${userId}`).then(res => res.data);
+        return instance.get<string>(`profile/status/${userId}`);
     },
     updateStatus(status: string) {
-        return instance.put<ResponseType>(`profile/status`, {status}).then(res => res.data);
+        return instance.put<ResponseType>(`profile/status`, {status});
     },
     uploadUserPhoto(photo: File) {
         const formData = new FormData();
@@ -54,10 +55,10 @@ export const profileAPI = {
             headers: {
                 'Content-Type': 'multipart/form-data'
             }
-        }).then(res => res.data)
+        })
     },
     updateProfileData(model: UpdateProfileType) {
-        return instance.put<ResponseType>('profile', model).then(res => res.data)
+        return instance.put<ResponseType>('profile', model)
     }
 }
 

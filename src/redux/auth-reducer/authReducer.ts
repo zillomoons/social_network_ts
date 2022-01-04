@@ -55,9 +55,9 @@ export const getAuthData = () => async (dispatch: Dispatch) => {
             dispatch(setUserAuthData(id, email, login, true));
 
             if (id) {
-                const profile = await profileAPI.getProfile(id.toString());
-                await profileAPI.getStatus(id.toString());
-                dispatch(setProfile(profile));
+                const { data } = await profileAPI.getProfile(id.toString());
+                // await profileAPI.getStatus(id.toString());
+                dispatch(setProfile(data));
             }
         } else {
             handleServerAppError(dispatch, data)

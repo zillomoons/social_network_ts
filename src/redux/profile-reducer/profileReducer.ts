@@ -6,7 +6,9 @@ import ava_4 from "../../assets/images/ava_4.jpg";
 import {AppDispatch, RootState} from "../redux_store";
 import {profileAPI} from "../../api/api";
 import {ThunkDispatch} from "redux-thunk";
-import {AnyAction} from "redux";
+import {AnyAction, Dispatch} from "redux";
+import {setAppError} from "../app-reducer/appReducer";
+import {handleServerAppError} from "../../utils/error-utils";
 
 enum ACTIONS_TYPE {
     PROFILE_ADD_POST = 'social_network/profile/ADD_POST',
@@ -50,43 +52,69 @@ export const addPost = (text: string) => ({type: ACTIONS_TYPE.PROFILE_ADD_POST, 
 export const setProfile = (profile: ProfileType) => ({type: ACTIONS_TYPE.PROFILE_SET_PROFILE, profile} as const);
 export const setStatus = (status: string) => ({type: ACTIONS_TYPE.PROFILE_SET_STATUS, status} as const);
 export const removePost = (id: string) => ({type: ACTIONS_TYPE.PROFILE_REMOVE_POST, id} as const);
-export const setPhoto = (photos: PhotosType ) => ({type: ACTIONS_TYPE.PROFILE_SET_PHOTO, photos} as const);
+export const setPhoto = (photos: PhotosType) => ({type: ACTIONS_TYPE.PROFILE_SET_PHOTO, photos} as const);
 
 // ThunkCreators
 export const getProfile = (userId: string) => async (dispatch: AppDispatch) => {
-    const data = await profileAPI.getProfile(userId);
-    dispatch(setProfile(data));
+    try {
+        const {data} = await profileAPI.getProfile(userId);
+        dispatch(setProfile(data));
+    } catch (e: any) {
+        dispatch(setAppError(e.message));
+    }
 }
 export const getStatus = (userId: string) => async (dispatch: AppDispatch) => {
-    const data = await profileAPI.getStatus(userId);
-    dispatch(setStatus(data));
-}
-export const updateStatus = (status: string) => async (dispatch: AppDispatch) => {
-    const data = await profileAPI.updateStatus(status)
-    if (data.resultCode === 0) {
-        dispatch(setStatus(status));
+    try {
+        const {data} = await profileAPI.getStatus(userId);
+        dispatch(setStatus(data));
+    } catch (e: any) {
+        dispatch(setAppError(e.message))
     }
 }
-export const savePhoto = (photo: File) => async (dispatch: AppDispatch) => {
-    const data = await profileAPI.uploadUserPhoto(photo);
-    if (data.resultCode === 0) {
-        dispatch(setPhoto(data.data.photos));
+export const updateStatus = (status: string) => async (dispatch: Dispatch) => {
+    try {
+        const {data} = await profileAPI.updateStatus(status)
+        if (data.resultCode === 0) {
+            dispatch(setStatus(status));
+        } else {
+            handleServerAppError(dispatch, data)
+        }
+    } catch (e: any) {
+        dispatch(setAppError(e.message))
     }
+
+}
+export const savePhoto = (photo: File) => async (dispatch: Dispatch) => {
+    try {
+        const {data} = await profileAPI.uploadUserPhoto(photo);
+        if (data.resultCode === 0) {
+            dispatch(setPhoto(data.data.photos));
+        } else {
+            handleServerAppError(dispatch, data)
+        }
+    } catch (e: any) {
+        dispatch(setAppError(e.message))
+    }
+
 }
 export const updateProfileData = (model: UpdateProfileType, setFieldError: (field: string, message: string | undefined) => void) =>
-    async (dispatch: ThunkDispatch<RootState, unknown, AnyAction>, getState: ()=> RootState ) => {
-    const userId = getState().auth.id
-    if (userId){
-        const data = await profileAPI.updateProfileData(model)
-        if (data.resultCode === 0) {
-            dispatch(getProfile(userId.toString()));
-        } else {
-            const message = data.messages.length > 0 ? data.messages[0] : 'Some error';
-            setFieldError('general', message);
-            return Promise.reject(message);
+    async (dispatch: ThunkDispatch<RootState, unknown, AnyAction>, getState: () => RootState) => {
+        const userId = getState().auth.id
+        if (userId) {
+            try {
+                const {data} = await profileAPI.updateProfileData(model)
+                if (data.resultCode === 0) {
+                    dispatch(getProfile(userId.toString()));
+                } else {
+                    const message = data.messages.length > 0 ? data.messages[0] : 'Some error';
+                    setFieldError('general', message);
+                    return Promise.reject(message);
+                }
+            } catch (e: any) {
+                dispatch(setAppError(e.message))
+            }
         }
     }
-}
 
 // Types
 

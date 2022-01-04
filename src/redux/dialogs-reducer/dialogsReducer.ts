@@ -13,33 +13,10 @@ enum ACTIONS_TYPE {
     DIALOGS_ADD_CONTACT = 'social_network/dialogs/ADD_CONTACT',
 }
 
-let today = new Date();
+const today = new Date();
 
-export type DialogItemType = {
-    id: string
-    userImage: string
-    name: string
-    text: string
-    time: string
-}
-export type ContactType = {
-    id: string
-    name: string
-    path: string
-    userImage: string
-}
-// export type DialogsPageType = {
-//     contacts: Array<ContactType>
-//     dialogItems: Array<DialogItemType>
-//     newMessageText: string
-// }
 
-export type ActionTypes = ReturnType<typeof sendMessage>
-    | ReturnType<typeof removeMessage>
-    | ReturnType<typeof editMessage>
-    | ReturnType<typeof addContact>
-
-let initialState = {
+const initialState = {
     contacts: [
         {id: v1(), name: 'Ann', path: '/dialogs/4', userImage: ava_4},
         {id: v1(), name: 'Kate', path: '/dialogs/5', userImage: ava_5},
@@ -52,8 +29,7 @@ let initialState = {
     ] as DialogItemType[],
     newMessageText: ''
 }
-export type DialogsInitStateType = typeof initialState;
-
+//Action Creators
 export const dialogsReducer = (state = initialState, action: ActionTypes): DialogsInitStateType => {
     switch (action.type) {
         case ACTIONS_TYPE.DIALOGS_SEND_MESSAGE:
@@ -82,3 +58,30 @@ export const removeMessage = (id: string) => ({type: ACTIONS_TYPE.DIALOGS_REMOVE
 export const editMessage = (id: string, text: string) => ({type: ACTIONS_TYPE.DIALOGS_EDIT_MESSAGE, id, text} as const);
 export const addContact = (id: string, name: string, userImage: string, path: string) =>
     ({type: ACTIONS_TYPE.DIALOGS_ADD_CONTACT, payload: {id, name, userImage, path} } as const);
+
+//Types
+export type DialogsInitStateType = typeof initialState;
+
+export type DialogItemType = {
+    id: string
+    userImage: string
+    name: string
+    text: string
+    time: string
+}
+export type ContactType = {
+    id: string
+    name: string
+    path: string
+    userImage: string
+}
+// export type DialogsPageType = {
+//     contacts: Array<ContactType>
+//     dialogItems: Array<DialogItemType>
+//     newMessageText: string
+// }
+
+export type ActionTypes = ReturnType<typeof sendMessage>
+    | ReturnType<typeof removeMessage>
+    | ReturnType<typeof editMessage>
+    | ReturnType<typeof addContact>
