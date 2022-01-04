@@ -1,6 +1,6 @@
 import {Field, Form, Formik, FormikHelpers, useFormik} from "formik";
 import React from "react";
-import {FilterType} from "../../redux/usersReducer";
+import {FilterType} from "../../redux/users-reducer/usersReducer";
 import {TextField, MenuItem, Button} from "@mui/material";
 
 type PropsType = {
@@ -24,7 +24,7 @@ export const SearchForm = React.memo(({onFilterChanged}: PropsType) => {
         onSubmit: (values, actions) => {
             const filter: FilterType = {
                 term: values.term,
-                friend: values.friend === 'null' ? null : values.friend === 'true' ? true : false
+                friend: values.friend === 'null' ? null : values.friend === 'true'
             }
             onFilterChanged(filter);
             actions.setSubmitting(false);

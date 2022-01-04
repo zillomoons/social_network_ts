@@ -14,7 +14,7 @@ export const Header = ({login, isAuth, logout}: PropsType) => {
 
     return (
         <header className={s.header}>
-            <NavLink to={'/'}><img src={logo} className={s.logo} alt="logo"/></NavLink>
+            <NavLink to={'/profile'}><img src={logo} className={s.logo} alt="logo"/></NavLink>
             <Navbar/>
             <div className={s.login}>
                 {

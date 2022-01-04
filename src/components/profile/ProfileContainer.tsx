@@ -13,20 +13,6 @@ import {withRouter, RouteComponentProps} from 'react-router-dom';
 import {RedirectHOC} from "../../hoc/redirectHOC";
 import {compose} from "redux";
 
-type MapDispatch = {
-    getProfile: (userId: string) => void
-    getStatus: (userId: string) => void
-    updateStatus: (status: string) => void
-    savePhoto: (photo: File)=> void
-    updateProfileData: (model: UpdateProfileType, setFieldError: (field: string, message: (string | undefined)) => void) => Promise<any>
-}
-type PathParamsType = { userId: string }
-type ProfileProps = MapDispatch & RouteComponentProps<PathParamsType> & {
-    profile: ProfileType,
-    status: string
-    authUserID: string
-    isAuth: boolean
-}
 
 class ProfileContainer extends React.Component<ProfileProps> {
     refreshProfile () {
@@ -34,6 +20,9 @@ class ProfileContainer extends React.Component<ProfileProps> {
         let userId = this.props.match.params.userId
         if (!userId){
             userId = authUserID;
+            if(!userId){
+                this.props.history.push('/login')
+            }
         }
         getProfile(userId);
         getStatus(userId);
@@ -64,6 +53,8 @@ const mapState = (state: RootState) => ({
     authUserID: state.auth.id,
     isAuth: state.auth.isAuth,
 })
+ // const connector = connect(mapState, {getProfile, getStatus, updateStatus, savePhoto, updateProfileData})
+
 
 export default compose<React.ComponentType>(
     connect(mapState, {getProfile, getStatus, updateStatus, savePhoto, updateProfileData}),
@@ -71,4 +62,20 @@ export default compose<React.ComponentType>(
     RedirectHOC
 )(ProfileContainer);
 
+//Types
+// type PropsFromRedux = ConnectedProps<typeof connector>
 
+type PathParamsType = { userId: string }
+type MapDispatch = {
+    getProfile: (userId: string) => void
+    getStatus: (userId: string) => void
+    updateStatus: (status: string) => void
+    savePhoto: (photo: File)=> void
+    updateProfileData: (model: UpdateProfileType, setFieldError: (field: string, message: (string | undefined)) => void) => Promise<any>
+}
+type ProfileProps = MapDispatch & RouteComponentProps<PathParamsType> & {
+    profile: ProfileType,
+    status: string
+    authUserID: string
+    isAuth: boolean
+}

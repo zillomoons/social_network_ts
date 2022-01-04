@@ -2,9 +2,9 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 import './index.css';
-import SNGlobalApp from "./App";
+import GlobalApp from "./App";
 
-ReactDOM.render(<SNGlobalApp/>, document.getElementById('root'));
+ReactDOM.render(<GlobalApp/>, document.getElementById('root'));
 
 
 

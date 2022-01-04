@@ -7,32 +7,47 @@ interface MyFormValues {
     password: string
     rememberMe: boolean
     general: string
+    captcha: string
 }
 
 interface FormProps {
-    login: (email: string, password: string, rememberMe: boolean, setFieldError: (field: string, message: (string | undefined)) => void) => void
+    login: (email: string, password: string,
+            rememberMe: boolean,
+            setFieldError: (field: string, message: (string | undefined)) => void,
+            captcha?: string) => void
+
+    captcha: string
 }
 
-export const LoginForm = ({login}: FormProps) => {
+const validateCaptcha = (value: string) => {
+    let errorMessage;
+    if (!value) {
+        errorMessage = 'Captcha is required';
+    }
+    return errorMessage;
+};
+
+export const LoginForm = ({login, captcha}: FormProps) => {
     const initialValues: MyFormValues = {
         email: '',
         password: '',
         rememberMe: false,
+        captcha: '',
         general: ''
     }
     return (
         <Formik
             initialValues={initialValues}
             onSubmit={(values, actions) => {
-                const {email, password, rememberMe} = values;
-                login(email, password, rememberMe, actions.setFieldError);
+                const {email, password, rememberMe, captcha} = values;
+                login(email, password, rememberMe, actions.setFieldError, captcha);
             }}
             validationSchema={Yup.object({
                 email: Yup.string().email('Invalid email address').required('Email is required'),
-                password: Yup.string().required('Password is required'),
+                password: Yup.string().required('Password is required')
             })}
         >
-            <Form>
+            <Form className={s.form}>
                 <h1>Log in</h1>
                 <div>
                     <Field type='email' name='email'/>
@@ -46,8 +61,19 @@ export const LoginForm = ({login}: FormProps) => {
                         <ErrorMessage name='password'/>
                     </div>
                 </div>
-                <Field type='checkbox' name='rememberMe' id='rememberMe'/>
-                <label htmlFor='rememberMe'>remember me</label>
+                <label htmlFor='rememberMe'>
+                    <Field type='checkbox' name='rememberMe' id='rememberMe'/>
+                    <span style={{marginLeft: '8px'}}>remember me</span>
+                </label>
+                {
+                    captcha && <div className={s.captcha}>
+                        <img src={captcha} alt='catcha'/>
+                        <Field name='captcha' validate={validateCaptcha}/>
+                        <div className={s.errorMessage}>
+                            <ErrorMessage name='captcha'/>
+                        </div>
+                    </div>
+                }
                 <div>
                     <button type='submit'>log in</button>
                     <div className={s.errorMessage}>

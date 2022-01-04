@@ -1,4 +1,23 @@
-.errorMessage{
+.loginContainer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+.form {
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+    border: #87959a 1px solid;
+    padding: 15px;
+}
+
+.captcha img, .captcha input {
+    display: block;
+}
+
+.errorMessage {
     color: orangered;
-    /*display: block;*/
+    font-size: 11px;
 }

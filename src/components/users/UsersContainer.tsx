@@ -4,7 +4,7 @@ import {
     FilterType,
     followUser, requestUsers, setCurrentPage,
     unfollowUser, UsersInitState,
-} from "../../redux/usersReducer";
+} from "../../redux/users-reducer/usersReducer";
 import React from "react";
 import {Users} from "./Users";
 import {Preloader} from "../../common/preloader/preloader";

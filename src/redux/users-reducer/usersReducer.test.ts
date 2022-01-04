@@ -1,4 +1,4 @@
-import ava_1 from "../assets/images/ava_1.jpg";
+import ava_1 from "../../assets/images/ava_1.jpg";
 import {changeFollow, toggleFollowInProgress, usersReducer, UsersInitState} from "./usersReducer";
 
 let state: UsersInitState;

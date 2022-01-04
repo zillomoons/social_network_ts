@@ -5,7 +5,6 @@ import s from './Navbar.module.css'
 export const Navbar = (props: any) => {
     return (
         <nav className={s.navbarMenu}>
-
                 <NavLink to="/profile" activeClassName={s.activeLink}>Profile</NavLink>
                 <NavLink to="/dialogs" activeClassName={s.activeLink}>Messages</NavLink>
                 <NavLink to="/users" activeClassName={s.activeLink}>Users</NavLink>

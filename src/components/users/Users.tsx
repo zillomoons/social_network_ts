@@ -3,7 +3,7 @@ import {User} from "./User";
 import s from './Users.module.css'
 import styleContainer from '../../common/styles/Container.module.css';
 import ava_1 from "../../assets/images/ava_1.jpg";
-import {FilterType, UserType} from "../../redux/usersReducer";
+import {FilterType, UserType} from "../../redux/users-reducer/usersReducer";
 import {SearchForm} from "./SearchForm";
 import Paginator from "../pagination/Paginator";
 
