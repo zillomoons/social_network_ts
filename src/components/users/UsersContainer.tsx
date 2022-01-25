@@ -1,9 +1,7 @@
-import {connect} from "react-redux";
+import {connect, ConnectedProps} from "react-redux";
 import {RootState} from "../../redux/redux_store";
 import {
-    FilterType,
-    followUser, requestUsers, setCurrentPage,
-    unfollowUser, UsersInitState,
+    FilterType, followUser, requestUsers, setCurrentPage, unfollowUser
 } from "../../redux/users-reducer/usersReducer";
 import React from "react";
 import {Users} from "./Users";
@@ -15,14 +13,6 @@ import {
     getTotalUsersCount,
     getUsers
 } from "../../redux/selectors/users-selectors";
-
-type MapDispatch = {
-    setCurrentPage: (currentPage: number) => void
-    requestUsers: (currentPage: number, pageSize: number, filter: FilterType) => void
-    followUser: (id: number) => void
-    unfollowUser: (id: number) => void
-}
-type UsersPropsType = UsersInitState & MapDispatch;
 
 class UsersContainer extends React.Component<UsersPropsType> {
     componentDidMount() {
@@ -68,7 +58,7 @@ class UsersContainer extends React.Component<UsersPropsType> {
     }
 }
 
-const mapState = (state: RootState): UsersInitState => ({
+const mapState = (state: RootState) => ({
     users: getUsers(state),
     pageSize: getPageSize(state),
     totalUsersCount: getTotalUsersCount(state),
@@ -78,6 +68,10 @@ const mapState = (state: RootState): UsersInitState => ({
     filter: getFilter(state),
 })
 
-export default connect(mapState,
-    {setCurrentPage, requestUsers, followUser, unfollowUser})(UsersContainer);
+const connector = connect(mapState, {setCurrentPage, requestUsers, followUser, unfollowUser})
+type PropsFromRedux = ConnectedProps<typeof connector>
+type OwnPropsType = {pageTitle: string}
+type UsersPropsType = PropsFromRedux & OwnPropsType;
+
+export default connector(UsersContainer);
 

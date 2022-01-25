@@ -13,8 +13,8 @@ import {RootState, store} from "./redux/redux_store";
 import {Preloader} from "./common/preloader/preloader";
 import {WithSuspense} from "./hoc/withSuspence";
 import {ErrorSnackBar} from "./common/error_snackbar/error-snackbar";
-// import ProfileContainer from "./components/profile/ProfileContainer";
-const ProfileContainer = React.lazy(() => import("./components/profile/ProfileContainer"));
+import ProfileContainer from "./components/profile/ProfileContainer";
+// const ProfileContainer = React.lazy(() => import("./components/profile/ProfileContainer"));
 const DialogsContainer = React.lazy(() => import('../src/components/dIalogs/DialogsContainer'));
 
 type MapDispatchType = {
@@ -25,18 +25,9 @@ type MapStateType = {
 }
 
 class App extends React.Component<MapDispatchType & MapStateType> {
-    // catchAllUnhandledErrors = (promiseRejectionEvent:any) => {
-    //     alert('some error occured');
-    //
-    // }
     componentDidMount() {
         this.props.initialize();
-        // window.addEventListener('unhandledrejection', this.catchAllUnhandledErrors);
     }
-    componentWillUnmount() {
-        // window.removeEventListener('unhandledrejection', this.catchAllUnhandledErrors);
-    }
-
     render() {
         if (!this.props.initializedSuccess) {
             return <Preloader/>
@@ -49,9 +40,10 @@ class App extends React.Component<MapDispatchType & MapStateType> {
                 <Switch>
                     <Route exact path='/' render={()=> <Redirect to='/profile' />} />
                     {/*How to get rid off :userId in path? */}
-                    <Route path='/profile/:userId?' render={WithSuspense(ProfileContainer)}/>
+                    {/*<Route path='/profile/:userId?' render={WithSuspense(ProfileContainer)}/>*/}
+                    <Route path='/profile/:userId?' render={()=><ProfileContainer />}/>
                     <Route path='/dialogs' render={WithSuspense(DialogsContainer)}/>
-                    <Route path='/users' render={() => <UsersContainer/>}/>
+                    <Route path='/users' render={() => <UsersContainer pageTitle='developers'/>}/>
                     <Route path='/news' render={() => <NewsPage/>}/>
                     <Route path='/settings' render={() => <Settings/>}/>
                     <Route path='/login' render={() => <Login/>}/>

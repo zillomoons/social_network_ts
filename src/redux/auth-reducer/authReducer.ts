@@ -1,5 +1,4 @@
-import {authAPI, profileAPI, securityAPI} from "../../api/api";
-import {setProfile} from "../profile-reducer/profileReducer";
+import {authAPI, securityAPI} from "../../api/api";
 import {AppDispatch, RootState} from "../redux_store";
 import {ThunkDispatch} from 'redux-thunk';
 import {AnyAction, Dispatch} from 'redux';
@@ -11,24 +10,15 @@ enum ACTIONS_TYPE {
     AUTH_SET_CAPTCHA = 'social_network/auth/SET_CAPTCHA',
 }
 
-export type AuthDataType = {
-    id: number | null
-    email: string | null
-    login: string | null
-    isAuth: boolean,
-    captchaURL: string
-}
-
-const initialState: AuthDataType = {
-    id: null,
-    email: null,
-    login: null,
+const initialState = {
+    id: null as number | null,
+    email: null as string | null,
+    login: null as string | null,
     isAuth: false,
-    captchaURL: '',
+    captchaURL: null as string | null,
 }
-type ActionsType = ReturnType<typeof setUserAuthData> | ReturnType<typeof setCaptchaURL>
 
-export const authReducer = (state = initialState, action: ActionsType): AuthDataType => {
+export const authReducer = (state = initialState, action: ActionsType): InitAuthStateType => {
     switch (action.type) {
         case ACTIONS_TYPE.AUTH_SET_USER_DATA:
         case ACTIONS_TYPE.AUTH_SET_CAPTCHA:
@@ -41,7 +31,7 @@ export const authReducer = (state = initialState, action: ActionsType): AuthData
 export const setUserAuthData = (id: number | null, email: string | null, login: string | null, isAuth: boolean) => {
     return {type: ACTIONS_TYPE.AUTH_SET_USER_DATA, payload: {id, email, login, isAuth}} as const;
 }
-export const setCaptchaURL = (captchaURL: string) => ({
+export const setCaptchaURL = (captchaURL: string | null) => ({
     type: ACTIONS_TYPE.AUTH_SET_CAPTCHA,
     payload: {captchaURL}
 } as const)
@@ -53,16 +43,13 @@ export const getAuthData = () => async (dispatch: Dispatch) => {
         if (data.resultCode === 0) {
             const {id, login, email} = data.data;
             dispatch(setUserAuthData(id, email, login, true));
-
-            if (id) {
-                const { data } = await profileAPI.getProfile(id.toString());
-                // await profileAPI.getStatus(id.toString());
-                dispatch(setProfile(data));
-            }
+            // if (id) {
+            //     const { data } = await profileAPI.getProfile(id.toString());
+            //     await profileAPI.getStatus(id.toString());
+            //     dispatch(setProfile(data));
+            // }
         } else {
             handleServerAppError(dispatch, data)
-            // const message = data.messages.length > 0 ? data.messages[0] : 'some authme error occurred';
-            // dispatch(setAppError(message))
         }
     } catch (e: any) {
         dispatch(setAppError(e.message))
@@ -72,13 +59,14 @@ export const getAuthData = () => async (dispatch: Dispatch) => {
 export const login = (email: string, password: string,
                       rememberMe: boolean,
                       setFieldError: (field: string, message: string | undefined) => void,
-                      captcha?: string) => async (dispatch: ThunkDispatch<RootState, unknown, AnyAction>) => {
+                      captcha?: string | null) => async (dispatch: ThunkDispatch<RootState, unknown, AnyAction>, getState: ()=> RootState) => {
 
         try {
             const { data }  = await authAPI.login(email, password, rememberMe, captcha);
+            const currentCaptcha = getState().auth.captchaURL;
             if (data.resultCode === 0) {
                 dispatch(getAuthData());
-                dispatch(setCaptchaURL(''));
+                currentCaptcha && dispatch(setCaptchaURL(null));
             } else {
                 if (data.resultCode === 10) {
                     dispatch(getCaptchaURL());
@@ -112,3 +100,7 @@ export const getCaptchaURL = () => async (dispatch: AppDispatch) => {
         dispatch(setAppError(e.message));
     }
 }
+
+//Types
+export type InitAuthStateType = typeof initialState;
+type ActionsType = ReturnType<typeof setUserAuthData> | ReturnType<typeof setCaptchaURL>

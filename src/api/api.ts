@@ -1,6 +1,5 @@
 import axios from "axios";
 import {UserType} from "../redux/users-reducer/usersReducer";
-import {AuthDataType} from "../redux/auth-reducer/authReducer";
 import {ProfileType, UpdateProfileType} from "../redux/profile-reducer/profileReducer";
 
 
@@ -30,7 +29,7 @@ export const authAPI = {
     authMe() {
         return instance.get<ResponseType<AuthDataType>>(`auth/me`);
     },
-    login(email: string, password: string, rememberMe: boolean, captcha?: string) {
+    login(email: string, password: string, rememberMe: boolean, captcha?: string | null) {
         return instance.post<ResponseType<LoginData>>(`auth/login`, {email, password, rememberMe, captcha});
     },
     logout() {
@@ -91,4 +90,9 @@ type ResPhotoType = {
         small: string
         large: string
     }
+}
+type AuthDataType = {
+    id: number | null
+    email: string | null
+    login: string | null
 }

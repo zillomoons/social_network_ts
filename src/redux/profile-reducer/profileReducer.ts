@@ -82,7 +82,6 @@ export const updateStatus = (status: string) => async (dispatch: Dispatch) => {
     } catch (e: any) {
         dispatch(setAppError(e.message))
     }
-
 }
 export const savePhoto = (photo: File) => async (dispatch: Dispatch) => {
     try {
@@ -95,7 +94,6 @@ export const savePhoto = (photo: File) => async (dispatch: Dispatch) => {
     } catch (e: any) {
         dispatch(setAppError(e.message))
     }
-
 }
 export const updateProfileData = (model: UpdateProfileType, setFieldError: (field: string, message: string | undefined) => void) =>
     async (dispatch: ThunkDispatch<RootState, unknown, AnyAction>, getState: () => RootState) => {

@@ -12,20 +12,21 @@ import {RootState} from "../../redux/redux_store";
 import {withRouter, RouteComponentProps} from 'react-router-dom';
 import {RedirectHOC} from "../../hoc/redirectHOC";
 import {compose} from "redux";
+import {Preloader} from "../../common/preloader/preloader";
 
 
 class ProfileContainer extends React.Component<ProfileProps> {
     refreshProfile () {
         const { getProfile, getStatus, authUserID } = this.props;
-        let userId = this.props.match.params.userId
-        if (!userId){
-            userId = authUserID;
-            if(!userId){
+        let id = this.props.match.params.userId;
+        if (!id){
+            id = authUserID;
+            if(!id){
                 this.props.history.push('/login')
             }
         }
-        getProfile(userId);
-        getStatus(userId);
+        getProfile(id);
+        getStatus(id);
     }
     componentDidMount() {
         this.refreshProfile();

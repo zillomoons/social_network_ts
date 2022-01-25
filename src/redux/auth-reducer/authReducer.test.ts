@@ -1,6 +1,6 @@
-import {AuthDataType, authReducer, setCaptchaURL} from "./authReducer";
+import {authReducer, InitAuthStateType, setCaptchaURL} from "./authReducer";
 
-let startState: AuthDataType;
+let startState: InitAuthStateType;
 
 beforeEach(()=> {
     startState={

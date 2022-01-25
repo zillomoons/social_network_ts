@@ -7,16 +7,16 @@ interface MyFormValues {
     password: string
     rememberMe: boolean
     general: string
-    captcha: string
+    captcha: string | null
 }
 
 interface FormProps {
     login: (email: string, password: string,
             rememberMe: boolean,
             setFieldError: (field: string, message: (string | undefined)) => void,
-            captcha?: string) => void
+            captcha?: string | null ) => void
 
-    captcha: string
+    captcha: string | null
 }
 
 const validateCaptcha = (value: string) => {
@@ -32,7 +32,7 @@ export const LoginForm = ({login, captcha}: FormProps) => {
         email: '',
         password: '',
         rememberMe: false,
-        captcha: '',
+        captcha: null,
         general: ''
     }
     return (

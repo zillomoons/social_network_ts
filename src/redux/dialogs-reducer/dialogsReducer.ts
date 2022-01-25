@@ -57,7 +57,7 @@ export const sendMessage = (text: string) => ({type: ACTIONS_TYPE.DIALOGS_SEND_M
 export const removeMessage = (id: string) => ({type: ACTIONS_TYPE.DIALOGS_REMOVE_MESSAGE, id} as const);
 export const editMessage = (id: string, text: string) => ({type: ACTIONS_TYPE.DIALOGS_EDIT_MESSAGE, id, text} as const);
 export const addContact = (id: string, name: string, userImage: string, path: string) =>
-    ({type: ACTIONS_TYPE.DIALOGS_ADD_CONTACT, payload: {id, name, userImage, path} } as const);
+    ({type: ACTIONS_TYPE.DIALOGS_ADD_CONTACT, payload: {id, name, userImage, path}} as const);
 
 //Types
 export type DialogsInitStateType = typeof initialState;
